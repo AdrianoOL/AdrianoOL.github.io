@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- user-scalable=no pode ajudar em alguns casos -->
+    <title>Treino de Leitura - Intervalos Múltiplos</title>
+    <style>
+        /* Reset básico para consistência */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden; /* Previne scroll horizontal */
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Fontes mais seguras */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px; /* Reduzido padding */
+            background-color: #f4f4f4;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased; /* Melhor renderização de fonte */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 8px;
+             font-size: 1.5em; /* Ajuste para mobile */
+        }
+        #canvasContainer {
+            width: 95%;
+            max-width: 900px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+             min-height: 100px; /* Garante altura mínima */
+             /* Hack para forçar renderização/aceleração em alguns casos no iOS */
+             -webkit-transform: translateZ(0);
+             transform: translateZ(0);
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background-color: #eee; /* Cor de fundo para ver se o canvas está lá */
+        }
+        #controls {
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background-color: #eee;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Reduzido gap */
+        }
+         #controls > div {
+             display: flex;
+             align-items: center;
+         }
+        #controls label {
+            cursor: pointer;
+            margin-right: 5px;
+            white-space: nowrap;
+            font-size: 0.9em; /* Ajuste para mobile */
+        }
+         #controls input[type="checkbox"] {
+             cursor: pointer;
+             width: 16px; /* Ajuste para mobile */
+             height: 16px;
+             vertical-align: middle;
+             /* Estilização para iOS parecer mais nativo */
+             -webkit-appearance: checkbox;
+             appearance: checkbox;
+         }
+        button {
+            padding: 10px 20px; /* Ajuste para mobile */
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007aff; /* Cor azul padrão iOS */
+            color: white;
+            border: none;
+            border-radius: 8px; /* Bordas mais arredondadas (iOS) */
+            transition: background-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        button:hover, button:active { /* :active é importante para toque */
+            background-color: #0056b3;
+        }
+        p.info {
+            font-size: 0.85em; /* Ajuste para mobile */
+            color: #555;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            text-align: center;
+            max-width: 90%; /* Evita que o texto fique muito largo */
+        }
+         .error-message {
+             color: red;
+             font-weight: bold;
+             margin-top: 10px;
+             padding: 5px;
+             background-color: #ffebee;
+             border: 1px solid red;
+             border-radius: 4px;
+             text-align: center;
+             display: none; /* Esconde por padrão */
+         }
+    </style>
+</head>
+<body>
+
+    <h1>Treino de Leitura</h1> <!-- Título mais curto -->
+    <p class="info">Selecione intervalos. Notas aleatórias serão geradas.</p> <!-- Info mais curta -->
+
+    <div id="canvasContainer">
+        <canvas id="musicCanvas">Seu navegador não suporta o Canvas.</canvas> <!-- Fallback text -->
+    </div>
+    <div id="errorMessage" class="error-message"></div>
+
+    <div id="controls">
+        <div>
+             <label for="interval2">2ª</label> <!-- Abreviação -->
+             <input type="checkbox" id="interval2" name="intervalType" value="2">
+        </div>
+        <div>
+             <label for="interval3">3ª</label>
+             <input type="checkbox" id="interval3" name="intervalType" value="3" checked>
+        </div>
+        <div>
+             <label for="interval5">5ª</label>
+             <input type="checkbox" id="interval5" name="intervalType" value="5">
+        </div>
+    </div>
+
+    <button id="randomizeButton">Gerar Novas Notas</button> <!-- Texto do botão mais claro -->
+
+    <!-- Script no final do body, defer continua sendo bom -->
+    <script defer>
+      // Strict mode pode pegar erros silenciosos
+      "use strict";
+
+      // Envolve tudo em um listener DOMContentLoaded para garantir que o HTML está pronto
+      window.addEventListener('DOMContentLoaded', () => {
+        console.log("DOM carregado.");
+        const canvas = document.getElementById('musicCanvas');
+        const randomizeButton = document.getElementById('randomizeButton');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const controlsContainer = document.getElementById('controls');
+        const errorMessageDiv = document.getElementById('errorMessage');
+        let ctx = null; // Inicializa como null
+
+        // --- Elementos Essenciais ---
+        if (!canvas || !randomizeButton || !canvasContainer || !controlsContainer || !errorMessageDiv) {
+          console.error("Falha ao encontrar elementos HTML essenciais.");
+          // Tenta mostrar erro mesmo que a div falhe
+          alert("Erro: Elementos da página não encontrados. Recarregue.");
+          return; // Para a execução
+        }
+
+        // --- Obter Contexto ---
+        try {
+            ctx = canvas.getContext('2d');
+            if (!ctx) {
+                throw new Error("Não foi possível obter o contexto 2D do canvas.");
+            }
+            console.log("Contexto 2D obtido.");
+        } catch (e) {
+            displayError(`Erro ao inicializar o Canvas: ${e.message}`);
+            canvas.style.backgroundColor = 'red'; // Feedback visual
+            return; // Para
+        }
+
+        // --- Configurações (movidas para dentro para garantir acesso a ctx se necessário) ---
+        const NUM_NOTES = 16;
+        const NOTE_RADIUS_X = 8;
+        const NOTE_RADIUS_Y = 6;
+        const NOTE_LINE_WIDTH = 1.5;
+        const NUM_STAFF_LINES = 5;
+        const STAFF_LINE_SPACING = 20;
+        const HALF_STAFF_SPACING = STAFF_LINE_SPACING / 2;
+        const STAFF_LINE_WIDTH = 1;
+        const STAFF_COLOR = '#333333';
+        const NOTE_COLOR = '#000000';
+        const TOP_MARGIN_RATIO = 0.25;
+        const BOTTOM_MARGIN_RATIO = 0.25;
+        const SIDE_MARGIN_PERCENT = 5;
+
+        let notes = [];
+        let possibleYPositions = [];
+        let staffTopY = 0;
+        let staffBottomY = 0;
+        let canvasActualWidth = 0;
+        let canvasActualHeight = 0;
+        let isInitialized = false; // Flag para controlar inicialização
+
+        function displayError(message) {
+            console.error(message);
+            errorMessageDiv.textContent = `Erro: ${message}`;
+            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
+        }
+
+        function clearError() {
+             errorMessageDiv.textContent = '';
+             errorMessageDiv.style.display = 'none';
+        }
+
+
+        // --- Funções de Cálculo e Desenho (sem mudanças internas significativas, mas com try-catch) ---
+
+        function calculateStaffPositions() {
+          // ... (lógica interna igual à versão anterior) ...
+           try {
+                const staffHeight = (NUM_STAFF_LINES - 1) * STAFF_LINE_SPACING;
+                if (staffHeight <= 0 || !isFinite(staffHeight)) { throw new Error("Altura da pauta inválida."); }
+
+                // Calcula a altura total necessária, garantindo que não seja zero ou infinita
+                const totalStaffHeightRatio = 1 - TOP_MARGIN_RATIO - BOTTOM_MARGIN_RATIO;
+                 if (totalStaffHeightRatio <= 0) throw new Error("Proporções de margem inválidas.");
+                canvasActualHeight = staffHeight / totalStaffHeightRatio;
+                if (canvasActualHeight <= 0 || !isFinite(canvasActualHeight)) { throw new Error("Altura do canvas inválida."); }
+
+                // Define a altura do canvas (pixel real) - arredondar pode ajudar
+                canvas.height = Math.round(canvasActualHeight);
+
+                staffTopY = canvasActualHeight * TOP_MARGIN_RATIO;
+                staffBottomY = staffTopY + staffHeight;
+
+                possibleYPositions = [];
+                // Amplia um pouco mais o alcance vertical
+                const numVerticalPositions = NUM_STAFF_LINES * 2 - 1 + 8; // 4 acima, 4 abaixo
+                const firstPossibleY = staffTopY - 4 * HALF_STAFF_SPACING;
+
+                for (let i = 0; i < numVerticalPositions; i++) {
+                    possibleYPositions.push(firstPossibleY + i * HALF_STAFF_SPACING);
+                }
+                if(possibleYPositions.length === 0){ throw new Error("Falha ao gerar posições Y."); }
+                 // console.log("Posições Y calculadas:", possibleYPositions.length);
+
+            } catch (error) {
+                displayError(`Posições da Pauta: ${error.message}`);
+                possibleYPositions = [];
+            }
+        }
+
+        function drawStaff() {
+          // ... (lógica interna igual à versão anterior) ...
+           if (!ctx) return;
+            try {
+                ctx.clearRect(0, 0, canvasActualWidth, canvasActualHeight);
+                ctx.strokeStyle = STAFF_COLOR;
+                ctx.lineWidth = STAFF_LINE_WIDTH;
+
+                const startDrawX = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100) * 0.5;
+                const endDrawX = canvasActualWidth * (1 - (SIDE_MARGIN_PERCENT / 100) * 0.5);
+                 // Garante que start/end são válidos
+                 if (startDrawX >= endDrawX || !isFinite(startDrawX) || !isFinite(endDrawX)) {
+                    // console.warn("Coordenadas X inválidas para desenhar pauta.");
+                     return; // Não desenha se X for inválido
+                 }
+
+                for (let i = 0; i < NUM_STAFF_LINES; i++) {
+                    const y = staffTopY + i * STAFF_LINE_SPACING;
+                     if (!isFinite(y)) continue; // Pula se Y for inválido
+                    ctx.beginPath();
+                    ctx.moveTo(startDrawX, y);
+                    ctx.lineTo(endDrawX, y);
+                    ctx.stroke();
+                }
+            } catch (error) {
+                displayError(`Desenhar Pauta: ${error.message}`);
+            }
+        }
+
+        function getStepSizeForInterval(intervalValue) {
+          // ... (igual) ...
+            switch (intervalValue) {
+                case 2: return 1;
+                case 3: return 2;
+                case 5: return 4;
+                default: return 2;
+            }
+        }
+
+        function generateNotes() {
+          // ... (lógica interna principal igual, mas com mais validações) ...
+            if (!isInitialized) {
+                 console.warn("Tentando gerar notas antes da inicialização completa.");
+                 return; // Não gera se não estiver pronto
+            }
+            console.log("Gerando notas...");
+            try {
+                clearError(); // Limpa erros antigos
+                notes = [];
+                const leftMargin = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100);
+                const rightMargin = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100);
+                let drawingWidth = canvasActualWidth - leftMargin - rightMargin;
+
+                if (drawingWidth <= 0 || !isFinite(drawingWidth)) {
+                    throw new Error(`Largura de desenho inválida (${drawingWidth.toFixed(2)}px). Verifique o container.`);
+                }
+
+                const segmentWidth = drawingWidth / NUM_NOTES;
+                const startX = leftMargin;
+                let previousNoteYIndex = -1;
+
+                if (possibleYPositions.length === 0) {
+                    calculateStaffPositions(); // Tenta recalcular
+                    if (possibleYPositions.length === 0) {
+                        throw new Error("Posições Y não disponíveis.");
+                    }
+                }
+
+                const checkedBoxes = document.querySelectorAll('input[name="intervalType"]:checked');
+                let selectedIntervalValues = Array.from(checkedBoxes).map(box => parseInt(box.value));
+                if (selectedIntervalValues.length === 0) { selectedIntervalValues.push(3); }
+
+                for (let i = 0; i < NUM_NOTES; i++) {
+                    const x = startX + (i * segmentWidth) + (segmentWidth / 2);
+                    let currentYIndex = -1; // Inicia inválido
+                    let y = NaN;
+
+                    if (i === 0) {
+                        const margin = 4;
+                        const minIndex = margin;
+                        const maxIndex = possibleYPositions.length - 1 - margin;
+                         if (minIndex >= maxIndex || possibleYPositions.length <= margin * 2) {
+                            currentYIndex = Math.floor(possibleYPositions.length / 2);
+                        } else {
+                            currentYIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
+                        }
+                    } else {
+                         if (previousNoteYIndex < 0) { // Segurança: se nota anterior falhou
+                             currentYIndex = Math.floor(possibleYPositions.length / 2); // Começa do meio
+                         } else {
+                            const randomIntervalValue = selectedIntervalValues[Math.floor(Math.random() * selectedIntervalValues.length)];
+                            const stepSize = getStepSizeForInterval(randomIntervalValue);
+                            const moveUpPossible = previousNoteYIndex + stepSize < possibleYPositions.length;
+                            const moveDownPossible = previousNoteYIndex - stepSize >= 0;
+                            let direction = 0;
+
+                            if (moveUpPossible && moveDownPossible) direction = Math.random() < 0.5 ? 1 : -1;
+                            else if (moveUpPossible) direction = 1;
+                            else if (moveDownPossible) direction = -1;
+                            // Fallback (segunda)
+                            else if (previousNoteYIndex + 1 < possibleYPositions.length) { direction = 1; currentYIndex = previousNoteYIndex + 1; }
+                            else if (previousNoteYIndex - 1 >= 0) { direction = -1; currentYIndex = previousNoteYIndex - 1; }
+                            else { direction = 0; currentYIndex = previousNoteYIndex; } // Fica parado
+
+                            // Aplica o passo se não usou fallback que já definiu o índice
+                            if (direction !== 0 && currentYIndex === -1) {
+                                currentYIndex = previousNoteYIndex + (direction * stepSize);
+                            } else if (direction === 0 && currentYIndex === -1) {
+                                currentYIndex = previousNoteYIndex;
+                            }
+                         }
+                    }
+
+                    // Validação final do índice ANTES de acessar possibleYPositions
+                    if (!Number.isInteger(currentYIndex) || currentYIndex < 0 || currentYIndex >= possibleYPositions.length) {
+                         console.warn(`Índice Y inválido (${currentYIndex}) para nota ${i}. Usando índice anterior (${previousNoteYIndex}) ou meio.`);
+                         currentYIndex = (Number.isInteger(previousNoteYIndex) && previousNoteYIndex >= 0 && previousNoteYIndex < possibleYPositions.length)
+                           ? previousNoteYIndex
+                           : Math.floor(possibleYPositions.length / 2);
+                         // Revalida após fallback
+                         if (!Number.isInteger(currentYIndex) || currentYIndex < 0 || currentYIndex >= possibleYPositions.length) {
+                              console.error(`Falha crítica ao obter índice Y válido para nota ${i}. Pulando.`);
+                              continue; // Pula esta nota
+                         }
+                    }
+
+                    y = possibleYPositions[currentYIndex];
+                    // Valida X e Y antes de adicionar
+                     if (!isFinite(x) || !isFinite(y)) {
+                         console.warn(`Coordenadas inválidas (x=${x}, y=${y}) para nota ${i}. Pulando.`);
+                         continue;
+                     }
+
+                    notes.push({ x, y });
+                    previousNoteYIndex = currentYIndex;
+                }
+                redrawAll();
+            } catch (error) {
+                displayError(`Gerar Notas: ${error.message}`);
+                notes = [];
+                redrawAll(); // Tenta limpar a pauta
+            }
+        }
+
+        function drawNotes() {
+          // ... (lógica interna igual) ...
+           if (!ctx || notes.length === 0) return;
+            try {
+                ctx.strokeStyle = NOTE_COLOR;
+                ctx.lineWidth = NOTE_LINE_WIDTH;
+
+                notes.forEach(note => {
+                     if (!isFinite(note.x) || !isFinite(note.y)) return; // Pula nota inválida
+
+                    ctx.beginPath();
+                    ctx.ellipse(note.x, note.y, NOTE_RADIUS_X, NOTE_RADIUS_Y, 0, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    drawLedgerLines(note.x, note.y);
+                });
+            } catch (error) {
+                 displayError(`Desenhar Notas: ${error.message}`);
+            }
+        }
+
+        function drawLedgerLines(x, y) {
+          // ... (lógica interna igual, talvez adicionar validação de x,y) ...
+           if (!ctx || !isFinite(x) || !isFinite(y)) return;
+            try {
+                 ctx.lineWidth = STAFF_LINE_WIDTH;
+                ctx.strokeStyle = STAFF_COLOR;
+                const lineLength = NOTE_RADIUS_X * 2.5;
+                const tolerance = 1; // Pequena tolerância
+
+                // Acima
+                if (y < staffTopY - tolerance) {
+                    let lineY = staffTopY - STAFF_LINE_SPACING;
+                    while (lineY >= y - HALF_STAFF_SPACING - tolerance) {
+                        if (Math.abs(y - lineY) <= HALF_STAFF_SPACING + tolerance) {
+                             if (!isFinite(lineY)) break; // Segurança
+                            ctx.beginPath();
+                            ctx.moveTo(x - lineLength / 2, lineY);
+                            ctx.lineTo(x + lineLength / 2, lineY);
+                            ctx.stroke();
+                        }
+                        if (y > lineY + HALF_STAFF_SPACING + tolerance) break;
+                        lineY -= STAFF_LINE_SPACING;
+                    }
+                }
+
+                // Abaixo
+                if (y > staffBottomY + tolerance) {
+                    let lineY = staffBottomY + STAFF_LINE_SPACING;
+                    while (lineY <= y + HALF_STAFF_SPACING + tolerance) {
+                        if (Math.abs(y - lineY) <= HALF_STAFF_SPACING + tolerance) {
+                            if (!isFinite(lineY)) break; // Segurança
+                            ctx.beginPath();
+                            ctx.moveTo(x - lineLength / 2, lineY);
+                            ctx.lineTo(x + lineLength / 2, lineY);
+                            ctx.stroke();
+                        }
+                        if (y < lineY - HALF_STAFF_SPACING + tolerance) break;
+                        lineY += STAFF_LINE_SPACING;
+                    }
+                }
+            } catch (error) {
+                displayError(`Linhas Suplementares: ${error.message}`);
+            }
+        }
+
+        function redrawAll() {
+            // console.log("Redesenhando...");
+            if (!ctx || !isInitialized) return; // Só redesenha se pronto
+             try {
+                 // Limpa apenas se as dimensões forem válidas
+                 if (canvasActualWidth > 0 && canvasActualHeight > 0) {
+                      // ctx.clearRect(0, 0, canvasActualWidth, canvasActualHeight); // drawStaff já faz isso
+                      drawStaff();
+                      drawNotes();
+                 } else {
+                      // console.warn("Tentando redesenhar com dimensões inválidas.");
+                 }
+            } catch (error) {
+                displayError(`Redesenhar Tudo: ${error.message}`);
+            }
+        }
+
+        // --- Função de Redimensionamento/Configuração Inicial ---
+        function setupCanvas() {
+             console.log("Executando setupCanvas...");
+             clearError();
+             try {
+                 const containerWidth = canvasContainer.clientWidth;
+                 // console.log("Container width:", containerWidth);
+
+                 if (containerWidth > 0) {
+                     canvasActualWidth = containerWidth;
+                     canvas.width = canvasActualWidth; // Resolução interna
+                     calculateStaffPositions(); // Calcula posições Y e altura do canvas
+
+                     // Verifica se calculateStaffPositions teve sucesso
+                     if (possibleYPositions.length > 0 && canvasActualHeight > 0) {
+                           console.log(`Canvas configurado: ${canvasActualWidth}x${Math.round(canvasActualHeight)}`);
+                           isInitialized = true; // Marca como pronto!
+                           redrawAll(); // Desenha pauta inicial
+                           return true; // Indica sucesso
+                     } else {
+                          throw new Error("Falha ao calcular posições ou altura após obter largura.");
+                     }
+                 } else {
+                      console.warn("Container do Canvas sem largura no setup. Layout pode não estar pronto.");
+                      canvasActualWidth = 0;
+                      canvasActualHeight = 0;
+                      canvas.width = 0;
+                      canvas.height = 0;
+                      isInitialized = false;
+                      // Não mostra erro ainda, pode ser temporário
+                      return false; // Indica falha temporária
+                 }
+             } catch (error) {
+                 displayError(`Configurar Canvas: ${error.message}`);
+                 canvasActualWidth = 0;
+                 canvasActualHeight = 0;
+                 isInitialized = false;
+                 return false; // Indica falha
+             }
+        }
+
+        // --- Event Listeners ---
+        randomizeButton.addEventListener('click', () => {
+            if (isInitialized) {
+                 generateNotes();
+            } else {
+                 console.warn("Botão clicado, mas canvas não inicializado.");
+                 // Tenta inicializar de novo ao clicar no botão se falhou antes
+                 if (setupCanvas()) {
+                     generateNotes();
+                 } else {
+                      displayError("Não foi possível gerar notas. Verifique o layout.");
+                 }
+            }
+        });
+
+        controlsContainer.addEventListener('change', (event) => {
+            if (event.target.type === 'checkbox' && event.target.name === 'intervalType') {
+                 if (isInitialized) {
+                     generateNotes();
+                 } else {
+                      console.warn("Checkbox alterado, mas canvas não inicializado.");
+                 }
+            }
+        });
+
+        window.addEventListener('resize', () => {
+             console.log("Evento resize disparado.");
+             // Debounce simples para evitar múltiplas chamadas rápidas
+             let resizeTimer;
+             clearTimeout(resizeTimer);
+             resizeTimer = setTimeout(() => {
+                 if (setupCanvas()) { // Reconfigura o canvas
+                     generateNotes(); // Gera notas para o novo tamanho
+                 }
+             }, 150); // Espera 150ms após o último resize
+        });
+
+        // --- Inicialização dentro de DOMContentLoaded ---
+        console.log("Tentando inicialização...");
+        // Usar requestAnimationFrame para dar tempo extra para renderização/layout inicial
+        requestAnimationFrame(() => {
+             console.log("Dentro do requestAnimationFrame inicial.");
+             if (setupCanvas()) {
+                  generateNotes(); // Gera as notas iniciais
+                  console.log("Inicialização completa.");
+             } else {
+                  // Se falhou aqui, pode ser um problema persistente de layout
+                  console.error("Falha na configuração inicial do canvas após requestAnimationFrame.");
+                   // Tenta de novo após um delay maior? Ou apenas mostra erro?
+                   setTimeout(() => {
+                       if (!isInitialized) { // Tenta mais uma vez
+                            console.log("Tentando setupCanvas novamente após delay...");
+                           if(setupCanvas()) generateNotes();
+                           else displayError("Falha persistente na inicialização do canvas. Recarregue ou verifique o navegador.");
+                       }
+                   }, 500); // Meio segundo de espera extra
+             }
+        });
+
+      }); // Fim do DOMContentLoaded listener
+
+    </script>
+
+</body>
+</html>
