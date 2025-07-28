@@ -1,588 +1,838 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- user-scalable=no pode ajudar em alguns casos -->
-    <title>Treino de Leitura - Intervalos Múltiplos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitura de Partitura</title>
     <style>
-        /* Reset básico para consistência */
-        * {
+        body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+        }
+        
+        .canvas-container {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            touch-action: pan-x;
+        }
+        
+        #canvas {
+            display: block;
+            min-width: 1000px;
+            background: white;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .settings {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .settings h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .setting-group {
+            display: inline-block;
+            margin: 10px;
+            vertical-align: top;
+            min-width: 120px;
+        }
+        
+        .setting-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #495057;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+        
+        button {
+            padding: 12px 24px;
+            font-size: clamp(14px, 3vw, 16px);
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            min-height: 44px;
+            min-width: 80px;
+            touch-action: manipulation;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:active {
+            background: #004085;
+            transform: scale(0.98);
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            min-height: 44px;
+            width: 100%;
             box-sizing: border-box;
         }
-        html, body {
+        
+        input[type="range"] {
             width: 100%;
-            height: 100%;
-            overflow-x: hidden; /* Previne scroll horizontal */
+            min-width: 120px;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Fontes mais seguras */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px; /* Reduzido padding */
-            background-color: #f4f4f4;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased; /* Melhor renderização de fonte */
-            -moz-osx-font-smoothing: grayscale;
+        
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
         }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 8px;
-             font-size: 1.5em; /* Ajuste para mobile */
+        
+        .bpm-display {
+            font-weight: bold;
+            color: #007bff;
         }
-        #canvasContainer {
-            width: 95%;
-            max-width: 900px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            overflow: hidden;
-            position: relative;
-             min-height: 100px; /* Garante altura mínima */
-             /* Hack para forçar renderização/aceleração em alguns casos no iOS */
-             -webkit-transform: translateZ(0);
-             transform: translateZ(0);
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .settings {
+                text-align: center;
+            }
+            
+            .setting-group {
+                display: block;
+                margin: 15px auto;
+                max-width: 250px;
+            }
+            
+            #canvas {
+                min-width: 800px;
+            }
         }
-        canvas {
-            display: block;
-            width: 100%;
-            height: auto;
-            background-color: #eee; /* Cor de fundo para ver se o canvas está lá */
+        
+        @media (max-width: 480px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                margin: 5px 0;
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            #canvas {
+                min-width: 600px;
+            }
         }
-        #controls {
-            margin-bottom: 15px;
-            padding: 8px 12px;
-            background-color: #eee;
-            border-radius: 5px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 15px; /* Reduzido gap */
-        }
-         #controls > div {
-             display: flex;
-             align-items: center;
-         }
-        #controls label {
-            cursor: pointer;
-            margin-right: 5px;
-            white-space: nowrap;
-            font-size: 0.9em; /* Ajuste para mobile */
-        }
-         #controls input[type="checkbox"] {
-             cursor: pointer;
-             width: 16px; /* Ajuste para mobile */
-             height: 16px;
-             vertical-align: middle;
-             /* Estilização para iOS parecer mais nativo */
-             -webkit-appearance: checkbox;
-             appearance: checkbox;
-         }
-        button {
-            padding: 10px 20px; /* Ajuste para mobile */
-            font-size: 1em;
-            cursor: pointer;
-            background-color: #007aff; /* Cor azul padrão iOS */
-            color: white;
-            border: none;
-            border-radius: 8px; /* Bordas mais arredondadas (iOS) */
-            transition: background-color 0.2s ease;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        button:hover, button:active { /* :active é importante para toque */
-            background-color: #0056b3;
-        }
-        p.info {
-            font-size: 0.85em; /* Ajuste para mobile */
-            color: #555;
-            margin-top: -10px;
-            margin-bottom: 15px;
-            text-align: center;
-            max-width: 90%; /* Evita que o texto fique muito largo */
-        }
-         .error-message {
-             color: red;
-             font-weight: bold;
-             margin-top: 10px;
-             padding: 5px;
-             background-color: #ffebee;
-             border: 1px solid red;
-             border-radius: 4px;
-             text-align: center;
-             display: none; /* Esconde por padrão */
-         }
     </style>
 </head>
 <body>
-
-    <h1>Treino de Leitura</h1> <!-- Título mais curto -->
-    <p class="info">Selecione intervalos. Notas aleatórias serão geradas.</p> <!-- Info mais curta -->
-
-    <div id="canvasContainer">
-        <canvas id="musicCanvas">Seu navegador não suporta o Canvas.</canvas> <!-- Fallback text -->
+    <div class="container">
+        <h1>Treinamento de Leitura de Partitura</h1>
+        <div class="canvas-container">
+            <canvas id="canvas" width="1000" height="400"></canvas>
+        </div>
+        <div class="controls">
+            <button id="playBtn">Play</button>
+            <button id="stopBtn">Stop</button>
+        </div>
+        
+        <div class="settings">
+            <h3>Configurações</h3>
+            <div class="setting-group">
+                <label for="bpmSlider">BPM: <span id="bpmValue" class="bpm-display">120</span></label>
+                <input type="range" id="bpmSlider" min="60" max="180" value="120">
+            </div>
+            
+            <div class="setting-group">
+                <label for="difficultySelect">Dificuldade:</label>
+                <select id="difficultySelect">
+                    <option value="muito-facil">Muito Fácil</option>
+                    <option value="facil">Fácil</option>
+                    <option value="iniciante" selected>Iniciante</option>
+                    <option value="basico">Básico</option>
+                    <option value="intermediario">Intermediário</option>
+                    <option value="avancado">Avançado</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label for="scaleSelect">Escala:</label>
+                <select id="scaleSelect">
+                    <option value="c-major">Dó Maior</option>
+                    <option value="g-major">Sol Maior</option>
+                    <option value="f-major">Fá Maior</option>
+                    <option value="d-major">Ré Maior</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <input type="checkbox" id="manualRange"> Range Manual
+                </label>
+                <select id="rangeSelect" disabled>
+                    <option value="basic">Básico (Dó3-Dó5)</option>
+                    <option value="extended">Estendido (Lá2-Fá5)</option>
+                    <option value="full">Completo (Sol2-Sol5)</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <div id="errorMessage" class="error-message"></div>
 
-    <div id="controls">
-        <div>
-             <label for="interval2">2ª</label> <!-- Abreviação -->
-             <input type="checkbox" id="interval2" name="intervalType" value="2">
-        </div>
-        <div>
-             <label for="interval3">3ª</label>
-             <input type="checkbox" id="interval3" name="intervalType" value="3" checked>
-        </div>
-        <div>
-             <label for="interval5">5ª</label>
-             <input type="checkbox" id="interval5" name="intervalType" value="5">
-        </div>
-    </div>
-
-    <button id="randomizeButton">Gerar Novas Notas</button> <!-- Texto do botão mais claro -->
-
-    <!-- Script no final do body, defer continua sendo bom -->
-    <script defer>
-      // Strict mode pode pegar erros silenciosos
-      "use strict";
-
-      // Envolve tudo em um listener DOMContentLoaded para garantir que o HTML está pronto
-      window.addEventListener('DOMContentLoaded', () => {
-        console.log("DOM carregado.");
-        const canvas = document.getElementById('musicCanvas');
-        const randomizeButton = document.getElementById('randomizeButton');
-        const canvasContainer = document.getElementById('canvasContainer');
-        const controlsContainer = document.getElementById('controls');
-        const errorMessageDiv = document.getElementById('errorMessage');
-        let ctx = null; // Inicializa como null
-
-        // --- Elementos Essenciais ---
-        if (!canvas || !randomizeButton || !canvasContainer || !controlsContainer || !errorMessageDiv) {
-          console.error("Falha ao encontrar elementos HTML essenciais.");
-          // Tenta mostrar erro mesmo que a div falhe
-          alert("Erro: Elementos da página não encontrados. Recarregue.");
-          return; // Para a execução
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Função para desenhar clave de Sol usando símbolo Unicode
+        function drawTrebleClef(x, y) {
+            ctx.fillStyle = '#000';
+            ctx.font = '48px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('𝄞', x + 15, y + 10);
         }
-
-        // --- Obter Contexto ---
-        try {
-            ctx = canvas.getContext('2d');
-            if (!ctx) {
-                throw new Error("Não foi possível obter o contexto 2D do canvas.");
-            }
-            console.log("Contexto 2D obtido.");
-        } catch (e) {
-            displayError(`Erro ao inicializar o Canvas: ${e.message}`);
-            canvas.style.backgroundColor = 'red'; // Feedback visual
-            return; // Para
+        
+        // Função para desenhar clave de Fá usando símbolo Unicode
+        function drawBassClef(x, y) {
+            ctx.fillStyle = '#000';
+            ctx.font = '40px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('𝄢', x + 15, y + 8);
         }
-
-        // --- Configurações (movidas para dentro para garantir acesso a ctx se necessário) ---
-        const NUM_NOTES = 16;
-        const NOTE_RADIUS_X = 8;
-        const NOTE_RADIUS_Y = 6;
-        const NOTE_LINE_WIDTH = 1.5;
-        const NUM_STAFF_LINES = 5;
-        const STAFF_LINE_SPACING = 20;
-        const HALF_STAFF_SPACING = STAFF_LINE_SPACING / 2;
-        const STAFF_LINE_WIDTH = 1;
-        const STAFF_COLOR = '#333333';
-        const NOTE_COLOR = '#000000';
-        const TOP_MARGIN_RATIO = 0.25;
-        const BOTTOM_MARGIN_RATIO = 0.25;
-        const SIDE_MARGIN_PERCENT = 5;
-
-        let notes = [];
-        let possibleYPositions = [];
-        let staffTopY = 0;
-        let staffBottomY = 0;
-        let canvasActualWidth = 0;
-        let canvasActualHeight = 0;
-        let isInitialized = false; // Flag para controlar inicialização
-
-        function displayError(message) {
-            console.error(message);
-            errorMessageDiv.textContent = `Erro: ${message}`;
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-        }
-
-        function clearError() {
-             errorMessageDiv.textContent = '';
-             errorMessageDiv.style.display = 'none';
-        }
-
-
-        // --- Funções de Cálculo e Desenho (sem mudanças internas significativas, mas com try-catch) ---
-
-        function calculateStaffPositions() {
-          // ... (lógica interna igual à versão anterior) ...
-           try {
-                const staffHeight = (NUM_STAFF_LINES - 1) * STAFF_LINE_SPACING;
-                if (staffHeight <= 0 || !isFinite(staffHeight)) { throw new Error("Altura da pauta inválida."); }
-
-                // Calcula a altura total necessária, garantindo que não seja zero ou infinita
-                const totalStaffHeightRatio = 1 - TOP_MARGIN_RATIO - BOTTOM_MARGIN_RATIO;
-                 if (totalStaffHeightRatio <= 0) throw new Error("Proporções de margem inválidas.");
-                canvasActualHeight = staffHeight / totalStaffHeightRatio;
-                if (canvasActualHeight <= 0 || !isFinite(canvasActualHeight)) { throw new Error("Altura do canvas inválida."); }
-
-                // Define a altura do canvas (pixel real) - arredondar pode ajudar
-                canvas.height = Math.round(canvasActualHeight);
-
-                staffTopY = canvasActualHeight * TOP_MARGIN_RATIO;
-                staffBottomY = staffTopY + staffHeight;
-
-                possibleYPositions = [];
-                // Amplia um pouco mais o alcance vertical
-                const numVerticalPositions = NUM_STAFF_LINES * 2 - 1 + 8; // 4 acima, 4 abaixo
-                const firstPossibleY = staffTopY - 4 * HALF_STAFF_SPACING;
-
-                for (let i = 0; i < numVerticalPositions; i++) {
-                    possibleYPositions.push(firstPossibleY + i * HALF_STAFF_SPACING);
-                }
-                if(possibleYPositions.length === 0){ throw new Error("Falha ao gerar posições Y."); }
-                 // console.log("Posições Y calculadas:", possibleYPositions.length);
-
-            } catch (error) {
-                displayError(`Posições da Pauta: ${error.message}`);
-                possibleYPositions = [];
-            }
-        }
-
-        function drawStaff() {
-          // ... (lógica interna igual à versão anterior) ...
-           if (!ctx) return;
-            try {
-                ctx.clearRect(0, 0, canvasActualWidth, canvasActualHeight);
-                ctx.strokeStyle = STAFF_COLOR;
-                ctx.lineWidth = STAFF_LINE_WIDTH;
-
-                const startDrawX = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100) * 0.5;
-                const endDrawX = canvasActualWidth * (1 - (SIDE_MARGIN_PERCENT / 100) * 0.5);
-                 // Garante que start/end são válidos
-                 if (startDrawX >= endDrawX || !isFinite(startDrawX) || !isFinite(endDrawX)) {
-                    // console.warn("Coordenadas X inválidas para desenhar pauta.");
-                     return; // Não desenha se X for inválido
-                 }
-
-                for (let i = 0; i < NUM_STAFF_LINES; i++) {
-                    const y = staffTopY + i * STAFF_LINE_SPACING;
-                     if (!isFinite(y)) continue; // Pula se Y for inválido
-                    ctx.beginPath();
-                    ctx.moveTo(startDrawX, y);
-                    ctx.lineTo(endDrawX, y);
-                    ctx.stroke();
-                }
-            } catch (error) {
-                displayError(`Desenhar Pauta: ${error.message}`);
-            }
-        }
-
-        function getStepSizeForInterval(intervalValue) {
-          // ... (igual) ...
-            switch (intervalValue) {
-                case 2: return 1;
-                case 3: return 2;
-                case 5: return 4;
-                default: return 2;
-            }
-        }
-
-        function generateNotes() {
-          // ... (lógica interna principal igual, mas com mais validações) ...
-            if (!isInitialized) {
-                 console.warn("Tentando gerar notas antes da inicialização completa.");
-                 return; // Não gera se não estiver pronto
-            }
-            console.log("Gerando notas...");
-            try {
-                clearError(); // Limpa erros antigos
-                notes = [];
-                const leftMargin = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100);
-                const rightMargin = canvasActualWidth * (SIDE_MARGIN_PERCENT / 100);
-                let drawingWidth = canvasActualWidth - leftMargin - rightMargin;
-
-                if (drawingWidth <= 0 || !isFinite(drawingWidth)) {
-                    throw new Error(`Largura de desenho inválida (${drawingWidth.toFixed(2)}px). Verifique o container.`);
-                }
-
-                const segmentWidth = drawingWidth / NUM_NOTES;
-                const startX = leftMargin;
-                let previousNoteYIndex = -1;
-
-                if (possibleYPositions.length === 0) {
-                    calculateStaffPositions(); // Tenta recalcular
-                    if (possibleYPositions.length === 0) {
-                        throw new Error("Posições Y não disponíveis.");
+        
+        // Função para desenhar linhas suplementares
+        function drawLedgerLines(x, y, clef) {
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            
+            if (clef === 'treble') {
+                const trebleY = 80;
+                // Linhas suplementares superiores (acima da pauta)
+                if (y <= trebleY - 12) {
+                    for (let lineY = trebleY - 12; lineY >= y; lineY -= 12) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 8, lineY);
+                        ctx.lineTo(x + 8, lineY);
+                        ctx.stroke();
                     }
                 }
-
-                const checkedBoxes = document.querySelectorAll('input[name="intervalType"]:checked');
-                let selectedIntervalValues = Array.from(checkedBoxes).map(box => parseInt(box.value));
-                if (selectedIntervalValues.length === 0) { selectedIntervalValues.push(3); }
-
-                for (let i = 0; i < NUM_NOTES; i++) {
-                    const x = startX + (i * segmentWidth) + (segmentWidth / 2);
-                    let currentYIndex = -1; // Inicia inválido
-                    let y = NaN;
-
-                    if (i === 0) {
-                        const margin = 4;
-                        const minIndex = margin;
-                        const maxIndex = possibleYPositions.length - 1 - margin;
-                         if (minIndex >= maxIndex || possibleYPositions.length <= margin * 2) {
-                            currentYIndex = Math.floor(possibleYPositions.length / 2);
-                        } else {
-                            currentYIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
-                        }
-                    } else {
-                         if (previousNoteYIndex < 0) { // Segurança: se nota anterior falhou
-                             currentYIndex = Math.floor(possibleYPositions.length / 2); // Começa do meio
-                         } else {
-                            const randomIntervalValue = selectedIntervalValues[Math.floor(Math.random() * selectedIntervalValues.length)];
-                            const stepSize = getStepSizeForInterval(randomIntervalValue);
-                            const moveUpPossible = previousNoteYIndex + stepSize < possibleYPositions.length;
-                            const moveDownPossible = previousNoteYIndex - stepSize >= 0;
-                            let direction = 0;
-
-                            if (moveUpPossible && moveDownPossible) direction = Math.random() < 0.5 ? 1 : -1;
-                            else if (moveUpPossible) direction = 1;
-                            else if (moveDownPossible) direction = -1;
-                            // Fallback (segunda)
-                            else if (previousNoteYIndex + 1 < possibleYPositions.length) { direction = 1; currentYIndex = previousNoteYIndex + 1; }
-                            else if (previousNoteYIndex - 1 >= 0) { direction = -1; currentYIndex = previousNoteYIndex - 1; }
-                            else { direction = 0; currentYIndex = previousNoteYIndex; } // Fica parado
-
-                            // Aplica o passo se não usou fallback que já definiu o índice
-                            if (direction !== 0 && currentYIndex === -1) {
-                                currentYIndex = previousNoteYIndex + (direction * stepSize);
-                            } else if (direction === 0 && currentYIndex === -1) {
-                                currentYIndex = previousNoteYIndex;
-                            }
-                         }
-                    }
-
-                    // Validação final do índice ANTES de acessar possibleYPositions
-                    if (!Number.isInteger(currentYIndex) || currentYIndex < 0 || currentYIndex >= possibleYPositions.length) {
-                         console.warn(`Índice Y inválido (${currentYIndex}) para nota ${i}. Usando índice anterior (${previousNoteYIndex}) ou meio.`);
-                         currentYIndex = (Number.isInteger(previousNoteYIndex) && previousNoteYIndex >= 0 && previousNoteYIndex < possibleYPositions.length)
-                           ? previousNoteYIndex
-                           : Math.floor(possibleYPositions.length / 2);
-                         // Revalida após fallback
-                         if (!Number.isInteger(currentYIndex) || currentYIndex < 0 || currentYIndex >= possibleYPositions.length) {
-                              console.error(`Falha crítica ao obter índice Y válido para nota ${i}. Pulando.`);
-                              continue; // Pula esta nota
-                         }
-                    }
-
-                    y = possibleYPositions[currentYIndex];
-                    // Valida X e Y antes de adicionar
-                     if (!isFinite(x) || !isFinite(y)) {
-                         console.warn(`Coordenadas inválidas (x=${x}, y=${y}) para nota ${i}. Pulando.`);
-                         continue;
-                     }
-
-                    notes.push({ x, y });
-                    previousNoteYIndex = currentYIndex;
-                }
-                redrawAll();
-            } catch (error) {
-                displayError(`Gerar Notas: ${error.message}`);
-                notes = [];
-                redrawAll(); // Tenta limpar a pauta
-            }
-        }
-
-        function drawNotes() {
-          // ... (lógica interna igual) ...
-           if (!ctx || notes.length === 0) return;
-            try {
-                ctx.strokeStyle = NOTE_COLOR;
-                ctx.lineWidth = NOTE_LINE_WIDTH;
-
-                notes.forEach(note => {
-                     if (!isFinite(note.x) || !isFinite(note.y)) return; // Pula nota inválida
-
-                    ctx.beginPath();
-                    ctx.ellipse(note.x, note.y, NOTE_RADIUS_X, NOTE_RADIUS_Y, 0, 0, 2 * Math.PI);
-                    ctx.stroke();
-                    drawLedgerLines(note.x, note.y);
-                });
-            } catch (error) {
-                 displayError(`Desenhar Notas: ${error.message}`);
-            }
-        }
-
-        function drawLedgerLines(x, y) {
-          // ... (lógica interna igual, talvez adicionar validação de x,y) ...
-           if (!ctx || !isFinite(x) || !isFinite(y)) return;
-            try {
-                 ctx.lineWidth = STAFF_LINE_WIDTH;
-                ctx.strokeStyle = STAFF_COLOR;
-                const lineLength = NOTE_RADIUS_X * 2.5;
-                const tolerance = 1; // Pequena tolerância
-
-                // Acima
-                if (y < staffTopY - tolerance) {
-                    let lineY = staffTopY - STAFF_LINE_SPACING;
-                    while (lineY >= y - HALF_STAFF_SPACING - tolerance) {
-                        if (Math.abs(y - lineY) <= HALF_STAFF_SPACING + tolerance) {
-                             if (!isFinite(lineY)) break; // Segurança
-                            ctx.beginPath();
-                            ctx.moveTo(x - lineLength / 2, lineY);
-                            ctx.lineTo(x + lineLength / 2, lineY);
-                            ctx.stroke();
-                        }
-                        if (y > lineY + HALF_STAFF_SPACING + tolerance) break;
-                        lineY -= STAFF_LINE_SPACING;
+                // Linhas suplementares inferiores (abaixo da pauta)
+                if (y >= trebleY + 60) {
+                    for (let lineY = trebleY + 60; lineY <= y; lineY += 12) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 8, lineY);
+                        ctx.lineTo(x + 8, lineY);
+                        ctx.stroke();
                     }
                 }
-
-                // Abaixo
-                if (y > staffBottomY + tolerance) {
-                    let lineY = staffBottomY + STAFF_LINE_SPACING;
-                    while (lineY <= y + HALF_STAFF_SPACING + tolerance) {
-                        if (Math.abs(y - lineY) <= HALF_STAFF_SPACING + tolerance) {
-                            if (!isFinite(lineY)) break; // Segurança
-                            ctx.beginPath();
-                            ctx.moveTo(x - lineLength / 2, lineY);
-                            ctx.lineTo(x + lineLength / 2, lineY);
-                            ctx.stroke();
-                        }
-                        if (y < lineY - HALF_STAFF_SPACING + tolerance) break;
-                        lineY += STAFF_LINE_SPACING;
+            } else if (clef === 'bass') {
+                const bassY = 220;
+                // Linhas suplementares superiores (acima da pauta)
+                if (y <= bassY - 12) {
+                    for (let lineY = bassY - 12; lineY >= y; lineY -= 12) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 8, lineY);
+                        ctx.lineTo(x + 8, lineY);
+                        ctx.stroke();
                     }
                 }
-            } catch (error) {
-                displayError(`Linhas Suplementares: ${error.message}`);
+                // Linhas suplementares inferiores (abaixo da pauta)
+                if (y >= bassY + 60) {
+                    for (let lineY = bassY + 60; lineY <= y; lineY += 12) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - 8, lineY);
+                        ctx.lineTo(x + 8, lineY);
+                        ctx.stroke();
+                    }
+                }
             }
         }
-
-        function redrawAll() {
-            // console.log("Redesenhando...");
-            if (!ctx || !isInitialized) return; // Só redesenha se pronto
-             try {
-                 // Limpa apenas se as dimensões forem válidas
-                 if (canvasActualWidth > 0 && canvasActualHeight > 0) {
-                      // ctx.clearRect(0, 0, canvasActualWidth, canvasActualHeight); // drawStaff já faz isso
-                      drawStaff();
-                      drawNotes();
-                 } else {
-                      // console.warn("Tentando redesenhar com dimensões inválidas.");
-                 }
-            } catch (error) {
-                displayError(`Redesenhar Tudo: ${error.message}`);
-            }
-        }
-
-        // --- Função de Redimensionamento/Configuração Inicial ---
-        function setupCanvas() {
-             console.log("Executando setupCanvas...");
-             clearError();
-             try {
-                 const containerWidth = canvasContainer.clientWidth;
-                 // console.log("Container width:", containerWidth);
-
-                 if (containerWidth > 0) {
-                     canvasActualWidth = containerWidth;
-                     canvas.width = canvasActualWidth; // Resolução interna
-                     calculateStaffPositions(); // Calcula posições Y e altura do canvas
-
-                     // Verifica se calculateStaffPositions teve sucesso
-                     if (possibleYPositions.length > 0 && canvasActualHeight > 0) {
-                           console.log(`Canvas configurado: ${canvasActualWidth}x${Math.round(canvasActualHeight)}`);
-                           isInitialized = true; // Marca como pronto!
-                           redrawAll(); // Desenha pauta inicial
-                           return true; // Indica sucesso
-                     } else {
-                          throw new Error("Falha ao calcular posições ou altura após obter largura.");
-                     }
-                 } else {
-                      console.warn("Container do Canvas sem largura no setup. Layout pode não estar pronto.");
-                      canvasActualWidth = 0;
-                      canvasActualHeight = 0;
-                      canvas.width = 0;
-                      canvas.height = 0;
-                      isInitialized = false;
-                      // Não mostra erro ainda, pode ser temporário
-                      return false; // Indica falha temporária
-                 }
-             } catch (error) {
-                 displayError(`Configurar Canvas: ${error.message}`);
-                 canvasActualWidth = 0;
-                 canvasActualHeight = 0;
-                 isInitialized = false;
-                 return false; // Indica falha
-             }
-        }
-
-        // --- Event Listeners ---
-        randomizeButton.addEventListener('click', () => {
-            if (isInitialized) {
-                 generateNotes();
+        
+        // Função para desenhar uma nota
+        function drawNote(x, y, noteType = 'semínima', clef = 'treble') {
+            // Desenhar linhas suplementares primeiro
+            drawLedgerLines(x, y, clef);
+            
+            ctx.fillStyle = '#000';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            
+            // Cabeça da nota
+            ctx.beginPath();
+            ctx.ellipse(x, y, 5, 4, 0.3, 0, 2 * Math.PI);
+            
+            if (noteType === 'semibreve') {
+                // Semibreve: cabeça vazada, sem haste
+                ctx.stroke();
+            } else if (noteType === 'mínima') {
+                // Mínima: cabeça vazada com haste
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x + 5, y);
+                ctx.lineTo(x + 5, y - 30);
+                ctx.stroke();
             } else {
-                 console.warn("Botão clicado, mas canvas não inicializado.");
-                 // Tenta inicializar de novo ao clicar no botão se falhou antes
-                 if (setupCanvas()) {
-                     generateNotes();
-                 } else {
-                      displayError("Não foi possível gerar notas. Verifique o layout.");
-                 }
+                // Semínima e colcheia: cabeça preenchida
+                ctx.fill();
+                
+                // Haste para semínima e colcheia
+                if (noteType === 'semínima' || noteType === 'colcheia') {
+                    ctx.beginPath();
+                    ctx.moveTo(x + 5, y);
+                    ctx.lineTo(x + 5, y - 30);
+                    ctx.stroke();
+                }
+                
+                // Bandeirola para colcheia
+                if (noteType === 'colcheia') {
+                    ctx.beginPath();
+                    ctx.moveTo(x + 5, y - 30);
+                    ctx.quadraticCurveTo(x + 15, y - 25, x + 12, y - 15);
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // Função para desenhar pausas
+        function drawRest(x, y, restType = 'semínima') {
+            ctx.fillStyle = '#000';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.font = '20px serif';
+            ctx.textAlign = 'center';
+            
+            switch(restType) {
+                case 'semibreve':
+                    // Pausa de semibreve: retângulo pendurado na linha
+                    ctx.fillRect(x - 6, y - 9, 12, 4);
+                    break;
+                case 'mínima':
+                    // Pausa de mínima: retângulo em cima da linha
+                    ctx.fillRect(x - 6, y + 1, 12, 4);
+                    break;
+                case 'semínima':
+                    // Pausa de semínima: símbolo específico
+                    ctx.fillText('𝄽', x, y + 5);
+                    break;
+                case 'colcheia':
+                    // Pausa de colcheia: símbolo específico
+                    ctx.fillText('𝄾', x, y + 5);
+                    break;
+            }
+        }
+        
+        // Função para desenhar as linhas da pauta e claves
+        function drawStaff() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            
+            // Clave de Sol (pauta superior)
+            const trebleY = 80;
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(80, trebleY + i * 12);
+                ctx.lineTo(950, trebleY + i * 12);
+                ctx.stroke();
+            }
+            
+            // Desenhar clave de Sol
+            drawTrebleClef(50, trebleY + 24);
+            
+            // Clave de Fá (pauta inferior)
+            const bassY = 220;
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(80, bassY + i * 12);
+                ctx.lineTo(950, bassY + i * 12);
+                ctx.stroke();
+            }
+            
+            // Desenhar clave de Fá
+            drawBassClef(50, bassY + 12);
+            
+            // Gerar notas proceduralmente
+            generateMeasures();
+        }
+        
+        // Variáveis de controle do playback
+        let isPlaying = false;
+        let playbackPosition = 100; // Posição inicial em pixels
+        let bpm = 120; // BPM padrão
+        let animationId = null;
+        let currentMeasure = 0;
+        let measuresData = []; // Array para armazenar os compassos gerados
+        
+        // Variáveis para mobile/touch
+        let scale = 1;
+        let canvasContainer = null;
+        
+        // Configurações de geração musical
+        let currentScale = 'c-major';
+        let currentDifficulty = 'iniciante';
+        let currentRange = 'basic';
+        let useManualRange = false;
+        
+        // Escalas musicais (em semitons relativos a Dó)
+        const scales = {
+            'c-major': [0, 2, 4, 5, 7, 9, 11], // Dó, Ré, Mi, Fá, Sol, Lá, Si
+            'g-major': [7, 9, 11, 0, 2, 4, 6], // Sol, Lá, Si, Dó, Ré, Mi, Fá#
+            'f-major': [5, 7, 9, 10, 0, 2, 4], // Fá, Sol, Lá, Sib, Dó, Ré, Mi
+            'd-major': [2, 4, 6, 7, 9, 11, 1]  // Ré, Mi, Fá#, Sol, Lá, Si, Dó#
+        };
+        
+        // Ranges de notas por dificuldade (posições Y na pauta)
+        const difficultyNoteRanges = {
+            'muito-facil': {
+                treble: [48, 42], // Apenas Mi e Fá (fáceis de ler)
+                bass: [6, 0]      // Apenas Sol e Lá
+            },
+            'facil': {
+                treble: [54, 48, 42], // Ré, Mi, Fá
+                bass: [12, 6, 0]      // Sol, Lá, Si
+            },
+            'iniciante': {
+                treble: [60, 54, 48, 42, 36], // Dó a Sol
+                bass: [18, 12, 6, 0, -6]      // Fá a Ré
+            },
+            'basico': {
+                treble: [66, 60, 54, 48, 42, 36, 30], // Si a Lá
+                bass: [24, 18, 12, 6, 0, -6, -12]     // Si a Mi
+            },
+            'intermediario': {
+                treble: [72, 66, 60, 54, 48, 42, 36, 30], // Lá a Lá (oitava)
+                bass: [30, 24, 18, 12, 6, 0, -6, -12]     // Dó a Mi
+            },
+            'avancado': {
+                treble: [78, 72, 66, 60, 54, 48, 42, 36, 30, 24], // Sol a Si (amplo)
+                bass: [36, 30, 24, 18, 12, 6, 0, -6, -12, -18]     // Sol a Sol (amplo)
+            }
+        };
+        
+        // Ranges de notas (posições Y na pauta) - mantido para compatibilidade
+        const noteRanges = {
+            'basic': difficultyNoteRanges['iniciante'],
+            'extended': difficultyNoteRanges['intermediario'],
+            'full': difficultyNoteRanges['avancado']
+        };
+        
+        // Gerador de notas procedurais
+        class MusicGenerator {
+            constructor() {
+                this.lastNote = { treble: 48, bass: 6 }; // Mi e Sol como notas iniciais
+                this.phrasePosition = 0;
+                this.measureCount = 0;
+            }
+            
+            generateNote(clef) {
+                // Usar range baseado na dificuldade ou configuração manual
+                const range = useManualRange ? 
+                    noteRanges[currentRange][clef] : 
+                    difficultyNoteRanges[currentDifficulty][clef];
+                const scale = scales[currentScale];
+                let targetNote;
+                
+                // Diferentes estratégias por dificuldade
+                const difficultyStrategies = {
+                    'muito-facil': 0.9, // 90% movimento conjunto
+                    'facil': 0.8,       // 80% movimento conjunto
+                    'iniciante': 0.7,   // 70% movimento conjunto
+                    'basico': 0.6,      // 60% movimento conjunto
+                    'intermediario': 0.5, // 50% movimento conjunto
+                    'avancado': 0.4     // 40% movimento conjunto (mais saltos)
+                };
+                
+                const conjunctMovement = difficultyStrategies[currentDifficulty] || 0.7;
+                
+                // Lógica de movimento melódico baseada na dificuldade
+                if (Math.random() < conjunctMovement) {
+                    // Movimento por grau conjunto
+                    const direction = Math.random() < 0.5 ? -1 : 1;
+                    const currentIndex = range.indexOf(this.lastNote[clef]);
+                    const newIndex = Math.max(0, Math.min(range.length - 1, currentIndex + direction));
+                    targetNote = range[newIndex];
+                } else {
+                    // Saltos - tamanho varia por dificuldade
+                    const maxJump = currentDifficulty === 'avancado' ? 5 : 3;
+                    const currentIndex = range.indexOf(this.lastNote[clef]);
+                    const jump = (Math.floor(Math.random() * maxJump) + 1) * (Math.random() < 0.5 ? -1 : 1);
+                    const newIndex = Math.max(0, Math.min(range.length - 1, currentIndex + jump));
+                    targetNote = range[newIndex];
+                }
+                
+                this.lastNote[clef] = targetNote;
+                return targetNote;
+            }
+            
+            generateMeasure() {
+                // Gerar dados separados para cada clave
+                const trebleBeats = this.generateClefMeasure('treble');
+                const bassBeats = this.generateClefMeasure('bass');
+                
+                return { treble: trebleBeats, bass: bassBeats };
+            }
+            
+            generateClefMeasure(clef) {
+                const beats = [];
+                let totalBeats = 0;
+                const targetBeats = 4; // Compasso 4/4
+                
+                // Valores rítmicos em tempos
+                const rhythmValues = {
+                    'semibreve': 4,
+                    'mínima': 2,
+                    'semínima': 1,
+                    'colcheia': 0.5,
+                    'pausa-semibreve': 4,
+                    'pausa-mínima': 2,
+                    'pausa-semínima': 1,
+                    'pausa-colcheia': 0.5
+                };
+                
+                const difficultyRhythms = {
+                    'muito-facil': ['semibreve', 'mínima'], // Apenas notas longas
+                    'facil': ['mínima', 'semínima', 'pausa-mínima'], // Ritmos simples
+                    'iniciante': ['semínima', 'mínima', 'pausa-semínima'], // Mais semínimas
+                    'basico': ['semínima', 'mínima', 'colcheia', 'pausa-semínima', 'pausa-colcheia'], // Introduz colcheias
+                    'intermediario': ['semínima', 'mínima', 'colcheia', 'semibreve', 'pausa-colcheia'], // Mais variedade
+                    'avancado': ['semínima', 'mínima', 'colcheia', 'semibreve', 'pausa-colcheia', 'pausa-mínima'] // Complexo
+                };
+                
+                const availableRhythms = difficultyRhythms[currentDifficulty];
+                
+                while (totalBeats < targetBeats) {
+                    const remainingBeats = targetBeats - totalBeats;
+                    const possibleRhythms = availableRhythms.filter(rhythm => 
+                        rhythmValues[rhythm] <= remainingBeats
+                    );
+                    
+                    if (possibleRhythms.length === 0) {
+                        // Preencher com pausas se necessário
+                        beats.push({
+                            type: 'rest',
+                            rhythm: remainingBeats >= 1 ? 'pausa-semínima' : 'pausa-colcheia',
+                            duration: remainingBeats >= 1 ? 1 : 0.5,
+                            position: totalBeats
+                        });
+                        totalBeats = targetBeats;
+                    } else {
+                        const selectedRhythm = possibleRhythms[Math.floor(Math.random() * possibleRhythms.length)];
+                        const duration = rhythmValues[selectedRhythm];
+                        
+                        if (selectedRhythm.startsWith('pausa-')) {
+                            beats.push({
+                                type: 'rest',
+                                rhythm: selectedRhythm.replace('pausa-', ''),
+                                duration: duration,
+                                position: totalBeats
+                            });
+                        } else {
+                            beats.push({
+                                type: 'note',
+                                rhythm: selectedRhythm,
+                                duration: duration,
+                                pitch: this.generateNote(clef),
+                                position: totalBeats
+                            });
+                        }
+                        totalBeats += duration;
+                    }
+                }
+                
+                return beats;
+            }
+        }
+        
+        const musicGen = new MusicGenerator();
+        
+        // Função para inicializar compassos
+        function initializeMeasures() {
+            measuresData = [];
+            for (let i = 0; i < 4; i++) {
+                measuresData.push(musicGen.generateMeasure());
+            }
+        }
+        
+        // Função para desenhar compassos baseado nos dados armazenados
+        function drawMeasures() {
+            const trebleY = 80;
+            const bassY = 220;
+            const measureWidth = 200;
+            const baseX = 120;
+            const beatWidth = measureWidth / 4; // Cada tempo ocupa 1/4 do compasso
+            
+            for (let measureIndex = 0; measureIndex < 4; measureIndex++) {
+                const measureX = baseX + (measureIndex * measureWidth);
+                const measureData = measuresData[measureIndex];
+                
+                // Desenhar clave de Sol
+                const trebleBeats = measureData.treble;
+                for (let beatIndex = 0; beatIndex < trebleBeats.length; beatIndex++) {
+                    const beat = trebleBeats[beatIndex];
+                    const noteX = measureX + (beat.position * beatWidth); // Posição baseada no tempo musical
+                    
+                    if (beat.type === 'rest') {
+                        drawRest(noteX, trebleY + 24, beat.rhythm);
+                    } else {
+                        drawNote(noteX, trebleY + beat.pitch, beat.rhythm, 'treble');
+                    }
+                }
+                
+                // Desenhar clave de Fá
+                const bassBeats = measureData.bass;
+                for (let beatIndex = 0; beatIndex < bassBeats.length; beatIndex++) {
+                    const beat = bassBeats[beatIndex];
+                    const noteX = measureX + (beat.position * beatWidth); // Posição baseada no tempo musical
+                    
+                    if (beat.type === 'rest') {
+                        drawRest(noteX, bassY + 12, beat.rhythm);
+                    } else {
+                        drawNote(noteX, bassY + beat.pitch, beat.rhythm, 'bass');
+                    }
+                }
+                
+                // Desenhar barra de compasso
+                if (measureIndex < 3) {
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(measureX + measureWidth - 20, trebleY);
+                    ctx.lineTo(measureX + measureWidth - 20, bassY + 48);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // Função para gerar compassos de música
+        function generateMeasures() {
+            if (measuresData.length === 0) {
+                initializeMeasures();
+            }
+            drawMeasures();
+        }
+        
+        // Função para desenhar linha indicadora de posição
+        function drawPlaybackLine(x) {
+            ctx.strokeStyle = '#ff0000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x, 60);
+            ctx.lineTo(x, 320);
+            ctx.stroke();
+        }
+        
+        // Função para redesenhar tudo
+        function redraw() {
+            drawStaff();
+            if (isPlaying) {
+                drawPlaybackLine(playbackPosition);
+            }
+        }
+        
+        // Função de animação do playback
+        function animate() {
+            if (!isPlaying) return;
+            
+            // Calcular velocidade baseada no BPM
+            const speed = (bpm / 120) * 1;
+            playbackPosition += speed;
+            
+            // Verificar mudança de compasso (cada compasso tem 200px de largura)
+            const measureWidth = 200;
+            const newMeasure = Math.floor((playbackPosition - 120) / measureWidth);
+            
+            if (newMeasure !== currentMeasure && newMeasure >= 0) {
+                currentMeasure = newMeasure;
+                
+                // Quando passa para um novo compasso, regenerar o compasso mais antigo
+                if (currentMeasure > 0) {
+                    const oldestMeasureIndex = (currentMeasure - 1) % 4;
+                    measuresData[oldestMeasureIndex] = musicGen.generateMeasure();
+                }
+            }
+            
+            // Reiniciar quando chegar ao final (4 compassos)
+            if (playbackPosition > 120 + (4 * measureWidth)) {
+                playbackPosition = 120;
+                currentMeasure = 0;
+            }
+            
+            redraw();
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // Inicialização
+        function initializeApp() {
+            canvasContainer = document.querySelector('.canvas-container');
+            
+            // Detectar dispositivo móvel
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Ajustar canvas para mobile
+                canvas.width = Math.max(600, window.innerWidth - 40);
+                canvas.height = 300;
+                
+                // Adicionar suporte a pinch-to-zoom
+                let lastTouchDistance = 0;
+                
+                canvasContainer.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 2) {
+                        lastTouchDistance = Math.hypot(
+                            e.touches[0].pageX - e.touches[1].pageX,
+                            e.touches[0].pageY - e.touches[1].pageY
+                        );
+                    }
+                }, { passive: true });
+                
+                canvasContainer.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 2) {
+                        const currentDistance = Math.hypot(
+                            e.touches[0].pageX - e.touches[1].pageX,
+                            e.touches[0].pageY - e.touches[1].pageY
+                        );
+                        
+                        if (lastTouchDistance > 0) {
+                            const ratio = currentDistance / lastTouchDistance;
+                            scale = Math.max(0.5, Math.min(3, scale * ratio));
+                            
+                            canvas.style.transform = `scale(${scale})`;
+                            canvas.style.transformOrigin = 'top left';
+                        }
+                        
+                        lastTouchDistance = currentDistance;
+                    }
+                }, { passive: true });
+                
+                canvasContainer.addEventListener('touchend', function(e) {
+                    if (e.touches.length < 2) {
+                        lastTouchDistance = 0;
+                    }
+                }, { passive: true });
+            }
+            
+            // Responsividade para mudanças de orientação
+            window.addEventListener('resize', function() {
+                if (isMobile) {
+                    canvas.width = Math.max(600, window.innerWidth - 40);
+                    setTimeout(redraw, 100);
+                }
+            });
+            
+            // Desenhar a partitura inicial
+            redraw();
+        }
+        
+        // Inicializar quando a página carregar
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+        
+        // Event listeners
+        document.getElementById('playBtn').addEventListener('click', function() {
+            if (!isPlaying) {
+                isPlaying = true;
+                this.textContent = 'Pause';
+                animate();
+            } else {
+                isPlaying = false;
+                this.textContent = 'Play';
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+                redraw(); // Remove a linha vermelha
             }
         });
-
-        controlsContainer.addEventListener('change', (event) => {
-            if (event.target.type === 'checkbox' && event.target.name === 'intervalType') {
-                 if (isInitialized) {
-                     generateNotes();
-                 } else {
-                      console.warn("Checkbox alterado, mas canvas não inicializado.");
-                 }
+        
+        document.getElementById('stopBtn').addEventListener('click', function() {
+            isPlaying = false;
+            playbackPosition = 120; // Reset posição
+            currentMeasure = 0; // Reset compasso atual
+            document.getElementById('playBtn').textContent = 'Play';
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            redraw();
+        });
+        
+        // Event listeners para configurações
+        document.getElementById('bpmSlider').addEventListener('input', function() {
+            bpm = parseInt(this.value);
+            document.getElementById('bpmValue').textContent = bpm;
+        });
+        
+        document.getElementById('difficultySelect').addEventListener('change', function() {
+            currentDifficulty = this.value;
+            musicGen.lastNote = { treble: 48, bass: 6 }; // Reset posição
+            measuresData = []; // Forçar regeneração de todos os compassos
+            redraw();
+        });
+        
+        document.getElementById('scaleSelect').addEventListener('change', function() {
+            currentScale = this.value;
+            musicGen.lastNote = { treble: 48, bass: 6 }; // Reset posição
+            measuresData = []; // Forçar regeneração de todos os compassos
+            redraw();
+        });
+        
+        document.getElementById('manualRange').addEventListener('change', function() {
+            useManualRange = this.checked;
+            document.getElementById('rangeSelect').disabled = !this.checked;
+            musicGen.lastNote = { treble: 48, bass: 6 }; // Reset posição
+            measuresData = []; // Forçar regeneração de todos os compassos
+            redraw();
+        });
+        
+        document.getElementById('rangeSelect').addEventListener('change', function() {
+            if (useManualRange) {
+                currentRange = this.value;
+                musicGen.lastNote = { treble: 48, bass: 6 }; // Reset posição
+                measuresData = []; // Forçar regeneração de todos os compassos
+                redraw();
             }
         });
-
-        window.addEventListener('resize', () => {
-             console.log("Evento resize disparado.");
-             // Debounce simples para evitar múltiplas chamadas rápidas
-             let resizeTimer;
-             clearTimeout(resizeTimer);
-             resizeTimer = setTimeout(() => {
-                 if (setupCanvas()) { // Reconfigura o canvas
-                     generateNotes(); // Gera notas para o novo tamanho
-                 }
-             }, 150); // Espera 150ms após o último resize
-        });
-
-        // --- Inicialização dentro de DOMContentLoaded ---
-        console.log("Tentando inicialização...");
-        // Usar requestAnimationFrame para dar tempo extra para renderização/layout inicial
-        requestAnimationFrame(() => {
-             console.log("Dentro do requestAnimationFrame inicial.");
-             if (setupCanvas()) {
-                  generateNotes(); // Gera as notas iniciais
-                  console.log("Inicialização completa.");
-             } else {
-                  // Se falhou aqui, pode ser um problema persistente de layout
-                  console.error("Falha na configuração inicial do canvas após requestAnimationFrame.");
-                   // Tenta de novo após um delay maior? Ou apenas mostra erro?
-                   setTimeout(() => {
-                       if (!isInitialized) { // Tenta mais uma vez
-                            console.log("Tentando setupCanvas novamente após delay...");
-                           if(setupCanvas()) generateNotes();
-                           else displayError("Falha persistente na inicialização do canvas. Recarregue ou verifique o navegador.");
-                       }
-                   }, 500); // Meio segundo de espera extra
-             }
-        });
-
-      }); // Fim do DOMContentLoaded listener
-
     </script>
-
 </body>
 </html>
