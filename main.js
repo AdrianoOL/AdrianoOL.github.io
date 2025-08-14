@@ -139,6 +139,7 @@ function initScrollAnimations() {
 // Apply animations when page loads
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
+    initHamburgerMenu();
 });
 
 // Header background no scroll
@@ -154,10 +155,65 @@ window.addEventListener('scroll', function() {
 });
 
 
-// Menu mobile (para implementação futura)
+// Menu mobile hamburger
 function toggleMobileMenu() {
-    const navMenu = document.querySelector('.nav-menu');
-    navMenu.classList.toggle('active');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (hamburgerBtn && mobileMenu) {
+        const isActive = mobileMenu.classList.contains('active');
+        
+        if (isActive) {
+            // Fechar menu
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        } else {
+            // Abrir menu
+            hamburgerBtn.classList.add('active');
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+}
+
+// Inicializar menu hamburger
+function initHamburgerMenu() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-list a');
+    
+    // Toggle do hamburger
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Botão de fechar
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Fechar ao clicar em um link
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', toggleMobileMenu);
+    });
+    
+    // Fechar ao clicar fora do menu (no overlay)
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                toggleMobileMenu();
+            }
+        });
+    }
+    
+    // Fechar com ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    });
 }
 
 // REMOVIDO: Carousel principal não existe mais no sistema modular
