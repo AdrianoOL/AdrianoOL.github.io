@@ -140,6 +140,7 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initHamburgerMenu();
+    removeMobileCarouselButtons();
 });
 
 // Header background no scroll
@@ -174,6 +175,52 @@ function toggleMobileMenu() {
             mobileMenu.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+    }
+}
+
+// Remover botões de carousel em mobile
+function removeMobileCarouselButtons() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Remover todos os botões de mini-carousel existentes
+        const allButtons = document.querySelectorAll('.mini-carousel-btn, .carousel-btn');
+        allButtons.forEach(button => {
+            if (button.parentNode) {
+                button.parentNode.removeChild(button);
+            }
+        });
+        
+        // Adicionar observer para remover botões que possam ser criados dinamicamente
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) { // Element node
+                        // Se o próprio nó é um botão de carousel
+                        if (node.classList && (node.classList.contains('mini-carousel-btn') || node.classList.contains('carousel-btn'))) {
+                            if (node.parentNode) {
+                                node.parentNode.removeChild(node);
+                            }
+                        }
+                        // Ou se contém botões de carousel
+                        const buttons = node.querySelectorAll && node.querySelectorAll('.mini-carousel-btn, .carousel-btn');
+                        if (buttons) {
+                            buttons.forEach(button => {
+                                if (button.parentNode) {
+                                    button.parentNode.removeChild(button);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Observar mudanças em todo o documento
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     }
 }
 
@@ -791,6 +838,7 @@ window.addEventListener('resize', function() {
     window.resizeTimer = setTimeout(() => {
         adjustMiniCarouselSize(); // Recalcular mini-carousels
         equalizeCarouselCardHeights();
+        removeMobileCarouselButtons(); // Remover botões se mudou para mobile
     }, 250);
 });
 

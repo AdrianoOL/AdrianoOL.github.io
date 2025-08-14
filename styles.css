@@ -377,10 +377,20 @@ img {
     }
     
     .card--vertical .card__image {
-        width: auto; /* Largura natural da imagem */
-        max-width: calc(100vw - 1rem); /* Não pode ser maior que a tela */
-        height: auto; /* Mantém proporção natural */
-        object-fit: contain; /* Preserva imagem completa */
+        width: auto !important; /* Largura natural da imagem */
+        max-width: calc(100vw - 1rem) !important; /* Não pode ser maior que a tela */
+        height: auto !important; /* Mantém proporção natural */
+        object-fit: contain !important; /* Preserva imagem completa */
+        display: block !important; /* Garante display correto */
+    }
+    
+    /* Regra específica para cards verticais em carousels */
+    .resources-grid--carousel .card--vertical .card__image {
+        width: auto !important;
+        max-width: calc(100vw - 2rem) !important; /* Um pouco mais de margem */
+        height: auto !important;
+        object-fit: contain !important;
+        object-position: center !important;
     }
     
     /* Para cards verticais dentro de grids regulares (não carousel) */
