@@ -24,13 +24,6 @@ body {
     padding: 0 20px;
 }
 
-/* Container com menos padding em mobile */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 10px; /* Padding reduzido em mobile */
-    }
-}
-
 /* Container expandido para telas grandes */
 @media (min-width: 1400px) {
     .container {
@@ -346,60 +339,6 @@ img {
     align-self: center; /* Centraliza a mídia no card */
 }
 
-/* Mobile: margem horizontal reduzida para cards verticais */
-@media (max-width: 768px) {
-    .card--vertical .card__media {
-        margin: 0 0.5rem 1rem 0.5rem; /* Margem reduzida em mobile */
-    }
-    
-    .card--vertical .card__content {
-        padding: 1rem 1rem 2rem 1rem; /* Padding reduzido e texto mais próximo da imagem */
-        order: 2; /* Texto após a imagem */
-    }
-    
-    /* Reorganiza cards verticais em mobile: imagem no topo, texto embaixo */
-    .card--vertical {
-        display: flex;
-        flex-direction: column-reverse; /* Inverte para texto ficar mais próximo da imagem */
-        width: fit-content; /* Largura baseada no conteúdo (imagem) */
-        max-width: calc(100vw - 2rem); /* Limita à largura da viewport menos margens */
-        margin: 0 1rem 2rem 1rem; /* Margens laterais consistentes */
-        align-self: center; /* Centraliza o card no container pai */
-    }
-    
-    .card--vertical .card__media {
-        order: 2; /* Imagem por último (mas aparece primeiro devido ao column-reverse) */
-        margin: 0 auto; /* Centraliza a mídia */
-        width: 100%; /* Mídia ocupa toda largura do card */
-        max-width: 100%; /* Não excede largura do card */
-        display: flex;
-        justify-content: center; /* Centraliza imagem */
-    }
-    
-    .card--vertical .card__image {
-        width: auto !important; /* Largura natural da imagem */
-        max-width: calc(100vw - 1rem) !important; /* Não pode ser maior que a tela */
-        height: auto !important; /* Mantém proporção natural */
-        object-fit: contain !important; /* Preserva imagem completa */
-        display: block !important; /* Garante display correto */
-    }
-    
-    /* Regra específica para cards verticais em carousels */
-    .resources-grid--carousel .card--vertical .card__image {
-        width: auto !important;
-        max-width: calc(100vw - 2rem) !important; /* Um pouco mais de margem */
-        height: auto !important;
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-    
-    /* Para cards verticais dentro de grids regulares (não carousel) */
-    .resources-grid:not(.resources-grid--carousel) .card--vertical {
-        justify-self: center; /* Centraliza dentro do grid */
-        margin: 0 1rem 2rem 1rem; /* Margens consistentes */
-    }
-}
-
 .card--compact .card__title {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
@@ -486,8 +425,6 @@ img {
     .resources-grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem;
-        padding: 0 0.25rem; /* Padding muito reduzido para maximizar espaço */
-        margin: 0 -0.5rem; /* Margem negativa para expandir além do container */
     }
 
         .resources-grid:has(.card--overlay) {
@@ -603,15 +540,6 @@ img {
         color: #1f2937 !important;
     }
 
-/* Hamburger menu - escondido por padrão em desktop */
-.hamburger-menu {
-    display: none;
-}
-
-.mobile-menu-overlay {
-    display: none;
-}
-
 .nav-menu a {
     text-decoration: none;
     color: white;
@@ -622,6 +550,62 @@ img {
     .nav-menu a:hover {
         color: #cbd5e1;
     }
+
+/* Hamburger Button */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 1002;
+}
+
+.hamburger-line {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Hamburger Animation */
+.hamburger.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Overlay para menu mobile */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
 
 /* Hero Section */
 .hero {
@@ -935,19 +919,8 @@ img {
         right: 10px;
     }
 
-/* Hide arrows on mobile touch devices - regras múltiplas para garantir */
-@media (max-width: 768px) {
-    .mini-carousel-btn,
-    .mini-carousel .mini-carousel-btn,
-    .card .mini-carousel-btn {
-        display: none !important; /* Esconde setas em mobile */
-        visibility: hidden !important; /* Dupla proteção */
-        opacity: 0 !important; /* Tripla proteção */
-    }
-}
-
-/* Show arrows on touch devices larger than mobile */
-@media (hover: none) and (pointer: coarse) and (min-width: 769px) {
+/* Show arrows on touch devices */
+@media (hover: none) and (pointer: coarse) {
     .mini-carousel-btn {
         opacity: 0.7;
     }
@@ -1164,10 +1137,9 @@ img {
     }
 
     .resources-grid--carousel .card--vertical {
-        width: auto !important; /* Largura automática baseada na imagem */
-        min-width: unset !important; /* Remove largura mínima */
-        max-width: calc(100vw - 0.5rem) !important; /* Só não pode passar da tela */
-        margin: 0 0.25rem !important; /* Margem muito pequena */
+        width: fit-content;
+        min-width: 280px; /* Mínimo menor para mobile */
+        max-width: 90vw;
     }
 
     .resources-grid--carousel .card--overlay {
@@ -1191,9 +1163,28 @@ img {
     }
 
     .resources-grid--carousel .resources-grid-track {
-        gap: 1rem; /* Gap reduzido entre cards */
-        padding: 0 0.25rem; /* Padding mínimo para maximizar espaço */
-        margin: 0 -0.5rem; /* Margem negativa para expandir */
+        gap: 1.5rem;
+        padding: 0 8px;
+    }
+
+    /* Forçar padding menor nos carousels em geral */
+    .resources-grid-track {
+        padding: 0 8px !important;
+        margin: 0 auto !important;
+        transform-origin: center !important;
+    }
+
+    /* Ajustar padding dos resource-groups */
+    .resource-group {
+        padding: 0 0;
+    }
+
+    /* Ajustar centralização do carousel em mobile */
+    .resources-grid--carousel {
+        margin: 0 -10px !important;
+        width: calc(100% + 20px) !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     
     .carousel-btn {
@@ -1853,6 +1844,35 @@ img {
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Reduzir margens horizontais em mobile - abordagem radical */
+    .container {
+        padding: 0 2px !important;
+        margin: 0 -10px !important;
+        width: calc(100% + 20px) !important;
+    }
+
+    .nav-container {
+        padding: 1rem 2px !important;
+        margin: 0 -10px !important;
+        width: calc(100% + 20px) !important;
+    }
+
+    /* Ajustar botão Adquirir em mobile */
+    .nav-container .btn {
+        margin-right: 12px !important;
+        padding: 8px 12px !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+        min-width: auto !important;
+    }
+
+    /* Cards devem ocupar mais espaço */
+    .card {
+        margin-left: -8px !important;
+        margin-right: -8px !important;
+        width: calc(100% + 16px) !important;
+    }
+
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1901,182 +1921,117 @@ img {
         justify-content: center;
     }
 
+    /* Mostrar hamburger e esconder menu desktop */
+    .hamburger {
+        display: flex;
+    }
+
     .nav-menu {
-        display: none;
-    }
-    
-    /* Hamburger Menu Styles */
-    /* Mostrar hamburger menu em mobile */
-    .hamburger-menu {
-        display: flex !important;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        gap: 4px;
-        transition: all 0.3s ease;
-    }
-    
-    /* Permitir que mobile menu overlay seja mostrado */
-    .mobile-menu-overlay {
-        display: block !important;
-    }
-    
-    .hamburger-line {
-        width: 24px;
-        height: 2px;
-        background: white;
-        transition: all 0.3s ease;
-        transform-origin: center;
-    }
-    
-    /* Hamburger Animation - X quando ativo */
-    .hamburger-menu.active .hamburger-line:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .hamburger-menu.active .hamburger-line:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .hamburger-menu.active .hamburger-line:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    /* Mobile Menu Overlay */
-    .mobile-menu-overlay {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: -100%;
+        width: 320px;
         height: 100vh;
-        background: rgba(30, 41, 59, 0.98);
-        backdrop-filter: blur(20px);
-        z-index: 9999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+        flex-direction: column;
+        padding: 80px 1.5rem 2rem;
+        transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 1001;
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
         overflow-y: auto;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
-    .mobile-menu-overlay.active {
-        opacity: 1;
-        visibility: visible;
+
+    .nav-menu.active {
+        left: 0;
     }
-    
-    .mobile-menu-content {
-        padding: 2rem;
-        max-width: 500px;
-        margin: 0 auto;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .mobile-menu-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .mobile-menu-logo {
-        height: 32px;
-    }
-    
-    .mobile-menu-close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        padding: 5px;
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-close:hover {
-        color: #cbd5e1;
-        transform: scale(1.1);
-    }
-    
-    .mobile-nav {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .mobile-menu-section {
-        margin-bottom: 2rem;
-    }
-    
-    .mobile-menu-title {
-        color: #3b82f6;
-        font-size: 1.2rem;
-        font-weight: 600;
+
+    .nav-menu li {
         margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(59, 130, 246, 0.3);
     }
-    
-    .mobile-menu-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+
+    .nav-menu .dropdown {
+        width: 100%;
     }
-    
-    .mobile-menu-list li {
+
+    .nav-menu .dropdown-toggle {
+        width: 100%;
+        padding: 1rem 0.75rem 0.5rem;
+        justify-content: flex-start;
+        border-radius: 0;
+        transition: none;
+        cursor: default;
+        pointer-events: none;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
         margin-bottom: 0.5rem;
     }
-    
-    .mobile-menu-list a {
+
+    /* Esconder a seta no mobile */
+    .nav-menu .dropdown-arrow {
+        display: none;
+    }
+
+    /* Links simples no menu mobile */
+    .nav-menu > li > a:not(.dropdown-toggle) {
         display: block;
-        color: white;
-        text-decoration: none;
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-    }
-    
-    .mobile-menu-list a:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #3b82f6;
-        transform: translateX(5px);
-    }
-    
-    .mobile-menu-cta {
-        margin-top: auto;
-        padding-top: 2rem;
-        text-align: center;
-    }
-    
-    .mobile-menu-cta .btn {
         width: 100%;
-        max-width: 300px;
+        padding: 0.75rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        color: white;
     }
 
-    /* Dropdown responsivo em mobile */
-    .dropdown-menu {
-        min-width: 250px;
-        max-width: 300px;
+    .nav-menu > li > a:not(.dropdown-toggle):hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Dropdown responsivo em mobile - sempre expandido */
+    .nav-menu .dropdown-menu {
+        position: static;
+        min-width: auto;
+        max-width: none;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        padding: 0.4rem;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
         grid-template-columns: 1fr;
-        left: -100px;
+        gap: 0.1rem;
     }
 
-    /* Carousel responsive */
-    .carousel-btn.prev {
-        left: 10px;
+    .nav-menu .dropdown-menu a {
+        color: rgba(255, 255, 255, 0.9) !important;
+        padding: 0.4rem 0.75rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        transition: all 0.2s ease;
     }
 
-    .carousel-btn.next {
-        right: 10px;
+    .nav-menu .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        transform: translateX(4px);
+    }
+
+    /* Carousel responsive - esconder setas em mobile */
+    .carousel-btn {
+        display: none;
+    }
+
+    .mini-carousel-btn {
+        display: none;
     }
 
     .carousel-track {

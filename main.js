@@ -139,8 +139,6 @@ function initScrollAnimations() {
 // Apply animations when page loads
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
-    initHamburgerMenu();
-    removeMobileCarouselButtons();
 });
 
 // Header background no scroll
@@ -156,112 +154,57 @@ window.addEventListener('scroll', function() {
 });
 
 
-// Menu mobile hamburger
+// Menu mobile hambúrguer
 function toggleMobileMenu() {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const overlay = document.querySelector('.nav-overlay');
     
-    if (hamburgerBtn && mobileMenu) {
-        const isActive = mobileMenu.classList.contains('active');
+    navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    if (overlay) {
+        overlay.classList.toggle('active');
+    }
+    
+    // Prevenir scroll do body quando menu está ativo
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+}
+
+// Inicializar menu hambúrguer
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    const overlay = document.getElementById('navOverlay');
+    
+    function closeMobileMenu() {
+        if (navMenu) navMenu.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', toggleMobileMenu);
         
-        if (isActive) {
-            // Fechar menu
-            hamburgerBtn.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        } else {
-            // Abrir menu
-            hamburgerBtn.classList.add('active');
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Fechar menu ao clicar no overlay
+        if (overlay) {
+            overlay.addEventListener('click', closeMobileMenu);
         }
-    }
-}
-
-// Remover botões de carousel em mobile
-function removeMobileCarouselButtons() {
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {
-        // Remover todos os botões de mini-carousel existentes
-        const allButtons = document.querySelectorAll('.mini-carousel-btn, .carousel-btn');
-        allButtons.forEach(button => {
-            if (button.parentNode) {
-                button.parentNode.removeChild(button);
-            }
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
         
-        // Adicionar observer para remover botões que possam ser criados dinamicamente
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.nodeType === 1) { // Element node
-                        // Se o próprio nó é um botão de carousel
-                        if (node.classList && (node.classList.contains('mini-carousel-btn') || node.classList.contains('carousel-btn'))) {
-                            if (node.parentNode) {
-                                node.parentNode.removeChild(node);
-                            }
-                        }
-                        // Ou se contém botões de carousel
-                        const buttons = node.querySelectorAll && node.querySelectorAll('.mini-carousel-btn, .carousel-btn');
-                        if (buttons) {
-                            buttons.forEach(button => {
-                                if (button.parentNode) {
-                                    button.parentNode.removeChild(button);
-                                }
-                            });
-                        }
-                    }
-                });
-            });
-        });
-        
-        // Observar mudanças em todo o documento
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
-}
-
-// Inicializar menu hamburger
-function initHamburgerMenu() {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-list a');
-    
-    // Toggle do hamburger
-    if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', toggleMobileMenu);
-    }
-    
-    // Botão de fechar
-    if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', toggleMobileMenu);
-    }
-    
-    // Fechar ao clicar em um link
-    mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', toggleMobileMenu);
-    });
-    
-    // Fechar ao clicar fora do menu (no overlay)
-    if (mobileMenu) {
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target === mobileMenu) {
-                toggleMobileMenu();
+        // Fechar menu com tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
             }
         });
     }
-    
-    // Fechar com ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
-}
+});
 
 // REMOVIDO: Carousel principal não existe mais no sistema modular
 
@@ -482,22 +425,33 @@ function setupCardCarouselControls(carousel, carouselIndex) {
         
         const allTrackItems = track.querySelectorAll('.card');
         const carouselWidth = carousel.offsetWidth;
-        const gap = 32; // 2rem = 32px
+        const isMobile = window.innerWidth <= 768;
+        const gap = isMobile ? 24 : 32; // 1.5rem mobile, 2rem desktop
         
         // Posição física = slideIndex + 1 (devido ao clone inicial)
         const physicalPosition = slideIndex + 1;
         const targetCard = allTrackItems[physicalPosition];
         if (!targetCard) return;
         
-        // Calcular posição para centralizar o card alvo
+        // Centralizar o card - método híbrido mais preciso
+        const targetCardWidth = targetCard.offsetWidth;
+        const effectiveCarouselWidth = isMobile ? window.innerWidth : carouselWidth;
+        
+        // Calcular posição relativa do card no track (sem transforms anteriores)
         let cardPosition = 0;
         for (let i = 0; i < physicalPosition; i++) {
             cardPosition += allTrackItems[i].offsetWidth + gap;
         }
         
-        // Centralizar o card
-        const targetCardWidth = targetCard.offsetWidth;
-        const translateX = (carouselWidth / 2) - (targetCardWidth / 2) - cardPosition;
+        // Calcular centro do viewport com offset para mobile
+        const mobileOffset = isMobile ? 10 : 0; // Compensar margin negativo
+        const viewportCenter = (effectiveCarouselWidth / 2) + mobileOffset;
+        
+        // Posição do centro do card alvo
+        const targetCardCenter = cardPosition + (targetCardWidth / 2);
+        
+        // Calcular translateX para centralizar
+        const translateX = viewportCenter - targetCardCenter;
         
         track.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
         track.style.transform = `translateX(${translateX}px)`;
@@ -684,32 +638,27 @@ function setupCarouselControls(carousel, carouselIndex) {
     // Se não há track ou menos de 2 imagens, não precisa de controles
     if (!track || images.length < 2) return;
     
-    // Criar botões prev/next se não existirem - mas não em mobile
-    const isMobile = window.innerWidth <= 768;
+    // Criar botões prev/next se não existirem
     let prevBtn = carousel.querySelector('.mini-carousel-btn.prev, .mini-prev');
     let nextBtn = carousel.querySelector('.mini-carousel-btn.next, .mini-next');
     
-    if (!prevBtn && !isMobile) {
+    if (!prevBtn) {
         prevBtn = document.createElement('button');
         prevBtn.className = 'mini-carousel-btn prev';
         prevBtn.innerHTML = '‹';
         carousel.appendChild(prevBtn);
     }
     
-    if (!nextBtn && !isMobile) {
+    if (!nextBtn) {
         nextBtn = document.createElement('button');
         nextBtn.className = 'mini-carousel-btn next';
         nextBtn.innerHTML = '›';
         carousel.appendChild(nextBtn);
     }
     
-    // Setup eventos dos botões - só se existirem
-    if (prevBtn) {
-        prevBtn.onclick = () => changeMiniSlide(-1, carouselIndex);
-    }
-    if (nextBtn) {
-        nextBtn.onclick = () => changeMiniSlide(1, carouselIndex);
-    }
+    // Setup eventos dos botões
+    prevBtn.onclick = () => changeMiniSlide(-1, carouselIndex);
+    nextBtn.onclick = () => changeMiniSlide(1, carouselIndex);
     
     // Criar container de dots se não existir
     let dotsContainer = carousel.querySelector('.mini-carousel-dots');
@@ -838,7 +787,6 @@ window.addEventListener('resize', function() {
     window.resizeTimer = setTimeout(() => {
         adjustMiniCarouselSize(); // Recalcular mini-carousels
         equalizeCarouselCardHeights();
-        removeMobileCarouselButtons(); // Remover botões se mudou para mobile
     }, 250);
 });
 
