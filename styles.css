@@ -24,6 +24,13 @@ body {
     padding: 0 20px;
 }
 
+/* Container com menos padding em mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px; /* Padding reduzido em mobile */
+    }
+}
+
 /* Container expandido para telas grandes */
 @media (min-width: 1400px) {
     .container {
@@ -354,11 +361,32 @@ img {
     .card--vertical {
         display: flex;
         flex-direction: column-reverse; /* Inverte para texto ficar mais próximo da imagem */
+        width: fit-content; /* Largura baseada no conteúdo (imagem) */
+        max-width: calc(100vw - 2rem); /* Limita à largura da viewport menos margens */
+        margin: 0 1rem 2rem 1rem; /* Margens laterais consistentes */
+        align-self: center; /* Centraliza o card no container pai */
     }
     
     .card--vertical .card__media {
         order: 2; /* Imagem por último (mas aparece primeiro devido ao column-reverse) */
-        margin: 0 0.5rem 0.5rem 0.5rem; /* Margem mínima na imagem */
+        margin: 0 auto; /* Centraliza a mídia */
+        width: 100%; /* Mídia ocupa toda largura do card */
+        max-width: 100%; /* Não excede largura do card */
+        display: flex;
+        justify-content: center; /* Centraliza imagem */
+    }
+    
+    .card--vertical .card__image {
+        width: auto; /* Largura natural da imagem */
+        max-width: calc(100vw - 1rem); /* Não pode ser maior que a tela */
+        height: auto; /* Mantém proporção natural */
+        object-fit: contain; /* Preserva imagem completa */
+    }
+    
+    /* Para cards verticais dentro de grids regulares (não carousel) */
+    .resources-grid:not(.resources-grid--carousel) .card--vertical {
+        justify-self: center; /* Centraliza dentro do grid */
+        margin: 0 1rem 2rem 1rem; /* Margens consistentes */
     }
 }
 
@@ -448,6 +476,8 @@ img {
     .resources-grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem;
+        padding: 0 0.25rem; /* Padding muito reduzido para maximizar espaço */
+        margin: 0 -0.5rem; /* Margem negativa para expandir além do container */
     }
 
         .resources-grid:has(.card--overlay) {
@@ -895,10 +925,14 @@ img {
         right: 10px;
     }
 
-/* Hide arrows on mobile touch devices */
+/* Hide arrows on mobile touch devices - regras múltiplas para garantir */
 @media (max-width: 768px) {
-    .mini-carousel-btn {
+    .mini-carousel-btn,
+    .mini-carousel .mini-carousel-btn,
+    .card .mini-carousel-btn {
         display: none !important; /* Esconde setas em mobile */
+        visibility: hidden !important; /* Dupla proteção */
+        opacity: 0 !important; /* Tripla proteção */
     }
 }
 
@@ -1120,9 +1154,10 @@ img {
     }
 
     .resources-grid--carousel .card--vertical {
-        width: fit-content;
-        min-width: 280px; /* Mínimo menor para mobile */
-        max-width: 90vw;
+        width: auto !important; /* Largura automática baseada na imagem */
+        min-width: unset !important; /* Remove largura mínima */
+        max-width: calc(100vw - 0.5rem) !important; /* Só não pode passar da tela */
+        margin: 0 0.25rem !important; /* Margem muito pequena */
     }
 
     .resources-grid--carousel .card--overlay {
@@ -1146,8 +1181,9 @@ img {
     }
 
     .resources-grid--carousel .resources-grid-track {
-        gap: 2rem;
-        padding: 0 1.5rem;
+        gap: 1rem; /* Gap reduzido entre cards */
+        padding: 0 0.25rem; /* Padding mínimo para maximizar espaço */
+        margin: 0 -0.5rem; /* Margem negativa para expandir */
     }
     
     .carousel-btn {

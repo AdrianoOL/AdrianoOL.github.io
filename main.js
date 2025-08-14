@@ -637,27 +637,32 @@ function setupCarouselControls(carousel, carouselIndex) {
     // Se não há track ou menos de 2 imagens, não precisa de controles
     if (!track || images.length < 2) return;
     
-    // Criar botões prev/next se não existirem
+    // Criar botões prev/next se não existirem - mas não em mobile
+    const isMobile = window.innerWidth <= 768;
     let prevBtn = carousel.querySelector('.mini-carousel-btn.prev, .mini-prev');
     let nextBtn = carousel.querySelector('.mini-carousel-btn.next, .mini-next');
     
-    if (!prevBtn) {
+    if (!prevBtn && !isMobile) {
         prevBtn = document.createElement('button');
         prevBtn.className = 'mini-carousel-btn prev';
         prevBtn.innerHTML = '‹';
         carousel.appendChild(prevBtn);
     }
     
-    if (!nextBtn) {
+    if (!nextBtn && !isMobile) {
         nextBtn = document.createElement('button');
         nextBtn.className = 'mini-carousel-btn next';
         nextBtn.innerHTML = '›';
         carousel.appendChild(nextBtn);
     }
     
-    // Setup eventos dos botões
-    prevBtn.onclick = () => changeMiniSlide(-1, carouselIndex);
-    nextBtn.onclick = () => changeMiniSlide(1, carouselIndex);
+    // Setup eventos dos botões - só se existirem
+    if (prevBtn) {
+        prevBtn.onclick = () => changeMiniSlide(-1, carouselIndex);
+    }
+    if (nextBtn) {
+        nextBtn.onclick = () => changeMiniSlide(1, carouselIndex);
+    }
     
     // Criar container de dots se não existir
     let dotsContainer = carousel.querySelector('.mini-carousel-dots');
