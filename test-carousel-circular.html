@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Carousel Circular</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #f5f5f5; padding: 2rem 0; }
+        .test-section { margin: 2rem 0; }
+        .test-title { font-size: 1.5rem; margin-bottom: 1rem; }
+        .debug-info { background: #fff; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        
+        /* Remover debug styles - clones devem ser invisíveis ao usuário */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teste de Navegação Circular dos Carousels</h1>
+        
+        <div class="debug-info">
+            <strong>Teste de Navegação Infinita:</strong>
+            <ul>
+                <li>Use as setas ← → para navegar pelos cards</li>
+                <li>Cards verdes tracejados são clones para navegação infinita</li>
+                <li>🔵 CLONE BEFORE = Clones à esquerda (para navegação para trás)</li>
+                <li>🟠 CLONE AFTER = Clones à direita (para navegação para frente)</li>
+                <li><strong>NOVO:</strong> Navegação agora é verdadeiramente infinita - sem "saltos"</li>
+                <li>Continue clicando → indefinidamente - sempre haverá próximo card</li>
+                <li>Continue clicando ← indefinidamente - sempre haverá card anterior</li>
+            </ul>
+        </div>
+
+        <!-- Teste 1: Carousel básico com 3 cards -->
+        <div class="test-section">
+            <h2 class="test-title">Teste 1: Carousel com 3 cards horizontais</h2>
+            <div class="resources-grid--carousel">
+                <div class="card card--horizontal">
+                    <div class="card__content">
+                        <h4 class="card__title">Card 1 - Primeiro</h4>
+                        <p class="card__description">Este é o primeiro card do carousel. Teste a navegação circular clicando nas setas.</p>
+                    </div>
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Card 1" class="card__image">
+                    </div>
+                </div>
+                
+                <div class="card card--horizontal-reverse">
+                    <div class="card__content">
+                        <h4 class="card__title">Card 2 - Meio</h4>
+                        <p class="card__description">Card do meio - aqui você pode testar navegação para frente e para trás.</p>
+                    </div>
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Card 2" class="card__image">
+                    </div>
+                </div>
+                
+                <div class="card card--horizontal">
+                    <div class="card__content">
+                        <h4 class="card__title">Card 3 - Último</h4>
+                        <p class="card__description">Último card - ao clicar na seta direita, deve voltar para o primeiro.</p>
+                    </div>
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Card 3" class="card__image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teste 2: Carousel com 4 cards overlay -->
+        <div class="test-section">
+            <h2 class="test-title">Teste 2: Carousel com 4 cards overlay</h2>
+            <div class="resources-grid--carousel resources-grid--carousel--highlight">
+                <div class="card card--overlay">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Overlay 1" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Overlay 1</h4>
+                        <p class="card__description">Primeiro card overlay com navegação circular.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--overlay card--overlay-blue">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Overlay 2" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Overlay 2</h4>
+                        <p class="card__description">Segundo card com overlay azul.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--overlay card--overlay-dark">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Overlay 3" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Overlay 3</h4>
+                        <p class="card__description">Terceiro card com overlay escuro.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--overlay">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Overlay 4" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Overlay 4</h4>
+                        <p class="card__description">Quarto e último card - teste circular aqui.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teste 3: Carousel com tabs -->
+        <div class="test-section">
+            <h2 class="test-title">Teste 3: Carousel com estilo de tabs</h2>
+            <div class="resources-grid--carousel resources-grid--carousel--tabs">
+                <div class="card card--compact">
+                    <div class="card__content">
+                        <h4 class="card__title">Tab Alpha</h4>
+                        <p class="card__description">Primeira aba do carousel com estilo de tabs.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--compact card--blue">
+                    <div class="card__content">
+                        <h4 class="card__title">Tab Beta</h4>
+                        <p class="card__description">Segunda aba com fundo azul.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--compact card--dark">
+                    <div class="card__content">
+                        <h4 class="card__title">Tab Gamma</h4>
+                        <p class="card__description">Terceira aba com fundo escuro.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--compact">
+                    <div class="card__content">
+                        <h4 class="card__title">Tab Delta</h4>
+                        <p class="card__description">Quarta aba - teste navegação circular.</p>
+                    </div>
+                </div>
+                
+                <div class="card card--compact card--blue">
+                    <div class="card__content">
+                        <h4 class="card__title">Tab Epsilon</h4>
+                        <p class="card__description">Quinta e última aba.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.tqs.com.br)",
+      "WebFetch(domain:www.tqs.com.br)",
+      "Bash(rg:*)",
+      "Bash(copy test.png logo-header.png)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.apple.com)",
+      "Bash(python:*)",
+      "Bash(rm:*)",
+      "Bash(node:*)",
+      "Bash(start:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  }
+}

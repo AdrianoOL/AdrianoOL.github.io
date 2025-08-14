@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TQS Card System Showcase</title>
+    <meta name="description" content="Showcase completo do sistema modular de cards do TQS - Demonstração de todos os tipos e estilos disponíveis.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="https://www.tqs.com.br" target="_blank">
+                        <img src="images/logo-header.png" alt="TQS" class="logo">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#overlay-cards">Cards Overlay</a></li>
+                    <li><a href="#horizontal-cards">Cards Horizontais</a></li>
+                    <li><a href="#vertical-cards">Cards Verticais</a></li>
+                    <li><a href="#compact-cards">Cards Compactos</a></li>
+                    <li><a href="#carousel-cards">Carousels</a></li>
+                </ul>
+                <a href="index.html" class="btn btn-primary">Voltar ao Site</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Card System Showcase</h1>
+                <p class="hero-subtitle">Sistema Modular Completo</p>
+                <p class="hero-description">
+                    Demonstração completa de todos os tipos de cards disponíveis no sistema modular TQS.
+                    Cada seção mostra as diferentes possibilidades de layout, estilos e combinações,
+                    incluindo carousels de imagens e carousels de cards.
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-main.png" alt="Card System Showcase" class="hero-screenshot">
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Overlay Section -->
+    <section id="overlay-cards" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cards Overlay</h2>
+                <p class="section-subtitle">
+                    Cards com texto sobreposto à imagem, ideais para carousels e apresentações visuais impactantes
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Overlay Padrão</h3>
+                <p class="resource-group-description">
+                    Card overlay básico com imagem de fundo e texto sobreposto
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Overlay Padrão" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Card Overlay Padrão</h4>
+                            <p class="card__description">
+                                Este é o card overlay padrão. Texto branco sobre imagem com overlay escuro automático para garantir legibilidade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Overlay com Variações de Cor</h3>
+                <p class="resource-group-description">
+                    Cards overlay com diferentes cores de overlay para criar variedade visual
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--overlay card--overlay-dark">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Overlay Escuro" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Overlay Escuro</h4>
+                            <p class="card__description">
+                                Card com overlay escuro mais intenso para máximo contraste com texto branco.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--overlay card--overlay-blue">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Overlay Azul" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Overlay Azul</h4>
+                            <p class="card__description">
+                                Card com overlay azul, seguindo a identidade visual da marca TQS.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Carousel de Cards Overlay</h3>
+                <p class="resource-group-description">
+                    Exemplo de como os cards overlay funcionam em carousel - grid automático detecta e aplica layout adequado
+                </p>
+                <div class="resources-grid--carousel resources-grid--carousel--highlight">
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Item 1" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Primeiro Card do Carousel</h4>
+                            <p class="card__description">
+                                Este card faz parte de um carousel. O grid automático detecta cards overlay e aplica layout full-width.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Item 2" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Segundo Card do Carousel</h4>
+                            <p class="card__description">
+                                Continuação do carousel. Ideal para apresentar múltiplas funcionalidades de forma visualmente impactante.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Item 3" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Terceiro Card do Carousel</h4>
+                            <p class="card__description">
+                                Último card do exemplo. Sistema permite navegação horizontal através dos cards.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Horizontais Section -->
+    <section id="horizontal-cards" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cards Horizontais</h2>
+                <p class="section-subtitle">
+                    Cards com layout horizontal - imagem e texto lado a lado para apresentação equilibrada de conteúdo
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Horizontal Padrão</h3>
+                <p class="resource-group-description">
+                    Layout horizontal básico com imagem à direita e conteúdo à esquerda
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Horizontal Padrão</h4>
+                            <p class="card__description">
+                                Layout horizontal básico. Imagem posicionada à direita, conteúdo à esquerda. Ideal para apresentar funcionalidades com contexto visual.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Horizontal" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Horizontal Reverso</h3>
+                <p class="resource-group-description">
+                    Layout horizontal invertido com imagem à esquerda e conteúdo à direita
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal-reverse">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Horizontal Reverso</h4>
+                            <p class="card__description">
+                                Layout horizontal invertido. Imagem à esquerda, conteúdo à direita. Permite variar o ritmo visual em listas de cards.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Horizontal Reverso" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Horizontal com Variações de Cor</h3>
+                <p class="resource-group-description">
+                    Cards horizontais com diferentes esquemas de cores para organização e hierarquia visual
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Horizontal Azul</h4>
+                            <p class="card__description">
+                                Card horizontal com fundo azul e texto branco. Ideal para destacar recursos importantes ou principais.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Horizontal Azul" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal-reverse card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Horizontal Escuro</h4>
+                            <p class="card__description">
+                                Card horizontal reverso com fundo escuro. Excelente para criar contraste e variação visual.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Horizontal Escuro" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal card--transparent">
+                        <div class="card__content">
+                            <h4 class="card__title">Horizontal Transparente</h4>
+                            <p class="card__description">
+                                Card horizontal com fundo transparente. Ideal para seções com fundo colorido ou texturas.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Horizontal Transparente" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Horizontal com Carousel de Imagens</h3>
+                <p class="resource-group-description">
+                    Card horizontal contendo um mini-carousel de imagens para mostrar múltiplas telas ou ângulos
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Card com Mini-Carousel</h4>
+                            <p class="card__description">
+                                Card horizontal contendo um carousel de imagens. Permite mostrar múltiplas capturas de tela ou diferentes ângulos da mesma funcionalidade em um único card.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel">
+                                <div class="mini-carousel-track">
+                                    <img src="images/test.png" alt="Tela 1" class="mini-carousel-image">
+                                    <img src="images/test2.png" alt="Tela 2" class="mini-carousel-image">
+                                    <img src="images/test3.png" alt="Tela 3" class="mini-carousel-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Horizontal com Diferentes Proporções de Imagem</h3>
+                <p class="resource-group-description">
+                    Demonstração de como cards horizontais se adaptam a diferentes proporções de imagem
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Com Imagem Tall (Alta)</h4>
+                            <p class="card__description">
+                                Card horizontal com imagem em proporção alta (portrait). O sistema se adapta automaticamente mantendo o layout equilibrado.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/testtall.png" alt="Imagem Alta" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal-reverse">
+                        <div class="card__content">
+                            <h4 class="card__title">Com Imagem Wide (Larga)</h4>
+                            <p class="card__description">
+                                Card horizontal reverso com imagem em proporção larga (landscape). Sistema mantém consistência visual independente da proporção.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/testwide.png" alt="Imagem Larga" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Verticais Section -->
+    <section id="vertical-cards" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cards Verticais</h2>
+                <p class="section-subtitle">
+                    Cards com layout vertical - texto em cima, imagem embaixo para apresentação em grid responsivo
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Vertical Padrão</h3>
+                <p class="resource-group-description">
+                    Layout vertical básico com conteúdo acima e imagem abaixo
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Vertical Padrão</h4>
+                            <p class="card__description">
+                                Layout vertical básico. Conteúdo de texto posicionado acima da imagem. Ideal para grids responsivos e apresentação em colunas.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Card Vertical" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Segundo Card Vertical</h4>
+                            <p class="card__description">
+                                Exemplo de como múltiplos cards verticais funcionam lado a lado. O grid automático detecta e organiza adequadamente.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Segundo Card Vertical" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Vertical com Mini-Carousel</h3>
+                <p class="resource-group-description">
+                    Cards verticais contendo carousel de imagens para máxima flexibilidade de conteúdo
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Vertical com Carousel</h4>
+                            <p class="card__description">
+                                Card vertical contendo mini-carousel. Combina a eficiência do layout vertical com a versatilidade do carousel de imagens.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel">
+                                <div class="mini-carousel-track">
+                                    <img src="images/test.png" alt="Carousel Vertical 1" class="mini-carousel-image">
+                                    <img src="images/test2.png" alt="Carousel Vertical 2" class="mini-carousel-image">
+                                    <img src="images/test3.png" alt="Carousel Vertical 3" class="mini-carousel-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Outro Vertical</h4>
+                            <p class="card__description">
+                                Card vertical simples para demonstrar como funciona junto com cards que contêm carousel.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Outro Card Vertical" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Vertical com Diferentes Proporções</h3>
+                <p class="resource-group-description">
+                    Como cards verticais lidam com diferentes proporções de imagem
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Vertical com Imagem Alta</h4>
+                            <p class="card__description">
+                                Card vertical com imagem em proporção alta. O layout se adapta mantendo a consistência visual.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/testtall.png" alt="Vertical com Imagem Alta" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Vertical com Imagem Larga</h4>
+                            <p class="card__description">
+                                Card vertical com imagem em proporção larga. Sistema mantém harmonia visual independente da proporção.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/testwide.png" alt="Vertical com Imagem Larga" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Compactos Section -->
+    <section id="compact-cards" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cards Compactos</h2>
+                <p class="section-subtitle">
+                    Cards apenas com texto, ideais para listas de funcionalidades e informações sem necessidade de imagem
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Compactos Padrão</h3>
+                <p class="resource-group-description">
+                    Cards compactos básicos apenas com conteúdo textual
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Compacto Padrão</h4>
+                            <p class="card__description">
+                                Card compacto contendo apenas texto. Ideal para listas de funcionalidades, recursos ou informações que não necessitam de apoio visual.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Segundo Card Compacto</h4>
+                            <p class="card__description">
+                                Outro exemplo de card compacto. O grid automático detecta cards sem imagem e os organiza em layout otimizado.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Terceiro Card Compacto</h4>
+                            <p class="card__description">
+                                Cards compactos se organizam automaticamente em grid responsivo, aproveitando melhor o espaço disponível.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Quarto Card Compacto</h4>
+                            <p class="card__description">
+                                Exemplo adicional demonstrando como múltiplos cards compactos se comportam em grid auto-organizável.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Quinto Card Compacto</h4>
+                            <p class="card__description">
+                                Sistema permite qualquer quantidade de cards compactos, organizando-os de forma otimizada automaticamente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Sexto Card Compacto</h4>
+                            <p class="card__description">
+                                Grid se adapta responsivamente, mantendo cards legíveis e bem distribuídos em todas as resoluções.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Compactos com Variações de Cor</h3>
+                <p class="resource-group-description">
+                    Cards compactos com diferentes esquemas de cores para categorização
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--compact card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Compacto Azul</h4>
+                            <p class="card__description">
+                                Card compacto com fundo azul e texto branco. Ideal para destacar categorias importantes ou principais.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Compacto Escuro</h4>
+                            <p class="card__description">
+                                Card compacto com fundo escuro. Excelente para criar variedade visual e hierarquia de informações.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--transparent">
+                        <div class="card__content">
+                            <h4 class="card__title">Compacto Transparente</h4>
+                            <p class="card__description">
+                                Card compacto transparente. Ideal para integração com fundos coloridos ou seções especiais.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Compacto Padrão</h4>
+                            <p class="card__description">
+                                Card compacto com estilo padrão para demonstrar variedade dentro do mesmo grid.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousels Section -->
+    <section id="carousel-cards" class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sistemas de Carousel</h2>
+                <p class="section-subtitle">
+                    Demonstração completa dos diferentes tipos de carousel disponíveis no sistema
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Carousel de Cards Padrão</h3>
+                <p class="resource-group-description">
+                    Carousel horizontal de cards com navegação automática
+                </p>
+                <div class="resources-grid--carousel">
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Primeiro do Carousel</h4>
+                            <p class="card__description">
+                                Primeiro card em um carousel de cards horizontais. Sistema permite navegação fluida entre múltiplos cards.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Card 1" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal-reverse card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Segundo do Carousel</h4>
+                            <p class="card__description">
+                                Segundo card do carousel com estilo diferente. Carousels podem misturar diferentes tipos de cards.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Card 2" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Terceiro do Carousel</h4>
+                            <p class="card__description">
+                                Terceiro card demonstrando variedade de estilos dentro do mesmo carousel de cards.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Carousel Card 3" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Carousel com Highlight</h3>
+                <p class="resource-group-description">
+                    Carousel especial com estilo destacado para seções principais
+                </p>
+                <div class="resources-grid--carousel resources-grid--carousel--highlight">
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Highlight 1" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Card Destacado 1</h4>
+                            <p class="card__description">
+                                Primeiro card em carousel com highlight. Ideal para recursos principais ou seções de destaque.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Highlight 2" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Card Destacado 2</h4>
+                            <p class="card__description">
+                                Segundo card do carousel destacado. Sistema mantém consistência visual em carousels especiais.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--overlay">
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Highlight 3" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <h4 class="card__title">Card Destacado 3</h4>
+                            <p class="card__description">
+                                Terceiro card demonstrando como carousels destacados mantêm fluidez e elegância visual.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Carousel com Tabs</h3>
+                <p class="resource-group-description">
+                    Carousel com estilo de abas para navegação mais estruturada
+                </p>
+                <div class="resources-grid--carousel resources-grid--carousel--tabs">
+                    <div class="card card--horizontal card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Tab Card 1</h4>
+                            <p class="card__description">
+                                Primeiro card em carousel com estilo de tabs. Ideal para organizar conteúdo por categorias.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Tab 1" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Tab Card 2</h4>
+                            <p class="card__description">
+                                Segundo tab demonstrando como diferentes estilos funcionam em carousels estruturados.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Tab 2" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Mini-Carousel dentro de Cards</h3>
+                <p class="resource-group-description">
+                    Exemplo de mini-carousels de imagens dentro de diferentes tipos de cards
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Horizontal com Mini-Carousel</h4>
+                            <p class="card__description">
+                                Demonstração de mini-carousel de imagens dentro de card horizontal. Permite mostrar múltiplas telas em um único card.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel">
+                                <div class="mini-carousel-track">
+                                    <img src="images/test.png" alt="Mini 1" class="mini-carousel-image">
+                                    <img src="images/test2.png" alt="Mini 2" class="mini-carousel-image">
+                                    <img src="images/test3.png" alt="Mini 3" class="mini-carousel-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Vertical com Mini-Carousel</h4>
+                            <p class="card__description">
+                                Mini-carousel também funciona perfeitamente em cards verticais, mantendo funcionalidade completa.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel">
+                                <div class="mini-carousel-track">
+                                    <img src="images/test.png" alt="Mini V1" class="mini-carousel-image">
+                                    <img src="images/test2.png" alt="Mini V2" class="mini-carousel-image">
+                                    <img src="images/test3.png" alt="Mini V3" class="mini-carousel-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="resources-grid">
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <h4 class="card__title">Antes & Depois com Slider</h4>
+                            <p class="card__description">
+                                Demostração de slider de antes e depois.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="before-after-slider">
+                                <img class="before-after-slider__image before-after-slider__image--after" src="images/test.png" alt="Imagem depois da edição">
+
+                                <div class="before-after-slider__image-wrapper">
+                                    <img class="before-after-slider__image before-after-slider__image--before" src="images/test2.png" alt="Imagem antes da edição">
+                                </div>
+
+                                <div class="before-after-slider__handle">
+                                    <div class="before-after-slider__handle-grabber"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Intelligence Section -->
+    <section class="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Inteligência do Grid Automático</h2>
+                <p class="section-subtitle">
+                    Demonstração de como o sistema detecta automaticamente diferentes tipos de cards e aplica layouts otimizados
+                </p>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Mixed Grid - Detecção Automática</h3>
+                <p class="resource-group-description">
+                    Grid único contendo diferentes tipos de cards - sistema detecta e organiza automaticamente
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--horizontal card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Horizontal</h4>
+                            <p class="card__description">
+                                Card horizontal em grid misto. Sistema detecta automaticamente e aplica layout adequado.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Mixed 1" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Vertical</h4>
+                            <p class="card__description">
+                                Card vertical no mesmo grid. Inteligência automática mantém harmonia visual.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Mixed 2" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Compacto</h4>
+                            <p class="card__description">
+                                Card compacto integrado ao grid misto. Sistema adapta espaçamento e alinhamento automaticamente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal-reverse card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Card Horizontal Reverso</h4>
+                            <p class="card__description">
+                                Card horizontal reverso completando o exemplo de grid inteligente e adaptativo.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/test.png" alt="Mixed 3" class="card__image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-group">
+                <h3 class="resource-group-title">Benefícios do Sistema</h3>
+                <p class="resource-group-description">
+                    Vantagens do sistema modular unificado
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--compact card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Facilidade de Uso</h4>
+                            <p class="card__description">
+                                Trocar estilo = alterar apenas o modificador CSS. Mesmo HTML, diferentes aparências.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Consistência Visual</h4>
+                            <p class="card__description">
+                                Todos os cards seguem a mesma estrutura HTML, garantindo consistência em todo o sistema.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact">
+                        <div class="card__content">
+                            <h4 class="card__title">Manutenibilidade</h4>
+                            <p class="card__description">
+                                Sistema unificado é mais fácil de manter, expandir e debugar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--transparent">
+                        <div class="card__content">
+                            <h4 class="card__title">Grid Inteligente</h4>
+                            <p class="card__description">
+                                Apenas uma classe de grid necessária! Sistema detecta conteúdo e adapta automaticamente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--blue">
+                        <div class="card__content">
+                            <h4 class="card__title">Flexibilidade</h4>
+                            <p class="card__description">
+                                Fácil adicionar novos modificadores e variações sem quebrar o sistema existente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--compact card--dark">
+                        <div class="card__content">
+                            <h4 class="card__title">Performance</h4>
+                            <p class="card__description">
+                                CSS otimizado sem redundâncias, carregamento mais rápido e eficiente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <a href="https://www.tqs.com.br" target="_blank">
+                        <img src="images/logo-header.png" alt="TQS" class="footer-logo">
+                    </a>
+                    <p>TQS - Showcase do Sistema Modular de Cards</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Voltar ao Site</a>
+                    <a href="https://www.tqs.com.br/suporte">Suporte</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TQS Informática. Sistema de Cards Modular - Showcase Técnico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

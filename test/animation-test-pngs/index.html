@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Scroll Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: white;
+        }
+
+        .spacer {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .animation-section {
+            height: 300vh; /* 3x a altura da tela para dar espaço para animação */
+            position: relative;
+        }
+
+        .animation-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .animation-frame {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            object-fit: contain;
+            transition: opacity 0.1s ease;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.8);
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="spacer">
+        <div>
+            <h1>Scroll Animation Test</h1>
+            <p>Role para baixo para ver a animação</p>
+        </div>
+    </div>
+
+    <div class="animation-section">
+        <div class="animation-container">
+            <img id="animationFrame" class="animation-frame" src="baixados1.png" alt="Animation Frame">
+        </div>
+    </div>
+
+    <div class="spacer">
+        <div>
+            <h2>Fim da Animação</h2>
+            <p>A animação terminou!</p>
+        </div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        Frame: 1/21 | Scroll: 0%
+    </div>
+
+    <script>
+        const totalFrames = 21;
+        const animationFrame = document.getElementById('animationFrame');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        
+        // Preload todas as imagens
+        const images = [];
+        for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            img.src = `baixados${i}.png`;
+            images.push(img);
+        }
+
+        function updateFrame() {
+            const animationSection = document.querySelector('.animation-section');
+            const rect = animationSection.getBoundingClientRect();
+            const sectionTop = rect.top + window.pageYOffset;
+            const sectionHeight = animationSection.offsetHeight;
+            const scrollTop = window.pageYOffset;
+            
+            // Calcular progresso apenas quando a seção está totalmente visível
+            const sectionStart = sectionTop; // Animação só inicia quando a seção entra na tela
+            const sectionEnd = sectionTop + sectionHeight;
+            
+            let animationProgress = 0;
+            
+            if (scrollTop >= sectionStart && scrollTop <= sectionEnd) {
+                // Calcular progresso dentro da seção de animação
+                const relativeScroll = scrollTop - sectionStart;
+                // Usar apenas 2/3 da seção para animação, deixando 1/3 final fixo
+                const totalAnimationDistance = sectionHeight * 0.67;
+                animationProgress = Math.min(relativeScroll / totalAnimationDistance, 1);
+            } else if (scrollTop > sectionEnd) {
+                animationProgress = 1;
+            }
+            
+            // Mapear progresso para frame
+            const frameIndex = Math.floor(animationProgress * (totalFrames - 1));
+            const currentFrame = Math.max(1, frameIndex + 1);
+            
+            // Atualizar imagem
+            animationFrame.src = `baixados${currentFrame}.png`;
+            
+            // Atualizar indicador
+            scrollIndicator.textContent = `Frame: ${currentFrame}/${totalFrames} | Progress: ${Math.round(animationProgress * 100)}%`;
+        }
+
+        // Otimizar com requestAnimationFrame
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateFrame);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            requestTick();
+            ticking = false;
+        });
+
+        // Frame inicial
+        updateFrame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TQS • 10 cards de Antes/Depois</title>
+<style>
+  :root{
+    --tqs:#0b69ff; --ink:#0f1115; --muted:#64748b;
+    --radius:18px; --shadow:0 12px 34px rgba(0,0,0,.18);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7fafc}
+  header{padding:28px 20px 8px; text-align:center}
+  header h1{margin:0 0 6px; letter-spacing:-.02em}
+  header p{margin:0; color:var(--muted)}
+  .grid{max-width:1250px; margin:28px auto 80px; padding:0 20px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px}
+  @media (max-width: 880px){ .grid{grid-template-columns:1fr} }
+
+  /* card base */
+  .card{position:relative; border-radius:var(--radius); overflow:hidden; background:#000; box-shadow:var(--shadow); min-height:360px}
+  .before,.after{position:absolute; inset:0}
+  .before img,.after img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+  .badge{position:absolute; top:10px; left:10px; z-index:4; font-size:12px; background:rgba(255,255,255,.8); padding:6px 10px; border-radius:999px; backdrop-filter: blur(6px)}
+  .labels{position:absolute; inset:auto 10px 10px 10px; display:flex; justify-content:space-between; z-index:3; color:#fff; font-size:12px; text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  .labels span{background:rgba(0,0,0,.35); padding:6px 10px; border-radius:999px}
+
+  /* 1 — slider horizontal */
+  .c1 .after{clip-path:inset(0 50% 0 0)}
+  .c1 .rail{position:absolute; inset:0; pointer-events:none}
+  .c1 .bar{position:absolute; top:0; bottom:0; left:50%; width:2px; background:#fff}
+  .c1 .handle{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:44px; height:44px; border-radius:999px; background:#fff; display:grid; place-items:center; font-weight:700; pointer-events:none; box-shadow:var(--shadow)}
+  .c1 input[type=range]{position:absolute; left:50%; top:calc(100% - 40px); transform:translateX(-50%); width:70%}
+
+  /* 2 — hover reveal (fade) */
+  .c2 .after{opacity:0; transition:opacity .45s ease}
+  .c2:hover .after{opacity:1}
+
+  /* 3 — click toggle */
+  .c3 .after{opacity:0; transition:opacity .3s ease}
+  .c3 button.tgl{position:absolute; right:10px; top:10px; z-index:5; border:0; background:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; font-weight:600}
+  .c3.is-after .after{opacity:1}
+
+  /* 4 — divisor arrastável (custom drag) */
+  .c4 .after{clip-path:inset(0 60% 0 0)}
+  .c4 .divider{position:absolute; top:0; bottom:0; left:40%; width:3px; background:#fff; cursor:ew-resize}
+  .c4 .dot{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:18px; height:18px; background:#fff; border-radius:999px}
+
+  /* 5 — slider vertical */
+  .c5 .after{clip-path:inset(50% 0 0 0)}
+  .c5 .bar{position:absolute; left:0; right:0; top:50%; height:2px; background:#fff}
+  .c5 .handle{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:44px; height:44px; background:#fff; border-radius:999px; display:grid; place-items:center}
+  .c5 input[type=range]{position:absolute; top:50%; left:calc(100% - 40px); transform:translateY(-50%) rotate(90deg); width:70%}
+
+  /* 6 — máscara circular segue mouse */
+  .c6 .after{clip-path:circle(0 at 50% 50%); transition:clip-path .2s ease}
+
+  /* 7 — wipe diagonal */
+  .c7 .after{clip-path:polygon(0 0, 40% 0, 60% 100%, 0 100%)}
+  .c7 input[type=range]{position:absolute; left:50%; bottom:12px; transform:translateX(-50%); width:70%}
+
+  /* 8 — flip 3D */
+  .c8 .wrap{position:absolute; inset:0; transform-style:preserve-3d; transition:transform .6s ease}
+  .c8 .face{position:absolute; inset:0; backface-visibility:hidden}
+  .c8 .after{transform:rotateY(180deg)}
+  .c8.is-flipped .wrap{transform:rotateY(180deg)}
+  .c8 .btn{position:absolute; right:10px; top:10px; z-index:6; background:#fff; border:0; border-radius:10px; padding:8px 10px; cursor:pointer; font-weight:600}
+
+  /* 9 — crossfade com play/pause */
+  .c9 .after{opacity:0; transition:opacity .6s ease}
+  .c9.is-after .after{opacity:1}
+  .c9 .ctrl{position:absolute; right:10px; top:10px; z-index:6; display:flex; gap:8px}
+  .c9 .ctrl button{border:0; background:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; font-weight:600}
+
+  /* 10 — thumbs escolhem par e slider interno */
+  .c10{display:grid; grid-template-rows:1fr auto}
+  .c10 .stage{position:relative; min-height:320px}
+  .c10 .thumbs{display:flex; gap:8px; padding:10px; background:#fff}
+  .c10 .thumbs img{width:80px; height:52px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:.7; border:2px solid transparent}
+  .c10 .thumbs img.active{opacity:1; border-color:var(--tqs)}
+  .c10 .after{clip-path:inset(0 50% 0 0)}
+  .c10 .rail{position:absolute; inset:0; pointer-events:none}
+  .c10 .bar{position:absolute; top:0; bottom:0; left:50%; width:2px; background:#fff}
+  .c10 .handle{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px; border-radius:999px; background:#fff; display:grid; place-items:center; pointer-events:none}
+  .c10 input[type=range]{position:absolute; left:50%; bottom:10px; transform:translateX(-50%); width:70%}
+
+
+ /* 11 — Toggle button (iOS-like) */
+ .c11 .after {
+     opacity: 0;
+     transition: opacity .35s ease
+ }
+
+ .c11 input.toggle {
+     position: absolute;
+     inset: auto;
+     width: 0;
+     height: 0;
+     opacity: 0;
+     pointer-events: none
+ }
+
+ .c11 label.switch {
+     position: absolute;
+     right: 10px;
+     top: 10px;
+     z-index: 6;
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     background: #fff;
+     color: #0f1115;
+     font-size: 12px;
+     font-weight: 600;
+     padding: 6px 10px;
+     border-radius: 999px;
+     box-shadow: 0 6px 18px rgba(0,0,0,.18);
+     cursor: pointer;
+ }
+
+     .c11 label.switch i {
+         width: 34px;
+         height: 20px;
+         border-radius: 999px;
+         background: #e5e7eb;
+         position: relative;
+         display: inline-block;
+     }
+
+         .c11 label.switch i::after {
+             content: "";
+             position: absolute;
+             top: 2px;
+             left: 2px;
+             width: 16px;
+             height: 16px;
+             border-radius: 50%;
+             background: #fff;
+             box-shadow: 0 2px 6px rgba(0,0,0,.25);
+             transition: left .25s ease;
+         }
+
+ .c11 input.toggle:checked ~ label.switch i {
+     background: #0b69ff;
+ }
+
+     .c11 input.toggle:checked ~ label.switch i::after {
+         left: 16px;
+     }
+
+ .c11 input.toggle:checked ~ .after {
+     opacity: 1;
+ }
+ /* labels de rodapé (opcional) */
+ .c11 .labels {
+     inset: auto 10px 10px 10px
+ }
+
+</style>
+</head>
+<body>
+<header>
+  <h1>10 estilos de cards: Antes × Depois</h1>
+  <p>Interações variadas (arraste, hover, clique, flip, máscara, diagonal, vertical, thumbs…).</p>
+</header>
+
+<div class="grid">
+
+    <!-- 1) Slider horizontal (range) -->
+    <div class="card c1" id="c1">
+        <div class="badge">1 • Slider horizontal</div>
+        <div class="before"><img src="images/test.png" alt="Antes A"></div>
+        <div class="after"><img src="images/Projeto4.png" alt="Depois A"></div>
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+        <div class="rail"><div class="bar"></div><div class="handle">↔</div></div>
+        <input type="range" min="0" max="100" value="50" aria-label="Comparador horizontal">
+    </div>
+
+    <!-- 2) Hover reveal (fade) -->
+    <div class="card c2">
+        <div class="badge">2 • Hover (fade)</div>
+        <div class="before"><img src="images/Projeto2.png" alt="Antes B"></div>
+        <div class="after"><img src="images/Realista01.png" alt="Depois B"></div>
+        <div class="labels"><span>Antes</span><span>Passe o mouse</span></div>
+    </div>
+
+    <!-- 3) Toggle por clique -->
+    <div class="card c3" id="c3">
+        <button class="tgl" aria-pressed="false">Ver Depois</button>
+        <div class="badge">3 • Clique para alternar</div>
+        <div class="before"><img src="images/Projeto3.png" alt="Antes C"></div>
+        <div class="after"><img src="images/realista.png" alt="Depois C"></div>
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+    <!-- 4) Divisor arrastável custom -->
+    <div class="card c4" id="c4">
+        <div class="badge">4 • Divisor arrastável</div>
+        <div class="before"><img src="images/Realistar01.png" alt="Antes D"></div>
+        <div class="after"><img src="images/Projeto2.png" alt="Depois D"></div>
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+        <div class="divider"><span class="dot"></span></div>
+    </div>
+
+    <!-- 5) Slider vertical -->
+    <div class="card c5" id="c5">
+        <div class="badge">5 • Slider vertical</div>
+        <div class="before"><img src="images/Projeto4.png" alt="Antes E"></div>
+        <div class="after"><img src="images/Projeto3.png" alt="Depois E"></div>
+        <div class="bar"></div><div class="handle">↕</div>
+        <input type="range" min="0" max="100" value="50" aria-label="Comparador vertical">
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+    <!-- 6) Máscara circular segue mouse -->
+    <div class="card c6" id="c6">
+        <div class="badge">6 • Máscara circular (mouse)</div>
+        <div class="before"><img src="images/Projeto3.png" alt="Antes F"></div>
+        <div class="after"><img src="images/Realista01.png" alt="Depois F"></div>
+        <div class="labels"><span>Antes</span><span>Revele com o mouse</span></div>
+    </div>
+
+    <!-- 7) Wipe diagonal -->
+    <div class="card c7" id="c7">
+        <div class="badge">7 • Wipe diagonal</div>
+        <div class="before"><img src="images/test.png" alt="Antes G"></div>
+        <div class="after"><img src="images/Projeto2.png" alt="Depois G"></div>
+        <input type="range" min="0" max="100" value="40" aria-label="Comparador diagonal">
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+    <!-- 8) Flip 3D -->
+    <div class="card c8" id="c8">
+        <div class="badge">8 • Flip 3D</div>
+        <button class="btn">Virar</button>
+        <div class="wrap">
+            <div class="face before"><img src="images/Projeto2.png" alt="Antes H"></div>
+            <div class="face after"><img src="images/realista.png" alt="Depois H"></div>
+        </div>
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+    <!-- 9) Crossfade auto com play/pause -->
+    <div class="card c9" id="c9">
+        <div class="badge">9 • Crossfade (auto)</div>
+        <div class="ctrl">
+            <button data-act="toggle">Play/Pause</button>
+            <button data-act="swap">Trocar</button>
+        </div>
+        <div class="before"><img src="images/Projeto4.png" alt="Antes I"></div>
+        <div class="after"><img src="images/Realistar01.png" alt="Depois I"></div>
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+    <!-- 10) Thumbs + slider interno -->
+    <div class="card c10" id="c10">
+        <div class="badge">10 • Thumbs + slider</div>
+        <div class="stage">
+            <div class="before"><img src="images/Projeto3.png" alt="Antes J"></div>
+            <div class="after"><img src="images/Projeto4.png" alt="Depois J"></div>
+            <div class="rail"><div class="bar"></div><div class="handle">↔</div></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparador interno">
+            <div class="labels"><span>Antes</span><span>Depois</span></div>
+        </div>
+        <div class="thumbs">
+            <img src="images/Projeto3.png" data-before="Projeto3.png" data-after="Projeto4.png" class="active" alt="Par 1">
+            <img src="images/test.png" data-before="test.png" data-after="Projeto4.png" alt="Par 2">
+            <img src="images/Projeto2.png" data-before="Projeto2.png" data-after="Realista01.png" alt="Par 3">
+            <img src="images/Realistar01.png" data-before="Realistar01.png" data-after="Projeto2.png" alt="Par 4">
+        </div>
+    </div>
+
+    <!-- 11) TOGGLE BUTTON -->
+    <div class="card c11">
+        <!-- o checkbox controla tudo; acessível por teclado (barra de espaço) -->
+        <input id="toggle11" class="toggle" type="checkbox" aria-label="Alternar para 'Depois'">
+        <label class="switch" for="toggle11"><span>Antes</span><i></i><span>Depois</span></label>
+
+        <!-- troque as imagens se quiser -->
+        <div class="before"><img src="images/Projeto3.png" alt="Antes (planta/projeto)"></div>
+        <div class="after"><img src="images/realista.png" alt="Depois (render/tela TQS)"></div>
+
+        <div class="labels"><span>Antes</span><span>Depois</span></div>
+    </div>
+
+
+</div>
+
+<script>
+  // util: clamp
+  const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
+
+  /* 1) slider horizontal */
+  (function(){
+    const el = document.getElementById('c1');
+    const after = el.querySelector('.after');
+    const bar = el.querySelector('.bar');
+    const handle = el.querySelector('.handle');
+    const r = el.querySelector('input[type=range]');
+    function set(p){ after.style.clipPath = `inset(0 ${100-p}% 0 0)`; bar.style.left = p+'%'; handle.style.left = p+'%'; }
+    r.addEventListener('input', e=> set(+e.target.value));
+    set(50);
+  })();
+
+  /* 3) toggle clique */
+  (function(){
+    const c3 = document.getElementById('c3');
+    const btn = c3.querySelector('.tgl');
+    btn.addEventListener('click', ()=>{
+      const after = c3.classList.toggle('is-after');
+      btn.textContent = after ? 'Ver Antes' : 'Ver Depois';
+      btn.setAttribute('aria-pressed', String(after));
+    });
+  })();
+
+  /* 4) divisor arrastável */
+  (function(){
+    const c4 = document.getElementById('c4');
+    const divider = c4.querySelector('.divider');
+    const after = c4.querySelector('.after');
+    let dragging=false;
+    const move=(clientX)=>{
+      const rect = c4.getBoundingClientRect();
+      const x = clamp(clientX - rect.left, 0, rect.width);
+      const pct = (x/rect.width)*100;
+      divider.style.left = pct+'%';
+      after.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+    };
+    divider.addEventListener('mousedown', e=>{ dragging=true; move(e.clientX); });
+    window.addEventListener('mouseup', ()=> dragging=false);
+    window.addEventListener('mousemove', e=> dragging && move(e.clientX));
+    // touch
+    divider.addEventListener('touchstart', e=>{ dragging=true; move(e.touches[0].clientX); }, {passive:true});
+    window.addEventListener('touchend', ()=> dragging=false, {passive:true});
+    window.addEventListener('touchmove', e=> dragging && move(e.touches[0].clientX), {passive:true});
+  })();
+
+  /* 5) slider vertical */
+  (function(){
+    const c5 = document.getElementById('c5');
+    const r = c5.querySelector('input[type=range]');
+    const after = c5.querySelector('.after');
+    const bar = c5.querySelector('.bar');
+    const handle = c5.querySelector('.handle');
+    function set(p){ after.style.clipPath = `inset(${100-p}% 0 0 0)`; bar.style.top = p+'%'; handle.style.top = p+'%'; }
+    r.addEventListener('input', e=> set(+e.target.value));
+    set(50);
+  })();
+
+  /* 6) máscara circular segue mouse */
+  (function(){
+    const c6 = document.getElementById('c6');
+    const after = c6.querySelector('.after');
+    const update = (x,y)=>{
+      const rect = c6.getBoundingClientRect();
+      const cx = clamp(x-rect.left,0,rect.width);
+      const cy = clamp(y-rect.top,0,rect.height);
+      const r = Math.max(rect.width, rect.height)*0.35;
+      after.style.clipPath = `circle(${r}px at ${cx}px ${cy}px)`;
+    };
+    c6.addEventListener('mousemove', e=> update(e.clientX,e.clientY));
+    c6.addEventListener('touchmove', e=> update(e.touches[0].clientX,e.touches[0].clientY), {passive:true});
+    // default center
+    const rect = c6.getBoundingClientRect(); after.style.clipPath = `circle(${Math.max(rect.width,rect.height)*.2}px at 50% 50%)`;
+  })();
+
+  /* 7) wipe diagonal */
+  (function(){
+    const c7 = document.getElementById('c7');
+    const r = c7.querySelector('input[type=range]');
+    const after = c7.querySelector('.after');
+    function set(p){ // p: 0..100 => altera triângulo/losango
+      const x1 = clamp(p,0,100);
+      const x2 = clamp(p+20,0,120);
+      after.style.clipPath = `polygon(0 0, ${x1}% 0, ${x2}% 100%, 0 100%)`;
+    }
+    r.addEventListener('input', e=> set(+e.target.value));
+    set(+r.value);
+  })();
+
+  /* 8) flip 3D */
+  (function(){
+    const c8 = document.getElementById('c8');
+    const btn = c8.querySelector('.btn');
+    btn.addEventListener('click', ()=> c8.classList.toggle('is-flipped'));
+  })();
+
+  /* 9) crossfade auto */
+  (function(){
+    const c9 = document.getElementById('c9');
+    const btns = c9.querySelectorAll('.ctrl button');
+    let playing = true;
+    let stateAfter = false;
+    const tick = ()=>{ c9.classList.toggle('is-after', stateAfter); stateAfter = !stateAfter; };
+    let timer = setInterval(tick, 2200);
+    btns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const act = b.dataset.act;
+        if(act==='toggle'){
+          playing = !playing;
+          if(playing){ timer = setInterval(tick, 2200); } else { clearInterval(timer); }
+        }else if(act==='swap'){ tick(); }
+      });
+    });
+  })();
+
+  /* 10) thumbs + slider */
+  (function(){
+    const c10 = document.getElementById('c10');
+    const before = c10.querySelector('.stage .before img');
+    const after = c10.querySelector('.stage .after img');
+    const bar = c10.querySelector('.bar');
+    const handle = c10.querySelector('.handle');
+    const r = c10.querySelector('input[type=range]');
+    function set(p){ c10.querySelector('.after').style.clipPath = `inset(0 ${100-p}% 0 0)`; bar.style.left = p+'%'; handle.style.left = p+'%'; }
+    r.addEventListener('input', e=> set(+e.target.value));
+    set(50);
+    c10.querySelectorAll('.thumbs img').forEach(t=>{
+      t.addEventListener('click', ()=>{
+        c10.querySelectorAll('.thumbs img').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        before.src = t.dataset.before;
+        after.src  = t.dataset.after;
+      });
+    });
+  })();
+</script>
+</body>
+</html>
