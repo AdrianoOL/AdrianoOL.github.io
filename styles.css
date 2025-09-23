@@ -1,4 +1,66 @@
-/* Reset e Base */
+﻿/* ========================================
+      PAINEL DE CONTROLE (VARIÁVEIS GLOBAIS)
+   ======================================== */
+
+:root {
+    /* --- 1. Famílias de Fonte --- */
+    --font-title: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    --font-text: "Inter", "Helvetica Neue", Arial, sans-serif;
+    /* --- 2. Pesos de Fonte --- */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    /* --- 3. Cores de Texto --- */
+    /* Cores de Texto */
+    --color-text-light-primary: #ffffff;
+    --color-text-light-secondary: #e2e8f0;
+    --color-text-light-tertiary: #cbd5e1;
+    --color-text-dark-primary: #1e293b;
+    --color-text-dark-secondary: #64748b;
+    --color-text-black: #000000;
+    /* Cores de Destaque (Accent) */
+    --color-accent-primary: #1d4ed8;
+    --color-accent-secondary: #2563eb;
+    --color-accent-tqs: #215F9A;
+    --color-accent-apple: #0071E3;
+    --color-accent-green: #22c55e;
+    --color-highlight-yellow: #ffff00;
+    --color-border-light: rgba(255, 255, 255, 0.1);
+    --color-border-dark: rgba(0, 0, 0, 0.1);
+    --color-gradient-blue-start: #215f9a;
+    --color-gradient-blue-end: #215f9a;
+    /* Cores de Fundo */
+    --bg-light: #ffffff;
+    --bg-soft-gray: #f8fafc;
+    --bg-medium-gray: #e8e8ed;
+    --bg-dark-blue: #1e293b;
+    --bg-dark-section: #000000;
+    --bg-dark-hero: #080A0F;
+    --bg-dark-card: #334155;
+    /* --- 4. Gradientes --- */
+    --gradient-button-primary: linear-gradient(135deg, var(--color-accent-secondary), var(--color-accent-primary));
+    --gradient-button-primary-hover: linear-gradient(135deg, var(--color-accent-primary), #1e40af); /* Cor de hover adicionada */
+    --gradient-hero-title: linear-gradient(135deg, var(--color-text-light-primary), var(--color-text-light-secondary));
+    --gradient-multicolor: linear-gradient(to right, #007bff, #28a745, #ffc107, #dc3545);
+    /* --- 5. Sombras (Shadows) --- */
+    --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+    /* --- 4. Escala de Tipografia Fluida --- */
+    --font-size-small: clamp(0.8rem, 0.17vw + 0.76rem, 0.94rem);
+    --font-size-body: clamp(1.1rem, 0.25vw + 1rem, 1.25rem);
+    --font-size-item-title: clamp(1.1rem, 0.25vw + 1rem, 1.25rem);
+    --font-size-section-subtitle: clamp(1.2rem, 0.3vw + 1.1rem, 1.3rem);
+    --font-size-subgroup-title: clamp(2rem, 1vw + 1.8rem, 2.5rem);
+    --font-size-section-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
+    --font-size-hero-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
+    --font-size-highlight-title: clamp(1.8rem, 1vw + 1.5rem, 2.2rem);
+}
+
+/* ========================================
+      RESET E ESTILOS DE BASE
+   ======================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -10,13 +72,19 @@ html {
 }
 
 body {
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-family: var(--font-text);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-regular);
     line-height: 1.6;
-    color: #1d1d1f;
-    background-color: #fff;
+    color: var(--color-text-dark-primary);
+    background-color: var(--bg-light);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* ========================================
+      LAYOUT E CLASSES UTILITÁRIAS
+   ======================================== */
 
 .container {
     max-width: 1200px;
@@ -37,40 +105,197 @@ body {
     }
 }
 
-/* Tipografia estilo Apple */
-h1, h2, h3, h4, h5, h6 {
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-weight: 700;
-    line-height: 1.1;
+/* ========================================
+      ESTILOS DE TIPOGRAFIA BASE
+   ======================================== */
+
+/* Títulos de Seção (h1, h2, h3) */
+h1, h2, h3 {
+    font-family: var(--font-title);
+    font-size: var(--font-size-section-title);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
     margin-bottom: 1rem;
-    letter-spacing: -0.022em;
-    color: #1d1d1f;
+    color: var(--color-text-dark-primary); 
 }
 
-h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-}
-h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -0.022em;
-}
-h3 {
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: -0.020em;
-}
-h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.018em;
+/* Títulos de Itens (h4, h5, h6) */
+h4, h5, h6 {
+    font-family: var(--font-title);
+    font-size: var(--font-size-item-title);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-dark-primary);
 }
 
+/* Texto Normal (Parágrafos) */
 p {
+    font-family: var(--font-text);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.6;
     margin-bottom: 1rem;
 }
+
+/* Texto Destacado (Negrito) */
+strong {
+    font-weight: var(--font-weight-bold);
+}
+
+/* --- CLASSES UTILITÁRIAS (PARA FLEXIBILIDADE) --- */
+
+/* Para aplicar o estilo de Título de Seção em qualquer elemento */
+.text-section-title {
+    font-family: var(--font-title);
+    font-size: var(--font-size-section-title);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Para aplicar o estilo de Subtítulo de Seção em qualquer elemento */
+.text-section-subtitle {
+    font-family: var(--font-text);
+    font-size: var(--font-size-section-subtitle);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
+}
+
+/* Para aplicar o estilo de Título de Item em qualquer elemento */
+.text-item-title {
+    font-family: var(--font-title);
+    font-size: var(--font-size-item-title);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Para aplicar o estilo de Texto Destacado (Negrito) em qualquer elemento */
+.text-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+/* --- CLASSES DE COR (PARA "CORES DIVERSAS") --- */
+
+.text-primary {
+    color: var(--color-text-primary);
+}
+
+.text-secondary {
+    color: var(--color-text-secondary);
+}
+
+.text-accent {
+    color: var(--color-text-accent);
+}
+
+.text-accent-secondary {
+    color: var(--color-accent-secondary); /* Usa a variável que já definimos no :root */
+}
+
+.text-white {
+    color: var(--color-text-light-primary);
+}
+
+.text-black {
+    color: var(--color-text-black);
+}
+
+/* =================================================================== */
+/* EFEITO DE TEXTO COM CORES INTERCALADAS                */
+/* =================================================================== */
+
+/* --- 1. ESTRUTURA BASE --- */
+/* Esta é a classe principal que aplica a lógica do efeito. */
+.texto-intercalado {
+    /* Define as variáveis de cor com valores padrão (opcional, mas bom ter) */
+    --cor-impar: black;
+    --cor-par: grey;
+}
+
+    /* O comportamento do span é o mesmo para todas as variações */
+    .texto-intercalado span {
+        display: inline-block;
+    }
+
+        /* A lógica de pintura usa as variáveis */
+        .texto-intercalado span:nth-child(odd) {
+            color: var(--cor-impar); /* Pinta letras ímpares */
+        }
+
+        .texto-intercalado span:nth-child(even) {
+            color: var(--cor-par); /* Pinta letras pares */
+        }
+
+
+/* --- 2. MODIFICADORES DE COR (TEMAS) --- */
+/* Estas classes apenas definem as cores a serem usadas. */
+
+/* Tema Azul TQS / Branco */
+.texto-intercalado--azul {
+    --cor-impar: #0724DC; /* Mantido como cor especial */
+    --cor-par: var(--color-text-light-primary);
+}
+
+/* Tema "Earth" (Vermelho / Amarelo) */
+.texto-intercalado--earth {
+    --cor-impar: #FF5026; /* Mantido como cor especial */
+    --cor-par: #FFC113; /* Mantido como cor especial */
+}
+
+
+
+/* =================================================================== */
+/* EFEITOS DE TEXTO 3D (AUTORRELEVO)                                 */
+/* =================================================================== */
+
+/* Efeito 1: Texto "Gravado" / Pressionado para dentro */
+.text-engraved {
+    /* A cor do texto deve ser um pouco mais escura que o fundo */
+    color: #d1d1d1;
+    /* A mágica: uma sombra clara embaixo e uma escura em cima */
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9), /* Sombra clara (luz) */
+    -1px -1px 1px rgba(0, 0, 0, 0.2); /* Sombra escura (profundidade) */
+}
+
+/* Efeito 2: Texto "Elevado" / Saltado para fora */
+.text-embossed {
+    /* A cor do texto deve ser a mesma do fundo para um efeito suave */
+    color: white;
+    /* O inverso do anterior: luz em cima, sombra embaixo */
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.8), /* Sombra clara (luz) */
+    1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra escura (profundidade) */
+}
+
+/* Efeito "Gravado" para fundos escuros */
+.text-engraved-dark {
+    /* Cor do texto um pouco mais clara que o fundo escuro */
+    color: #444;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), /* Sombra escura */
+    -1px -1px 1px rgba(255, 255, 255, 0.1); /* Luz sutil */
+}
+
+/* Efeito "Elevado" para fundos escuros */
+.text-embossed-dark {
+    /* 1. Cor do texto é um cinza-médio, não mais a cor do fundo */
+    color: #888;
+    /* 2. A luz (sombra clara) é mais forte e a sombra escura contrasta com o texto cinza */
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.3), /* Luz de cima/esquerda (mais forte) */
+    1px 1px 1px rgba(0, 0, 0, 0.8); /* Sombra de baixo/direita (bem escura) */
+}
+
+/* VERSÃO ALTERNATIVA: Efeito mais suave com mais profundidade */
+.text-embossed-dark-soft {
+    color: #888;
+    text-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2), /* Luz de cima/esquerda, mais suave */
+    1px 1px 2px rgba(0, 0, 0, 0.9), /* Sombra principal, mais escura e suave */
+    2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra secundária para mais profundidade */
+}
+
+.text-accent-blue {
+    color: var(--color-accent-apple);
+    font-size: var(--font-size-item-title); 
+}
+/* azul estilo Apple (links/badges) */
+
 
 /* Botões */
 .btn {
@@ -78,48 +303,48 @@ p {
     padding: 12px 24px;
     text-decoration: none;
     border-radius: 8px;
-    font-weight: 500;
     text-align: center;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-body);
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    color: white;
+    background: linear-gradient(135deg, var(--color-accent-secondary), var(--color-accent-primary));
+    color: var(--color-text-light-primary);
 }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        background: var(--gradient-button-primary-hover);
         transform: translateY(-2px);
     }
 
 .btn-secondary {
     background: transparent;
-    color: #2563eb;
-    border: 2px solid #2563eb;
+    color: var(--color-accent-secondary);
+    border: 2px solid var(--color-accent-secondary);
 }
 
     .btn-secondary:hover {
-        background: #2563eb;
-        color: white;
+        background: var(--color-accent-secondary);
+        color: var(--color-text-light-primary);
     }
 
 .btn-large {
     padding: 16px 32px;
-    font-size: 1.1rem;
+    font-size: var(--font-size-item-title);
 }
 
 .btn-video {
     background: rgba(255, 255, 255, 0.1);
-    color: white;
+    color: var(--color-text-light-primary);
     border: 2px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
 }
@@ -135,16 +360,16 @@ img {
 
 /* Classe base para todos os cards */
 .card {
-    background: white;
+    background: var(--bg-light);
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
     margin-bottom: 2rem;
     transition: all 0.3s ease;
 }
 
     .card:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        box-shadow: var(--shadow-card-hover);
         transform: translateY(-4px);
     }
 
@@ -154,7 +379,21 @@ img {
     align-items: center;
     gap: 2rem;
     padding: 2rem;
+    width: 100%; /* Ocupa toda a largura disponível */
 }
+
+    .card--horizontal .card__media {
+        width: 50%; /* 50% da largura para a imagem */
+        flex-shrink: 0;
+        display: flex;
+        justify-content: flex-end; /* Alinha imagem à direita dentro dos 50% */
+    }
+
+    .card--horizontal .card__content {
+        width: 50%; /* 50% da largura para o texto */
+        text-align: right; /* Alinha texto à direita */
+        flex-shrink: 0;
+    }
 
 .card--horizontal-reverse {
     display: flex;
@@ -162,21 +401,39 @@ img {
     gap: 2rem;
     padding: 2rem;
     flex-direction: row-reverse;
+    width: 100%; /* Ocupa toda a largura disponível */
 }
+
+    .card--horizontal-reverse .card__media {
+        width: 50%; /* 50% da largura para a imagem */
+        flex-shrink: 0;
+        display: flex;
+        justify-content: flex-start; /* Alinha imagem à esquerda dentro dos 50% */
+    }
+
+    .card--horizontal-reverse .card__content {
+        width: 50%; /* 50% da largura para o texto */
+        text-align: left; /* Alinha texto à esquerda */
+        flex-shrink: 0;
+    }
 
 .card--vertical {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    width: auto; /* Largura automática baseada no conteúdo */
+    text-align: left;
+    width: 100%; /* Ocupa toda a largura disponível */
     max-width: 100%; /* Não excede container pai */
+}
+
+.card--text-center {
+    text-align: center;
 }
 
 .card--overlay {
     position: relative;
     display: inline-block;
     text-align: center;
-    color: white;
+    color: #1d1d1f; /* Texto preto por padrão */
     width: fit-content; /* Card se ajusta ao tamanho da imagem */
     height: auto; /* Altura baseada na imagem */
     max-width: 100%; /* Não excede container pai */
@@ -190,16 +447,101 @@ img {
     border-left: 4px solid #2563eb;
 }
 
+.card--grid4 {
+    display: grid;
+    grid-template-areas:
+        "title title"
+        "topleft topright"
+        "media media"
+        "bottomleft bottomright";
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+    position: relative;
+    min-height: 400px;
+}
+
+    .card--grid4 .card__title {
+        grid-area: title;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .card--grid4 .card__media {
+        grid-area: media;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem 0;
+    }
+
+    .card--grid4 .card__description.topleft {
+        grid-area: topleft !important;
+        text-align: left;
+        align-self: start;
+    }
+
+    .card--grid4 .card__description.topright {
+        grid-area: topright !important;
+        text-align: right;
+        align-self: start;
+    }
+
+    .card--grid4 .card__description.bottomleft {
+        grid-area: bottomleft !important;
+        text-align: left;
+        align-self: start;
+    }
+
+    .card--grid4 .card__description.bottomright {
+        grid-area: bottomright !important;
+        text-align: right;
+        align-self: start;
+    }
+
 /* Modificadores de Aparência */
 .card--dark {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--bg-dark-blue) 0%, var(--bg-dark-card) 100%);
+    color: var(--color-text-light-primary);
 }
 
 .card--blue {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, var(--color-gradient-blue-start) 0%, var(--color-gradient-blue-end) 100%);
+    color: var(--color-text-light-primary);
+}
+
+.card--black {
+    background: var(--bg-dark-section);
+    color: var(--color-text-light-primary);
+}
+
+.card--white {
+    background: white;
+    color: #333;
+}
+
+.card.card--white strong {
+    color: black !important;
+}
+
+/* Overlay com fundo preto - texto branco */
+.card--overlay.card--black {
     color: white;
 }
+
+    .card--overlay.card--black::before {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+/* Overlay com fundo branco - texto escuro */
+.card--overlay.card--white {
+    color: #333;
+}
+
+    .card--overlay.card--white::before {
+        background: rgba(255, 255, 255, 0.9);
+    }
 
 .card--transparent {
     background: transparent;
@@ -247,7 +589,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
     z-index: 1;
     border-radius: 12px;
 }
@@ -259,6 +601,63 @@ img {
 .card--overlay-blue::before {
     background: rgba(30, 64, 175, 0.7);
 }
+
+/* Modificador overlay com texto à direita - ajustado 3% mais à direita */
+.card--overlay-right .card__content {
+    position: absolute;
+    top: 5rem;
+    right: 5rem;
+    left: 55%; /* Aumentado de 55% para 58% */
+    bottom: 2rem;
+    z-index: 2;
+    padding: 3rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Título do card overlay-right posicionado no topo centralizado em todo o card */
+.card--overlay-right > .card__title {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    text-align: center;
+    z-index: 3;
+    color: inherit;
+}
+
+    /* H4 dentro do div card__title - tamanho controlado por JavaScript */
+    .card--overlay-right > .card__title h4 {
+        font-size: 3rem; /* Fallback inicial - será ajustado por JS */
+        font-weight: 600;
+        color: inherit;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    /* Parágrafo dentro do div card__title com estilo de description - tamanho controlado por JavaScript */
+    .card--overlay-right > .card__title p {
+        font-size: 1rem; /* Fallback inicial - será ajustado por JS */
+        color: var(--color-text-black);
+        opacity: 1;
+        line-height: 1.6;
+        margin: 0;
+        font-weight: normal;
+    }
+
+/* Descrição do card overlay-right com cor preta e tamanho controlado por JavaScript */
+.card--overlay-right .card__description {
+    color: #000000;
+    opacity: 1;
+    font-size: 1rem; /* Fallback inicial - será ajustado por JS */
+}
+
+    .card--overlay-right .card__description p {
+        color: #000000;
+        font-size: inherit; /* Herda o tamanho proporcional */
+    }
 
 /* Componentes internos do card */
 .card__content {
@@ -282,15 +681,15 @@ img {
 }
 
 .card__title {
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: var(--font-size-item-title); /* Usando a escala */
+    font-weight: var(--font-weight-semibold); /* Usando o peso de fonte */
     color: inherit;
     margin-bottom: 1rem;
     line-height: 1.3;
 }
 
 .card__description {
-    font-size: 1.125rem;
+    font-size: var(--font-size-body);
     color: inherit;
     opacity: 0.9;
     line-height: 1.6;
@@ -306,6 +705,168 @@ img {
     object-fit: contain; /* Preserva proporções originais, sem corte ou esticamento */
     object-position: center;
     image-rendering: high-quality;
+}
+
+/* ========================================
+   CARD TIPO "TILE" (ESTILO APPLE)
+   - Imagem dentro de um bloco arredondado escuro
+   - Texto fora e abaixo do bloco (legenda)
+   - Usar com markup: .card.card--tile > .card__media + .card__caption
+   ======================================== */
+.card--tile {
+    /* Reseta estilo base do .card para um wrapper neutro */
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    /* Largura responsiva padrão */
+    width: clamp(280px, 30vw, 420px);
+}
+
+/* Variáveis para customização rápida por classe */
+.card--tile {
+    --tile-bg: #1f1f1f;
+    --tile-border: rgba(255, 255, 255, 0.08);
+    --tile-radius: 24px;
+    --tile-padding: 16px;
+    --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+    /* Não permitir que o item flex cresça além do conteúdo */
+    .card--tile,
+
+    .card--tile .card__media {
+        background: var(--tile-bg);
+        border: 1px solid var(--tile-border);
+        border-radius: var(--tile-radius);
+        padding: var(--tile-padding);
+        box-shadow: var(--tile-shadow);
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .card--tile .card__image {
+            /* Imagem centralizada, preservando proporção, sem cortar */
+            width: 100%;
+            height: auto;
+            max-height: 560px; /* razoável para vitrines altas */
+            object-fit: contain;
+            border-radius: calc(var(--tile-radius) - 8px);
+            background: var(--bg-light);
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            display: block; /* evita gaps em imagens inline */
+        }
+
+        /* Variante NATURAL: faz o card seguir a largura intrínseca da imagem
+   e o texto quebra dentro dessa largura */
+.card--tile.card--tile-natural {
+    width: auto;                 /* remove o clamp padrão do tile */
+    display: inline-flex;        /* encolhe ao conteúdo */
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 0 0 auto;              /* não cresce dentro do grid flex */
+}
+
+.card--tile-natural .card__media {
+    width: auto;                 /* mede pela imagem */
+    max-width: 100%;
+    display: inline-block;
+}
+
+.card--tile-natural .card__image {
+    display: block;
+    width: auto;                 /* usa largura intrínseca */
+    height: auto;                /* usa altura intrínseca */
+    max-width: 100%;             /* pode reduzir em telas menores */
+    max-height: none;            /* sem teto de altura */
+    object-fit: initial;
+}
+
+
+
+/* Garanta que o texto não force a largura do card */
+.card--tile .card__caption,
+.card--tile .card__title,
+.card--tile .card__description {
+    overflow-wrap: anywhere; /* quebra palavras longas */
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* A legenda não define a largura do card; segue a da imagem */
+.card--tile .card__content {
+    flex: 0 0 auto; /* não expande a largura do card */
+    width: 100%;
+    contain: inline-size; /* o texto não influencia a largura do card */
+}
+
+.card__caption {
+    width: 100%;
+}
+
+.card--tile .card__caption {
+    text-align: left; /* Apple-style: legenda à esquerda */
+}
+
+.card--tile .card__title {
+    font-size: 1.0625rem; /* ~17px */
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.25rem 0;
+    color: inherit;
+}
+
+.card--tile .card__description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Opções rápidas de superfície */
+.card--tile-light {
+    --tile-bg: white;
+    --tile-border: rgba(0, 0, 0, 0.06);
+    --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.card--tile-dark {
+    --tile-bg: #1f1f1f;
+    --tile-border: rgba(255, 255, 255, 0.08);
+    --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+/* Variante: mídia totalmente transparente (sem bloco de fundo) */
+.card--tile-ghost {
+    --tile-bg: transparent;
+    --tile-border: transparent;
+    --tile-shadow: none;
+    --tile-padding: 0; /* remove respiro ao redor da imagem */
+}
+
+/* Desativa todos os efeitos de hover para o tile "ghost" */
+.card.card--tile-ghost:hover {
+    box-shadow: none;
+    transform: none;
+}
+
+.card--tile-ghost .card__media,
+.card--tile-ghost .card__media:hover {
+    transform: none;
+    transition: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.card--tile .card__media:hover {
+    transform: translateY(-2px);
+    transition: transform 160ms ease;
 }
 
 /* Regra específica para imagens em cards verticais */
@@ -349,6 +910,11 @@ img {
     opacity: 0.8;
 }
 
+/* Classe utilitária para cor TQS Blue */
+.text-tqs-blue {
+    color: var(--tqs-blue) !important;
+}
+
 /* Cores específicas para texto em cards escuros */
 .card--dark .card__description,
 .card--blue .card__description {
@@ -379,7 +945,7 @@ img {
 }
 
 /* ========================================
-   SISTEMA DE GRID AUTOMÁTICO 
+   SISTEMA DE GRID AUTOMÝTICO 
    ======================================== */
 
 /* Grid principal que se adapta ao conteúdo automaticamente */
@@ -390,6 +956,50 @@ img {
     /* Grid padrão flexível */
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
+
+/* ========================================
+   RESOURCE SECTION - AGRUPAMENTO TEMÁTICO
+   ======================================== */
+
+/* Wrapper para agrupar múltiplos resources-grid com tema comum */
+.resource-section {
+    margin: 3rem 0;
+}
+
+    /* Modificadores de cor de fundo para resource-section */
+    .resource-section.blue {
+        background-color: #184772;
+        border: 2px solid #4472c4;
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    .resource-section.dark-blue {
+        background-color: #013365;
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    .resource-section.black {
+        background-color: #000000;
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    .resource-section.darkgray {
+        background-color: #2a2a2a;
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    /* Ajusta margem dos grids dentro de seções temáticas */
+    .resource-section .resources-grid {
+        margin-top: 2rem;
+    }
+
+    .resource-section .resources-grid:first-child {
+        margin-top: 0;
+    }
 
     /* Detecção automática baseada no conteúdo dos cards */
     /* Para cards overlay - WrapPanel centralizado */
@@ -408,14 +1018,29 @@ img {
         gap: 2rem;
     }
 
+    /* Para cards grid4 - grid flexível com largura mínima maior */
+    .resources-grid:has(.card--grid4) {
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 2rem;
+    }
+
     /* Para cards grandes - stack vertical */
     .resources-grid:has(.card--horizontal),
     .resources-grid:has(.card--horizontal-reverse),
     .resources-grid:has(.card--vertical) {
         display: flex;
         flex-direction: column;
-        gap: 3rem;
+        gap: 0.0rem;
         align-items: center; /* Centraliza cards verticais */
+    }
+
+    /* Para cards estilo Apple (tile) - layout lado a lado com wrap */
+    .resources-grid:has(.card--tile) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1.25rem;
     }
 
 /* Modificadores específicos - REMOVIDOS: sistema automático detecta automaticamente */
@@ -440,11 +1065,59 @@ img {
         .resources-grid:has(.card--vertical) {
             gap: 2rem;
         }
+
+        .resources-grid:has(.card--tile) {
+            gap: 0.75rem;
+        }
+
+}
+
+/* ========================================
+   VARIAÇÃO HORIZONTAL DO GRID
+   ======================================== */
+
+/* Grid horizontal que distribui itens em larguras iguais */
+.resources-grid-horizontal {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    justify-content: space-between;
+    align-items: stretch; /* Faz todos os itens terem a mesma altura */
+    flex-wrap: nowrap; /* Mantém em linha horizontal */
+}
+
+    /* Todos os filhos diretos recebem largura igual */
+    .resources-grid-horizontal > * {
+        flex: 1; /* Distribui largura igualmente */
+        min-width: 0; /* Permite que o conteúdo encolha se necessário */
+    }
+
+    /* Modificadores de cor são aplicados via resource-section pai */
+    .resource-section .resources-grid-horizontal {
+        margin-top: 2rem;
+    }
+
+    .resource-section .resources-grid-horizontal:first-child {
+        margin-top: 0;
+    }
+
+/* Responsividade - quebra para vertical em telas pequenas */
+@media (max-width: 768px) {
+    .resources-grid-horizontal {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center; /* Centraliza itens verticais */
+    }
+
+        .resources-grid-horizontal > * {
+            flex: none; /* Remove distribuição igual em vertical */
+            width: 100%; /* Ocupa largura total */
+        }
 }
 
 /* Header */
 .header {
-    background: #1e293b;
+    background: var(--bg-dark-blue);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -510,7 +1183,8 @@ img {
     margin: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-auto-flow: column;
     gap: 0.5rem;
 }
 
@@ -527,7 +1201,7 @@ img {
 .dropdown-menu a {
     display: block;
     padding: 0.5rem 0.75rem;
-    color: #374151 !important;
+    color: var(--color-text-dark-primary) !important;
     text-decoration: none;
     transition: background-color 0.2s ease;
     border-radius: 4px;
@@ -536,19 +1210,19 @@ img {
 }
 
     .dropdown-menu a:hover {
-        background-color: #f3f4f6;
-        color: #1f2937 !important;
+        background-color: var(--bg-soft-gray);
+        color: var(--color-text-dark-primary) !important;
     }
 
 .nav-menu a {
     text-decoration: none;
-    color: white;
-    font-weight: 500;
+    color: var(--color-text-light-primary);
+    font-weight: var(--font-weight-medium);
     transition: color 0.3s ease;
 }
 
     .nav-menu a:hover {
-        color: #cbd5e1;
+        color: var(--color-text-light-tertiary);
     }
 
 /* Hamburger Button */
@@ -602,16 +1276,16 @@ img {
     z-index: 1000;
 }
 
-.nav-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    color: white;
-    padding: 6rem 0;
+    background: var(--bg-dark-hero);
+    color: var(--color-text-light-primary);
+    padding: 4rem 0;
     position: relative;
     overflow: hidden;
 }
@@ -619,13 +1293,13 @@ img {
 /* Aumentar altura do Hero em telas grandes */
 @media (min-width: 1200px) {
     .hero {
-        padding: 8rem 0;
+        padding: 5rem 0;
     }
 }
 
 @media (min-width: 1600px) {
     .hero {
-        padding: 10rem 0;
+        padding: 6rem 0;
     }
 }
 
@@ -636,7 +1310,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M 5 0 L 0 0 0 5" fill="none" stroke="%231F2126" stroke-width="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
     opacity: 0.3;
 }
 
@@ -645,7 +1319,7 @@ img {
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr;
     gap: 4rem;
     align-items: center;
     position: relative;
@@ -658,8 +1332,8 @@ img {
 }
 
 .hero-title {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: var(--font-size-hero-title);
+    font-weight: var(--font-weight-bold);
     margin-bottom: 1rem;
     background: linear-gradient(135deg, #ffffff, #e2e8f0);
     -webkit-background-clip: text;
@@ -668,16 +1342,16 @@ img {
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: var(--font-size-xl); /* Usando a escala */
+    color: var(--color-text-light-secondary);
     color: #e2e8f0;
 }
 
 .hero-description {
-    font-size: 1.1rem;
+    font-size: var(--font-size-body); /* Usando a escala */
+    color: var(--color-text-light-tertiary);
     margin-bottom: 3rem;
     line-height: 1.7;
-    color: #cbd5e1;
 }
 
 .hero-cta {
@@ -690,13 +1364,29 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+
+    .hero-image::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 30%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+    }
 
 .hero-screenshot {
     width: 100%;
-    max-width: 500px;
+    max-width: 750px;
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
 }
 
 /* Carousel Styles */
@@ -754,7 +1444,7 @@ img {
 }
 
     .dot.active {
-        background: #2563eb;
+        background: var(--color-accent-secondary);
     }
 
 .carousel-btn {
@@ -762,7 +1452,7 @@ img {
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
-    color: white;
+    color: var(--color-text-light-primary);
     border: none;
     width: 40px;
     height: 40px;
@@ -792,18 +1482,79 @@ img {
     height: auto;
     margin-bottom: 0;
     display: block;
-    /* CRÍTICO: Mini-carousel deve se comportar exatamente como uma imagem normal */
+    /* CRÝTICO: Mini-carousel deve se comportar exatamente como uma imagem normal */
 }
 
-    .mini-carousel:hover .mini-carousel-btn {
-        opacity: 1;
+/* Mini Carousel Minimalista - Sem Controles */
+.mini-carousel--clean {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0;
+    display: block;
+}
+
+    .mini-carousel--clean .mini-carousel-track {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        border-radius: 8px;
+        background: transparent;
+        box-shadow: none;
+        cursor: default;
+        user-select: none;
+        transition: none;
     }
+
+    .mini-carousel--clean .mini-carousel-image {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 1;
+        display: block;
+    }
+
+        .mini-carousel--clean .mini-carousel-image.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .mini-carousel--clean .mini-carousel-image:not(.active) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+    /* Esconder todos os controles no carousel minimalista */
+    .mini-carousel--clean .mini-carousel-dots,
+    .mini-carousel--clean .mini-carousel-btn,
+    .mini-carousel--clean .mini-dot,
+    .mini-carousel--clean .carousel-btn {
+        display: none !important;
+    }
+
+    /* Remover efeitos hover no carousel clean */
+    .mini-carousel--clean .mini-carousel-track:hover {
+        box-shadow: none;
+        transform: none;
+    }
+
+.mini-carousel:hover .mini-carousel-btn {
+    opacity: 1;
+}
 
 .mini-carousel-track {
     position: relative;
     width: 100%;
     height: auto;
-    /* REMOVIDO: aspect-ratio fixo, será definido dinamicamente */
     overflow: hidden;
     border-radius: 8px; /* Mesmo border-radius que card__image */
     background: transparent; /* Sem fundo branco */
@@ -822,7 +1573,7 @@ img {
 
 .mini-carousel-image {
     /* REFORMULAÇÃO TOTAL: Comportar-se como imagem normal */
-    position: static; /* MUDANÇA CRÍTICA: Não mais absoluto */
+    position: static; /* MUDANÇA CRÝTICA: Não mais absoluto */
     width: 100%;
     height: auto; /* Altura natural da imagem */
     max-width: 100%; /* Nunca maior que tamanho original */
@@ -839,7 +1590,7 @@ img {
         opacity: 1;
         z-index: 2;
     }
-    
+
     /* Todas as imagens inativas ficam ocultas e não ocupam espaço */
     .mini-carousel-image:not(.active) {
         position: absolute;
@@ -963,6 +1714,456 @@ img {
     transition: transform 0.5s ease-in-out;
     padding: 0 2rem;
     box-sizing: border-box;
+}
+
+/* =================================================================== */
+/* COMPONENTE DE FEATURES INTERATIVAS (REATORADO COM VARIÁVEIS CSS)    */
+/* =================================================================== */
+
+/* --- O Container Principal com as variáveis do tema padrão (escuro) --- */
+.resources-grid--carousel--interactive {
+    /* Variáveis de Cor do Tema */
+    --bg-main: #000;
+    --color-text-primary: #f5f5f7;
+    --bg-button: rgba(44, 44, 46, 0.7);
+    --border-button: rgba(84, 84, 88, 0.65);
+    --bg-button-hover: rgba(58, 58, 60, 0.7);
+    --bg-icon: #2c2c2e;
+    --border-icon: #4c4c4e;
+    --bg-card-active: rgba(28, 28, 30, 0.7);
+    --border-card-active: rgba(84, 84, 88, 0.65);
+    --bg-arrow: #1d1d1f;
+    --border-arrow: #3c3c3e;
+    --bg-arrow-hover: #2c2c2e;
+    --color-arrow-icon: white;
+    --color-plus-icon: white;
+    /* Estilos do Container */
+    background-color: var(--bg-main);
+    color: var(--color-text-primary);
+    border-radius: 24px;
+    padding: 40px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-areas: "controls media";
+    align-items: center;
+    gap: 40px;
+    height: 650px;
+    max-width: 1200px;
+    position: relative;
+}
+
+    /* Ocultamos os cards originais */
+    .resources-grid--carousel--interactive > .card {
+        display: none;
+    }
+
+    /* --- Painéis --- */
+    .resources-grid--carousel--interactive .controls-panel {
+        grid-area: controls;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .resources-grid--carousel--interactive .media-panel {
+        grid-area: media;
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+    /* --- Lista de Features --- */
+    .resources-grid--carousel--interactive .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-left: 60px;
+    }
+
+    /* Botão de Controle */
+    .resources-grid--carousel--interactive .feature-button {
+        background-color: var(--bg-button);
+        border: 1px solid var(--border-button);
+        color: var(--color-text-primary);
+        width: 100%;
+        padding: 12px 18px;
+        border-radius: 99px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        text-align: left;
+        font-size: 16px;
+        font-family: inherit;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+    }
+
+        .resources-grid--carousel--interactive .feature-button:hover {
+            background-color: var(--bg-button-hover);
+        }
+
+    .resources-grid--carousel--interactive .feature-list-item.active .feature-button {
+        display: none;
+    }
+
+    /* Card Ativo */
+    .resources-grid--carousel--interactive .card {
+        background-color: var(--bg-card-active);
+        border: 1px solid var(--border-card-active);
+        color: var(--color-text-primary);
+        border-radius: 24px;
+        padding: 24px;
+        backdrop-filter: blur(20px);
+        display: none;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .resources-grid--carousel--interactive .feature-list-item.active .card {
+        display: block;
+    }
+
+    /* --- Mídia no Painel Direito --- */
+    .resources-grid--carousel--interactive .media-panel .card__media {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+        .resources-grid--carousel--interactive .media-panel .card__media.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+    /* Imagens */
+    .resources-grid--carousel--interactive .media-panel .card__image,
+    .resources-grid--carousel--interactive .media-panel .mini-carousel-image {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 18px;
+        flex-shrink: 0;
+    }
+
+    /* Correção para o Mini-Carrossel */
+    .resources-grid--carousel--interactive .media-panel .mini-carousel {
+        display: inline-block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+/* =================================================================== */
+/* LAYOUT RESPONSIVO UNIFICADO E FINAL (TABLET E CELULAR)              */
+/* =================================================================== */
+
+@media (max-width: 1024px) {
+    .resources-grid--carousel--interactive {
+        grid-template-columns: 1fr;
+        grid-template-areas: "stage";
+        height: 80vh;
+        min-height: 500px;
+        padding: 0;
+        border-radius: 0;
+        gap: 0;
+    }
+
+        /* Painel de mídia vira o fundo */
+        .resources-grid--carousel--interactive .media-panel {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Painel de controle é a camada de sobreposição */
+        .resources-grid--carousel--interactive .controls-panel {
+            position: absolute;
+            inset: 0;
+            pointer-events: none; /* O painel em si não é clicável */
+        }
+
+        /* Feature list invisivel no mobile, mas mantendo o card ativo sobre a imagem */
+        .resources-grid--carousel--interactive .feature-list {
+            position: absolute;
+            inset: 0;
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .resources-grid--carousel--interactive .feature-list-item {
+            display: none;
+        }
+
+            .resources-grid--carousel--interactive .feature-list-item .feature-button {
+                display: none;
+            }
+
+            .resources-grid--carousel--interactive .feature-list-item.active {
+                display: block;
+            }
+
+                /* O texto ativo fica na base, sobre a imagem */
+                .resources-grid--carousel--interactive .feature-list-item.active .card {
+                    position: absolute;
+                    bottom: 24px;
+                    z-index: 20;
+                    pointer-events: all;
+                    background: rgba(29, 29, 31, 0.82);
+                    backdrop-filter: blur(26px);
+                    border: 1px solid rgba(84, 84, 88, 0.55);
+                    border-radius: 26px;
+                    padding: 20px 28px;
+                    text-align: left;
+                    line-height: 1.5;
+                    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+
+                    /* --- LÓGICA DE CENTRALIZAÇÃO E LARGURA (VERSÃO CORRIGIDA E SIMPLIFICADA) --- */
+                    left: 50%;
+                    transform: translateX(-50%); /* Centraliza o elemento na tela */
+
+                    /* Cria o espacamento nas laterais e define um limite maximo */
+                    width: calc(100% - 120px); /* Deixa 70px de espaco em cada lado */
+                    max-width: 520px;          /* O bloco nao passara de 520px de largura */
+                }
+
+        /* Navegacao reposicionada ao redor do card ativo */
+        .resources-grid--carousel--interactive .feature-nav {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: calc(100% - 48px);
+            padding: 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+            z-index: 22;
+            gap: 0;
+            height: 48px;
+        }
+
+            .resources-grid--carousel--interactive .feature-nav .nav-arrow {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                pointer-events: all;
+                background: rgba(29, 29, 31, 0.82);
+                border: 1px solid rgba(84, 84, 88, 0.55);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                transition: background-color 0.2s ease;
+            }
+
+                .resources-grid--carousel--interactive .feature-nav .nav-arrow.prev {
+                    transform: translateX(-60%);
+                }
+
+                .resources-grid--carousel--interactive .feature-nav .nav-arrow.next {
+                    transform: translateX(60%);
+                }
+
+                .resources-grid--carousel--interactive .feature-nav .nav-arrow::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    border: solid var(--color-arrow-icon);
+                    border-width: 0 2px 2px 0;
+                    display: inline-block;
+                    padding: 4px;
+                    transform-origin: center;
+                }
+
+        /* Seta para ESQUERDA */
+        .resources-grid--carousel--interactive .nav-arrow.prev::before {
+            transform: translate(-55%, -50%) rotate(135deg);
+        }
+
+        /* Seta para DIREITA */
+        .resources-grid--carousel--interactive .nav-arrow.next::before {
+            transform: translate(-45%, -50%) rotate(-45deg);
+        }
+}
+
+/* --- ESTILOS DAS SETAS PARA DESKTOP --- */
+@media (min-width: 1025px) {
+    /* Seta para CIMA no desktop */
+    .resources-grid--carousel--interactive .nav-arrow.prev::before {
+        transform: translate(-50%, -60%) rotate(-135deg);
+    }
+
+    /* Seta para BAIXO no desktop */
+    .resources-grid--carousel--interactive .nav-arrow.next::before {
+        transform: translate(-50%, -40%) rotate(45deg);
+    }
+}
+
+
+/* --- ESTÁGIO 1: DESKTOP (acima de 1024px) --- */
+/* Garante que as setas sejam Cima/Baixo apenas no desktop. */
+@media (min-width: 1025px) {
+    /* Rota??o para criar a seta para CIMA no desktop */
+    .resources-grid--carousel--interactive .nav-arrow.prev::before {
+        transform: translate(-50%, -60%) rotate(-135deg);
+    }
+
+    /* Rotação para criar a seta para BAIXO no desktop */
+    .resources-grid--carousel--interactive .nav-arrow.next::before {
+        transform: translate(-50%, -40%) rotate(45deg);
+    }
+}
+
+/* --- Ícones e Navegação --- */
+@media (min-width: 1025px) {
+    .resources-grid--carousel--interactive .feature-nav {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 10;
+    }
+
+    .resources-grid--carousel--interactive .nav-arrow {
+        background-color: var(--bg-arrow);
+        border: 1px solid var(--border-arrow);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        transition: background-color 0.2s ease;
+    }
+
+        .resources-grid--carousel--interactive .nav-arrow:hover {
+            background-color: var(--bg-arrow-hover);
+        }
+
+        .resources-grid--carousel--interactive .nav-arrow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: solid var(--color-arrow-icon);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform-origin: center;
+        }
+
+        .resources-grid--carousel--interactive .nav-arrow.prev::before {
+            transform: translate(-50%, -60%) rotate(-135deg);
+        }
+
+        .resources-grid--carousel--interactive .nav-arrow.next::before {
+            transform: translate(-50%, -40%) rotate(45deg);
+        }
+
+        .resources-grid--carousel--interactive .nav-arrow.up::before {
+            transform: translate(-50%, -60%) rotate(-135deg);
+        }
+
+        .resources-grid--carousel--interactive .nav-arrow.down::before {
+            transform: translate(-50%, -40%) rotate(45deg);
+        }
+}
+.resources-grid--carousel--interactive .feature-button-icon {
+    background-color: var(--bg-icon);
+    border: 1px solid var(--border-icon);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+    .resources-grid--carousel--interactive .feature-button-icon::before,
+    .resources-grid--carousel--interactive .feature-button-icon::after {
+        content: '';
+        position: absolute;
+        background-color: var(--color-plus-icon);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .resources-grid--carousel--interactive .feature-button-icon::before {
+        width: 10px;
+        height: 2px;
+    }
+
+    .resources-grid--carousel--interactive .feature-button-icon::after {
+        width: 2px;
+        height: 10px;
+    }
+
+.resources-grid--carousel--interactive .card__description strong {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* =================================================================== */
+/* MODIFICADORES DE COR PARA O COMPONENTE INTERATIVO                   */
+/* =================================================================== */
+
+/* --- TEMA AZUL --- */
+.resources-grid--carousel--interactive.theme-blue {
+    --bg-main: #0D182E; /* Azul-noite bem escuro para o fundo */
+    --color-text-primary: #EAEFFC; /* Texto branco com um leve tom azulado */
+    --bg-button: rgba(31, 84, 221, 0.6); /* O seu azul com 60% de opacidade */
+    --border-button: rgba(60, 110, 230, 0.6); /* Borda um pouco mais clara */
+    --bg-button-hover: rgba(31, 84, 221, 0.8); /* Azul com mais opacidade no hover */
+    --bg-icon: #1A46B8; /* Um tom sólido um pouco mais escuro que o seu azul */
+    --border-icon: #1F54DD; /* A borda do ícone com a sua cor exata */
+    --bg-card-active: rgba(15, 30, 60, 0.75); /* Fundo do card ativo bem escuro e translúcido */
+    --border-card-active: rgba(60, 110, 230, 0.6);
+    --bg-arrow: #102244; /* Fundo das setas sólido e escuro */
+    --border-arrow: #1F54DD;
+    --bg-arrow-hover: #1A46B8;
+}
+
+/* --- TEMA CLARO --- */
+.resources-grid--carousel--interactive.theme-light {
+    --bg-main: #f5f5f7;
+    --color-text-primary: #1d1d1f;
+    --bg-button: rgba(229, 231, 235, 0.9);
+    --border-button: rgba(209, 213, 219, 1);
+    --bg-button-hover: rgba(209, 213, 219, 1);
+    --bg-icon: #d1d5db;
+    --border-icon: #9ca3af;
+    --bg-card-active: rgba(255, 255, 255, 0.9);
+    --border-card-active: rgba(209, 213, 219, 1);
+    --bg-arrow: #e5e7eb;
+    --border-arrow: #d1d5db;
+    --bg-arrow-hover: #d1d5db;
+    --color-arrow-icon: #4b5563;
+    --color-plus-icon: #4b5563;
 }
 
 /* Cards clonados para navegação circular - invisíveis para o usuário */
@@ -1153,11 +2354,11 @@ img {
         min-width: 240px; /* Mínimo menor para mobile */
         max-width: 85vw;
     }
-    
+
     .mini-carousel {
         height: auto; /* Altura automática em mobile */
     }
-    
+
     .mini-carousel-track {
         height: auto; /* JavaScript definirá a altura */
     }
@@ -1186,7 +2387,7 @@ img {
         padding-left: 10px !important;
         padding-right: 10px !important;
     }
-    
+
     .carousel-btn {
         width: 45px;
         height: 45px;
@@ -1203,98 +2404,494 @@ img {
 }
 
 /* Before & After Image Slider (Apple Style) */
+/* =================================================================== */
+
+/* 1. O CONTAINER PRINCIPAL */
 .before-after-slider {
-    position: relative; /* Essencial para o posicionamento dos filhos */
+    position: relative;
     width: 100%;
-    height: 100%; /* Faz o slider preencher o container pai (.card__media) */
     overflow: hidden;
-    border-radius: 16px; /* Bordas mais suaves, estilo Apple */
-    -webkit-font-smoothing: antialiased; /* Melhora a renderização de texto/elementos */
-    -moz-osx-font-smoothing: grayscale;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+    .before-after-slider:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+/* 2. A IMAGEM DEPOIS (A BASE ESTRUTURAL) */
+.before-after-slider__image--after {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 3. O WRAPPER DA IMAGEM "ANTES" (A MÝSCARA DE CORTE) */
 .before-after-slider__image-wrapper {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%; /* Posição inicial do slider */
+    width: 40%;
     height: 100%;
     overflow: hidden;
     z-index: 2;
+    transition: width 0.1s ease-out;
 }
 
-.before-after-slider__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
+/* 4. A IMAGEM ANTES */
+.before-after-slider__image--before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    max-width: none;
+    min-width: 320px; /* Mínimo para mobile */
     pointer-events: none;
 }
 
-.before-after-slider__image--before {
-    /* O JS vai ajustar a largura para corresponder ao container principal */
+.before-after-slider {
+    --slider-width: 100%;
 }
 
-/* Alça do slider */
+.before-after-slider__image--before {
+    width: var(--slider-width);
+}
+
+/* 5. A ALÇA DO SLIDER  */
 .before-after-slider__handle {
     position: absolute;
     top: 0;
-    left: 50%;
-    width: 2px; /* Linha central mais fina e sutil */
+    left: 40%;
+    width: 3px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7);
+    background: linear-gradient( 180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.9) 100% );
     transform: translateX(-50%);
     cursor: ew-resize;
     z-index: 10;
-    transition: background 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
 }
 
 .before-after-slider:hover .before-after-slider__handle {
-    background: rgba(255, 255, 255, 1); /* Linha fica mais visível no hover */
+    background: linear-gradient( 180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100% );
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 50px rgba(255, 255, 255, 0.4);
+    width: 4px;
 }
 
-/* O "pegador" central, com estilo de vidro fosco */
+/* 6. O PEGADOR  */
 .before-after-slider__handle-grabber {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 44px; /* Área de toque */
-    height: 44px; /* Área de toque */
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-    /* O elemento visual da pílula dentro do "pegador" */
-    .before-after-slider__handle-grabber::before {
-        content: '';
-        width: 8px; /* Largura da pílula */
-        height: 40px; /* Altura da pílula */
-        background: rgba(255, 255, 255, 0.3); /* Cor de vidro */
-        border: 1.5px solid rgba(255, 255, 255, 0.5);
-        border-radius: 999px; /* Formato de pílula */
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px); /* Efeito de vidro fosco para Safari/iOS */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-.before-after-slider:hover .before-after-slider__handle-grabber::before {
-    background: rgba(255, 255, 255, 0.6);
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .before-after-slider:hover .before-after-slider__handle-grabber {
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.15);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* 7. ÝCONE DE SETAS DUPLAS */
+.handle-icon {
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.before-after-slider:hover .handle-icon {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* 8. NÚMEROS DAS VERSÕES */
+.version-label {
+    position: absolute;
+    top: 50%;
+    font-size: 14px;
+    font-weight: 600; /* Um pouco mais forte para legibilidade */
+    color: #FFF; /* Branco puro */
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    /* Borda e sombra que criam um efeito de "brilho" */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translateY(-50%);
+    text-shadow: none;
+}
+
+.version-label--left {
+    right: 80px;
+}
+
+.version-label--right {
+    left: 80px;
+}
+
+/* Estilo para quando o slider está sendo arrastado */
+.before-after-slider.dragging .version-label {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.before-after-slider:hover .version-label {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .before-after-slider {
+        border-radius: 16px;
+    }
+
+    .before-after-slider__handle-grabber {
+        width: 48px;
+        height: 48px;
+    }
+
+    .version-label {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .version-label--left {
+        right: 60px;
+    }
+
+    .version-label--right {
+        left: 60px;
+    }
+
+    .before-after-slider__image--before {
+        width: calc(100vw - 40px); /* Ajuste para mobile */
+        max-width: 768px;
+    }
+}
+
+@media (max-width: 480px) {
+    .version-label--left {
+        right: 50px;
+    }
+
+    .version-label--right {
+        left: 50px;
+    }
+
+    .before-after-slider__image--before {
+        width: calc(100vw - 40px);
+        max-width: 480px;
+    }
+}
+
+/* ===== COMPONENTE BEFORE-AFTER REUTILIZÁVEL ===== */
+/*
+COMO USAR:
+1. Uso básico: <div class="before-after" data-before="img1.png" data-after="img2.png"></div>
+
+2. Dentro de card__media: 
+   <div class="card__media">
+       <div class="before-after" data-before="antes.png" data-after="depois.png"></div>
+   </div>
+
+3. Dentro de mini-carousel:
+   <div class="mini-carousel">
+       <div class="mini-carousel-track">
+           <div class="before-after mini-carousel-image active" data-before="antes.png" data-after="depois.png"></div>
+           <img src="img2.png" class="mini-carousel-image">
+       </div>
+   </div>
+
+4. Auto-inicialização: O componente é inicializado automaticamente via JavaScript
+   - Detecta mudanças no DOM (carousel, lazy loading, etc.)
+   - Suporta múltiplas instâncias na mesma página
+   - Labels TQS25/TQS26 são fixos e automáticos
+
+5. Tamanho: Segue automaticamente a maior das duas imagens
+6. Performance: CSS otimizado, JavaScript leve, sem redundâncias
+*/
+
+.before-after {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    /* Reset completo para evitar herança */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+    .before-after:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Reset universal para todas as imagens do componente */
+    .before-after img,
+    .before-after__image--after,
+    .before-after__image--before {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        vertical-align: top !important;
+        box-sizing: border-box !important;
+    }
+
+/* Imagem depois (estrutural - define o tamanho) */
+.before-after__image--after {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+}
+
+/* Wrapper da imagem antes (máscara de corte) */
+.before-after__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+    transition: width 0.1s ease-out;
+}
+
+/* Imagem antes - CRITICAL: deve manter tamanho FIXO independente do wrapper */
+.before-after__image--before {
+    /* Posicionamento absoluto dentro do wrapper */
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* CRUCIAL: Dimensões FIXAS baseadas no container pai, não no wrapper */
+    width: var(--container-width, 100%);
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+
+    /* Configurações específicas */
+    pointer-events: none;
+    max-width: none;
+    min-width: unset;
+
+    /* Previne redimensionamento baseado no wrapper */
+    flex-shrink: 0;
+}
+
+/* Variáveis CSS removidas - dimensões agora controladas via JavaScript para precisão */
+
+/* Handle do slider */
+.before-after__handle {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.9) 100%);
+    transform: translateX(-50%);
+    cursor: ew-resize;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+.before-after:hover .before-after__handle {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 50px rgba(255, 255, 255, 0.4);
+    width: 4px;
+}
+
+/* Pegador do handle */
+.before-after__handle-grabber {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.before-after:hover .before-after__handle-grabber {
+    transform: translate(-50%, -50%) scale(1.15);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Ícone de setas duplas */
+.before-after__handle-icon {
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.before-after:hover .before-after__handle-icon {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Labels das versões */
+.before-after__version-label {
+    position: absolute;
+    top: 50%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFF;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translateY(-50%);
+    text-shadow: none;
+}
+
+.before-after__version-label--left {
+    right: 80px;
+}
+
+.before-after__version-label--right {
+    left: 80px;
+}
+
+/* Estados de interação */
+.before-after.dragging .before-after__version-label {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.before-after:hover .before-after__version-label {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Estados de arraste */
+.before-after.dragging {
+    cursor: ew-resize;
+}
+
+    .before-after.dragging .before-after__handle-grabber {
+        transform: translate(-50%, -50%) scale(1.2);
+        background: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 15px 45px rgba(0, 0, 0, 0.5),
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 0 40px rgba(255, 255, 255, 0.4);
+}
+
+.before-after.dragging .before-after__handle {
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.8),
+        0 0 60px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .before-after {
+        border-radius: 16px;
+    }
+
+    .before-after__handle-grabber {
+        width: 48px;
+        height: 48px;
+    }
+
+    .before-after__version-label {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .before-after__version-label--left {
+        right: 60px;
+    }
+
+    .before-after__version-label--right {
+        left: 60px;
+    }
+
+    /* Dimensões responsivas agora controladas via JavaScript */
+}
+
+@media (max-width: 480px) {
+    .before-after__version-label--left {
+        right: 50px;
+    }
+
+    .before-after__version-label--right {
+        left: 50px;
+    }
+
+    /* Dimensões responsivas agora controladas via JavaScript */
 }
 
 /* Resources Section */
@@ -1309,25 +2906,25 @@ img {
 }
 
 .section-title {
-    color: #1e293b;
+    color: var(--color-text-dark-primary);
+    font-size: var(--font-size-section-title);
     margin-bottom: 1rem;
-    font-size: 3rem;
 }
 
 .section-subtitle {
-    font-size: 1.2rem;
-    color: #64748b;
+    font-size: var(--font-size-section-subtitle);
+    color: var(--color-text-dark-secondary);
     max-width: 600px;
     margin: 0 auto;
 }
 
 /* Resource Highlight */
 .resource-highlight {
-    background: white;
+    background: var(--bg-light);
+    box-shadow: var(--shadow-card);
     border-radius: 16px;
     padding: 3rem;
     margin-bottom: 4rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
@@ -1335,14 +2932,14 @@ img {
 }
 
 .resource-title {
-    color: #1e293b;
-    font-size: 2.2rem;
+    color: var(--color-text-dark-primary);
+    font-size: var(--font-size-highlight-title);
     margin-bottom: 1.5rem;
 }
 
 .resource-description {
-    font-size: 1.1rem;
-    color: #475569;
+    font-size: var(--font-size-body); /* Alinhado com o corpo de texto padrão */
+    color: var(--color-text-dark-secondary); /* Unificando com a cor secundária */
     margin-bottom: 2rem;
     line-height: 1.7;
 }
@@ -1355,25 +2952,25 @@ img {
         padding: 0.5rem 0;
         position: relative;
         padding-left: 2rem;
-        color: #334155;
+        color: var(--color-text-dark-primary)
     }
 
         .resource-benefits li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: #22c55e;
+            color: var(--color-accent-green);
             font-weight: bold;
         }
 
 .resource-image {
     width: 100%;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-card-hover);
 }
 
-    /* Resource Groups */
-    .resource-group {
+/* Resource Groups */
+.resource-group {
     margin-bottom: 6rem;
     padding: 0 1rem;
 }
@@ -1386,11 +2983,199 @@ img {
         margin-top: 2rem;
     }
 
+    /* Resource Group Dark - Fundo totalmente preto */
+    .resource-group.dark {
+        background: var(--bg-dark-section);
+        color: var(--color-text-light-primary);
+        border-radius: 0;
+        padding: 4rem 0;
+        margin: 4rem 0 0 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* Resource Group Dark Blue - Fundo azul escuro */
+    .resource-group.dark-blue {
+        background: var(--bg-dark-blue);
+        color: var(--color-text-light-primary);
+        border-radius: 0;
+        padding: 4rem 0;
+        margin: 4rem 0 0 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* Resource Group Darker Blue - Fundo azul mais saturado */
+    .resource-group.darker-blue {
+        background: #002142;
+        color: var(--color-text-light-primary);
+        border-radius: 0;
+        padding: 4rem 0;
+        margin: 4rem 0 0 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    .resource-group h2 {
+        margin-top: 3rem;
+        margin-bottom: 0;
+    }
+
+    .resource-group.dark-blue h2 {
+        color: #ffffff;
+    }
+
+    .resource-group.darker-blue h2 {
+        color: #ffffff;
+    }
+
+/* Footnotes - Notas de rodapé que ficam no final dos cards */
+.footnotes {
+    font-size: 0.75rem;
+    color: #888888;
+    line-height: 1.4;
+    margin-top: 1.5rem;
+}
+
+/* Resource Group Light Ice - Azul mais frio que vai ao branco mais rápido */
+.resource-group.light-ice {
+    background: linear-gradient(180deg, #DCEEFF 0%, #F2F8FF 40%, #FFFFFF 100%);
+    color: #1d1d1f;
+    border-radius: 0;
+    padding: 4rem 0;
+    margin: 4rem 0 0 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.resource-group.ia-dark {
+    background: radial-gradient(900px 500px at 75% -10%, rgba(79,163,255,0.18), transparent 60%), linear-gradient(180deg, #0B1A36 0%, #0A1327 100%);
+    color: #E9EEF6;
+    border-radius: 0;
+    padding: 4rem 0;
+    margin: 4rem 0 0 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+
+/* Eliminar margem entre seções escuras adjacentes */
+.resource-group.dark + .resource-group.dark,
+.resource-group.dark-blue + .resource-group.dark,
+.resource-group.darker-blue + .resource-group.dark,
+.resource-group.dark + .resource-group.dark-blue,
+.resource-group.dark + .resource-group.darker-blue,
+.resource-group.dark-blue + .resource-group.dark-blue,
+.resource-group.dark-blue + .resource-group.darker-blue,
+.resource-group.darker-blue + .resource-group.dark-blue,
+.resource-group.darker-blue + .resource-group.darker-blue,
+.resource-group.light-ice + .resource-group.dark,
+.resource-group.light-ice + .resource-group.dark-blue,
+.resource-group.light-ice + .resource-group.darker-blue,
+.resource-group.dark + .resource-group.light-ice,
+.resource-group.dark-blue + .resource-group.light-ice,
+.resource-group.darker-blue + .resource-group.light-ice,
+.resource-group.light-ice + .resource-group.light-ice {
+    margin-top: 0;
+}
+
+/* Container interno para manter o conteúdo centralizado */
+.resource-group.dark > *,
+.resource-group.dark-blue > *,
+.resource-group.darker-blue > *,
+.resource-group.light-ice > * {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Ajuste para telas maiores */
+@media (min-width: 1400px) {
+    .resource-group.dark > *,
+    .resource-group.dark-blue > *,
+    .resource-group.darker-blue > *,
+    .resource-group.light-ice > * {
+        max-width: 1600px;
+    }
+}
+
+@media (min-width: 1800px) {
+    .resource-group.dark > *,
+    .resource-group.dark-blue > *,
+    .resource-group.darker-blue > *,
+    .resource-group.light-ice > * {
+        max-width: 2000px;
+    }
+}
+
+/* Ajustar cores dos títulos dentro do resource-group dark, dark-blue e darker-blue */
+.resource-group.dark .resource-group-title,
+.resource-group.dark-blue .resource-group-title,
+.resource-group.darker-blue .resource-group-title {
+    color: var(--color-text-light-primary);
+}
+
+.resource-group.dark .resource-group-description,
+.resource-group.dark-blue .resource-group-description,
+.resource-group.darker-blue .resource-group-description {
+    color: var(--color-text-light-secondary);
+}
+
+.resource-group.dark .resource-subgroup-title,
+.resource-group.dark-blue .resource-subgroup-title,
+.resource-group.darker-blue .resource-subgroup-title {
+    color: var(--color-highlight-yellow);
+}
+
+    /* Ajustar linha decorativa dos títulos */
+    .resource-group.dark .resource-group-title::after,
+    .resource-group.dark .resource-subgroup-title::after,
+    .resource-group.dark-blue .resource-group-title::after,
+    .resource-group.dark-blue .resource-subgroup-title::after,
+    .resource-group.darker-blue .resource-group-title::after,
+    .resource-group.darker-blue .resource-subgroup-title::after {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    }
+
+/* Ajustar cores dos cards transparentes dentro do dark, dark-blue e darker-blue */
+.resource-group.dark .card--transparent .card__title,
+.resource-group.dark-blue .card--transparent .card__title,
+.resource-group.darker-blue .card--transparent .card__title {
+    color: #ffffff;
+}
+
+.resource-group.dark .card--transparent .card__description,
+.resource-group.dark-blue .card--transparent .card__description,
+.resource-group.darker-blue .card--transparent .card__description {
+    color: #e2e8f0;
+}
+
 .resource-group-title {
     text-align: center;
-    color: #1e293b;
-    font-size: 2.8rem;
-    font-weight: 600;
+    color: var(--color-text-dark-primary);
+    font-size: var(--font-size-section-title);
     margin-bottom: 1rem;
     padding-top: 3rem;
     position: relative;
@@ -1412,17 +3197,17 @@ img {
 
 .resource-group-description {
     text-align: center;
-    font-size: 1.3rem;
-    color: #64748b;
+    font-size: var(--font-size-section-subtitle);
+    color: var(--color-text-dark-secondary);
     max-width: 600px;
     margin: 0 auto 3rem auto;
     line-height: 1.6;
 }
 
 .resource-subgroup-title {
-    color: #475569;
-    font-size: 1.8rem;
-    font-weight: 500;
+    color: var(--color-text-dark-secondary); 
+    font-size: var(--font-size-subgroup-title); 
+    font-weight: var(--font-weight-semibold);
     margin: 2.5rem 0 1.5rem 0;
     text-align: center;
     position: relative;
@@ -1438,6 +3223,62 @@ img {
         margin: 0.75rem auto 0;
         border-radius: 2px;
     }
+
+/* =================================================================== */
+/* ESTILOS PARA O SUBGRUPO DE RECURSOS COM FUNDO ESCURO                */
+/* =================================================================== */
+
+.resource-subgroup-wrapper {
+    /* Espaçamento para separar visualmente os subgrupos */
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.resource-subgroup--dark {
+    background: #000; /* Fundo preto sólido, como pedido */
+    color: #e2e8f0; /* Cor de texto padrão clara */
+    border-radius: 24px; /* Bordas arredondadas para um visual suave */
+    padding: 4rem 0; /* Espaçamento interno vertical */
+}
+
+    /* Ajusta as cores dos títulos e textos dentro do subgrupo escuro */
+    .resource-subgroup--dark .resource-subgroup-title,
+    .resource-subgroup--dark .resource-group-description,
+    .resource-subgroup--dark .card__description,
+    .resource-subgroup--dark .card--transparent .card__description p {
+        color: white;
+    }
+
+    .resource-subgroup--dark .card--transparent strong {
+        filter: brightness(1.2);
+    }
+
+/* Strong tags in dark resource groups */
+.resource-group.dark strong,
+.resource-group.dark-blue strong,
+.resource-group.darker-blue strong {
+    color: #ffff00;
+}
+
+/* Classe para destaque azul */
+.highlight-blue {
+    color: #46b1e1;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.resource-subgroup--dark .resource-subgroup-title::after {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .resource-subgroup--dark {
+        padding: 3rem 1rem;
+        border-radius: 16px;
+    }
+}
+
 
 /* Resources Grid */
 .resources-grid {
@@ -1480,8 +3321,8 @@ img {
 /* Acquisition Section */
 .acquisition {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--bg-dark-blue) 0%, var(--bg-dark-card) 100%);
+    color: var(--color-text-light-primary);
 }
 
     .acquisition .section-title,
@@ -1533,7 +3374,7 @@ img {
         }
 
 .pricing-recommended {
-    border: 2px solid #3b82f6;
+    border: 2px solid var(--color-accent-secondary);
     transform: scale(1.05);
 }
 
@@ -1542,8 +3383,8 @@ img {
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: #3b82f6;
-    color: white;
+    background: var(--color-accent-secondary);
+    color: var(--color-text-light-primary);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -1621,7 +3462,7 @@ img {
 /* Updates Section */
 .updates {
     padding: 6rem 0;
-    background: #f8fafc;
+    background: var(--bg-soft-gray);
 }
 
 .updates-timeline {
@@ -1638,11 +3479,11 @@ img {
 }
 
 .update-version {
-    color: #2563eb;
+    color: var(--color-accent-secondary);
+    border-bottom: 2px solid var(--color-text-light-secondary);
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e2e8f0;
 }
 
 .update-list {
@@ -1652,8 +3493,8 @@ img {
 
 .update-item {
     padding: 1rem;
-    border-left: 4px solid #2563eb;
-    background: #f8fafc;
+    border-left: 4px solid var(--color-accent-secondary);
+    background: var(--bg-soft-gray);
     border-radius: 0 8px 8px 0;
 }
 
@@ -1790,6 +3631,244 @@ img {
         transform: translateX(0);
     }
 
+/* Scroll-triggered Fade - Controle Preciso */
+.resources-grid--scroll-fade {
+    position: relative;
+    /* Altura proporcional: base de 200vh + 50vh por card adicional */
+    /* Calculado dinamicamente via JS */
+}
+
+/* Container fixo no centro da tela */
+.scroll-fade-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: none; /* Remove limitação de largura para cards overlay */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+    /* Limitação apenas para cards não-overlay */
+    .scroll-fade-sticky:not(:has(.card--overlay)) {
+        max-width: 1200px;
+    }
+
+/* Ýrea do conteúdo */
+.scroll-fade-content {
+    position: relative;
+    width: 100%;
+    min-height: 400px; /* Altura mínima para evitar colapso */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Altura será definida dinamicamente via JS */
+}
+
+    /* Cards do scroll fade - Sistema de cross-fade alinhado */
+    .scroll-fade-content .card {
+        opacity: 1;
+        pointer-events: none;
+        transform: translateY(0);
+        transition: none;
+        z-index: 1;
+        /* Posicionamento absoluto será aplicado via JS */
+    }
+
+    /* Cards overlay no scroll-fade seguem o tamanho natural da imagem */
+    .scroll-fade-content .card--overlay {
+        width: fit-content !important; /* Card se ajusta ao tamanho da imagem */
+        height: fit-content; /* Altura também se ajusta */
+        min-width: unset !important; /* Remove min-width do carousel */
+        max-width: none !important; /* Remove limitações de max-width */
+        flex-shrink: 0; /* Não encolhe */
+        display: inline-block; /* Garante comportamento inline-block */
+    }
+
+        /* Limitação aplicada apenas na imagem, que define o tamanho do card */
+        .scroll-fade-content .card--overlay .card__image {
+            max-width: min(90vw, 80vh * 1.5); /* Limita imagem baseado na tela */
+            max-height: 80vh; /* Limita altura da imagem */
+            width: auto; /* Mantém proporções */
+            height: auto; /* Mantém proporções */
+            object-fit: contain; /* Preserva aspect ratio */
+            display: block; /* Remove espaçamento inline */
+        }
+
+    /* Correção específica para card--overlay-right no scroll-fade */
+    .scroll-fade-content .card--overlay-right .card__content {
+        left: auto; /* Remove limitação de largura forçada */
+        right: 2rem; /* Posição simples à direita */
+        width: auto; /* Largura automática baseada no conteúdo */
+        max-width: 45%; /* Limita para não sobrepor muito a imagem */
+    }
+
+    /* Cards não-overlay mantêm comportamento original */
+    .scroll-fade-content .card:not(.card--overlay) {
+        width: 100%;
+    }
+
+    .scroll-fade-content .card.active {
+        pointer-events: all;
+        position: relative;
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .scroll-fade-content .card:not(.active) {
+        position: absolute;
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .scroll-fade-content .card.fade-out {
+        opacity: 0 !important;
+        transition: opacity 0.25s ease-out; /* Transição balanceada */
+        z-index: 3 !important;
+    }
+
+
+/* Indicador sutil de progresso */
+.scroll-fade-progress {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.scroll-fade-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+}
+
+    .scroll-fade-dot.active {
+        background: #3b82f6;
+        transform: scale(1.3);
+    }
+
+/* Responsividade para cards overlay no scroll-fade */
+@media (max-width: 768px) {
+    .scroll-fade-content .card--overlay .card__image {
+        max-width: min(95vw, 75vh * 1.2); /* Mais espaço em mobile */
+        max-height: 75vh; /* Altura menor em mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .scroll-fade-content .card--overlay .card__image {
+        max-width: 98vw; /* Usa quase toda largura em telas pequenas */
+        max-height: 70vh; /* Altura ainda menor */
+    }
+}
+
+/* Carousel com Efeito Fade - Original (manter para outros usos) */
+.resources-grid--carousel-fade {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    transition: height 0.6s ease-in-out;
+}
+
+    .resources-grid--carousel-fade .card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+        pointer-events: none;
+    }
+
+        .resources-grid--carousel-fade .card.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .resources-grid--carousel-fade .card.fade-out {
+            opacity: 0;
+        }
+
+/* Controles do Carousel Fade */
+.carousel-fade-controls {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    z-index: 10;
+}
+
+.carousel-fade-btn {
+    background: rgba(59, 130, 246, 0.8);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+    .carousel-fade-btn:hover {
+        background: rgba(59, 130, 246, 1);
+        transform: scale(1.1);
+    }
+
+.carousel-fade-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-fade-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .carousel-fade-dot.active {
+        background: #3b82f6;
+        transform: scale(1.2);
+    }
+
+/* Auto-play indicator */
+.carousel-fade-progress {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.carousel-fade-progress-bar {
+    height: 100%;
+    background: #3b82f6;
+    width: 0%;
+    transition: width linear;
+    border-radius: 1px;
+}
+
 .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
@@ -1857,14 +3936,14 @@ img {
         width: calc(100% + 20px) !important;
     }
 
-    /* Ajustar botão Adquirir em mobile */
-    .nav-container .btn {
-        margin-right: 12px !important;
-        padding: 8px 12px !important;
-        font-size: 0.85rem !important;
-        white-space: nowrap !important;
-        min-width: auto !important;
-    }
+        /* Ajustar botão Adquirir em mobile */
+        .nav-container .btn {
+            margin-right: 12px !important;
+            padding: 8px 12px !important;
+            font-size: 0.85rem !important;
+            white-space: nowrap !important;
+            min-width: auto !important;
+        }
 
     /* Cards devem ocupar mais espaço */
     .card {
@@ -1942,88 +4021,88 @@ img {
         border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .nav-menu.active {
-        left: 0;
-    }
+        .nav-menu.active {
+            left: 0;
+        }
 
-    .nav-menu li {
-        margin-bottom: 1rem;
-    }
+        .nav-menu li {
+            margin-bottom: 1rem;
+        }
 
-    .nav-menu .dropdown {
-        width: 100%;
-    }
+        .nav-menu .dropdown {
+            width: 100%;
+        }
 
-    .nav-menu .dropdown-toggle {
-        width: 100%;
-        padding: 1rem 0.75rem 0.5rem;
-        justify-content: flex-start;
-        border-radius: 0;
-        transition: none;
-        cursor: default;
-        pointer-events: none;
-        font-weight: 700;
-        font-size: 1.2rem;
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        margin-bottom: 0.5rem;
-    }
+        .nav-menu .dropdown-toggle {
+            width: 100%;
+            padding: 1rem 0.75rem 0.5rem;
+            justify-content: flex-start;
+            border-radius: 0;
+            transition: none;
+            cursor: default;
+            pointer-events: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+        }
 
-    /* Esconder a seta no mobile */
-    .nav-menu .dropdown-arrow {
-        display: none;
-    }
+        /* Esconder a seta no mobile */
+        .nav-menu .dropdown-arrow {
+            display: none;
+        }
 
-    /* Links simples no menu mobile */
-    .nav-menu > li > a:not(.dropdown-toggle) {
-        display: block;
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-        text-decoration: none;
-        color: white;
-    }
+        /* Links simples no menu mobile */
+        .nav-menu > li > a:not(.dropdown-toggle) {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
 
-    .nav-menu > li > a:not(.dropdown-toggle):hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+            .nav-menu > li > a:not(.dropdown-toggle):hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
 
-    /* Dropdown responsivo em mobile - sempre expandido */
-    .nav-menu .dropdown-menu {
-        position: static;
-        min-width: auto;
-        max-width: none;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: none;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        margin-top: 0.5rem;
-        padding: 0.4rem;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        grid-template-columns: 1fr;
-        gap: 0.1rem;
-    }
+        /* Dropdown responsivo em mobile - sempre expandido */
+        .nav-menu .dropdown-menu {
+            position: static;
+            min-width: auto;
+            max-width: none;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            padding: 0.4rem;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            grid-template-columns: 1fr;
+            gap: 0.1rem;
+        }
 
-    .nav-menu .dropdown-menu a {
-        color: rgba(255, 255, 255, 0.9) !important;
-        padding: 0.4rem 0.75rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        line-height: 1.3;
-        transition: all 0.2s ease;
-    }
+            .nav-menu .dropdown-menu a {
+                color: rgba(255, 255, 255, 0.9) !important;
+                padding: 0.4rem 0.75rem;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                line-height: 1.3;
+                transition: all 0.2s ease;
+            }
 
-    .nav-menu .dropdown-menu a:hover {
-        background-color: rgba(255, 255, 255, 0.2) !important;
-        color: white !important;
-        transform: translateX(4px);
-    }
+                .nav-menu .dropdown-menu a:hover {
+                    background-color: rgba(255, 255, 255, 0.2) !important;
+                    color: white !important;
+                    transform: translateX(4px);
+                }
 
     /* Carousel responsive - esconder setas em mobile */
     .carousel-btn {
@@ -2074,11 +4153,168 @@ img {
 
 /* Estilo para teclas de atalho */
 kbd {
-    background-color: #e8e8ed; /* Um cinza muito claro, quase branco */
-    border: 1px solid #d1d1d6; /* Borda sutil, em tom de cinza */
+    background-color: var(--bg-medium-gray);
+    border: 1px solid #d1d1d6; /* Mantido por ser um cinza específico */
+    color: var(--color-text-dark-primary);
     border-radius: 6px; /* Bordas um pouco mais arredondadas */
     padding: 4px 8px; /* Mais espaçamento interno */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Usa a fonte do sistema */
     font-weight: 500; /* Peso médio, não totalmente negrito */
-    color: #1d1d1f; /* Preto ou cinza muito escuro da Apple */
 }
+
+.gradient-text {
+    font-family: "Montserrat",Roboto,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.5rem;
+    background: var(--gradient-multicolor);
+    /* Ordem: Azul -> Verde -> Amarelo -> Vermelho */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* CLASSE AUXILIAR PARA FORÇAR LAYOUT EM LINHA */
+.resources-grid--row {
+    flex-direction: row !important; /* Garante que os itens fiquem em linha */
+    flex-wrap: wrap; /* Permite que quebrem para a próxima linha */
+    justify-content: center; /* Centraliza o conjunto de cards */
+    align-items: stretch; /* Faz os cards terem a mesma altura */
+}
+
+/* =================================================================== */
+/* ESTILOS PARA CARDS COM BORDA EM GRADIENTE E CENTRO BRANCO         */
+/* =================================================================== */
+
+.card--aura-azul {
+    background-color: white;
+    box-shadow: inset 0 0 20px 5px #0095E1;
+    color: #1d1d1f;
+}
+
+.card--aura-verde {
+    background-color: white;
+    box-shadow: inset 0 0 20px 5px #73C578;
+    color: #1d1d1f;
+}
+
+.card--aura-rosa {
+    background-color: white;
+    box-shadow: inset 0 0 20px 5px #FF80FF;
+    color: #1d1d1f;
+}
+
+/* Spacing div responsivo - só aplica altura em telas largas */
+.spacing-div {
+    height: 0; /* Por padrão, sem altura */
+}
+
+/* Apenas em telas largas o suficiente para layout horizontal */
+@media (min-width: 769px) {
+    .spacing-div {
+        height: 150px;
+    }
+}
+
+/* Card com imagem alinhada na base - modificador específico */
+.card.bottom-aligned .card__media {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.card.bottom-aligned .card__image {
+    margin-bottom: 0;
+    display: block;
+}
+
+
+
+/* Scroll Fade Variant - Before/After Compare */
+.resources-grid--scroll-fade[data-scroll-variant="before-after"] {
+    position: relative;
+    min-height: 200vh;
+}
+
+.scroll-compare-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    z-index: 1;
+}
+
+.scroll-compare__frame {
+    position: relative;
+    width: min(90vw, 1000px);
+    border-radius: 24px;
+    max-height: 90vh;
+    overflow: hidden;
+    background: #1d1d1f;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.scroll-compare__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #111;
+    transition: clip-path 0.35s ease-out;
+    will-change: clip-path;
+}
+
+.scroll-compare__image--after {
+    clip-path: inset(var(--reveal, 100%) 0 0 0);
+}
+
+.scroll-compare__label {
+    position: absolute;
+    top: 24px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #f5f5f7;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 999px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-compare__label--before {
+    left: 24px;
+}
+
+.scroll-compare__label--after {
+    right: 24px;
+}
+
+@media (max-width: 1024px) {
+    .scroll-compare__frame {
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .resources-grid--scroll-fade[data-scroll-variant="before-after"] {
+        min-height: 180vh;
+    }
+
+    .scroll-compare__frame {
+        aspect-ratio: 3 / 4;
+        border-radius: 16px;
+    }
+
+    .scroll-compare__label {
+        top: 16px;
+        font-size: 0.75rem;
+        padding: 4px 12px;
+    }
+}
+

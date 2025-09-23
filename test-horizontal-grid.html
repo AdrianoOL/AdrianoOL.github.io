@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Resources Grid Horizontal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="padding: 2rem;">
+        <h2>Teste do Resources Grid Horizontal</h2>
+
+        <!-- Exemplo com 3 cards horizontais -->
+        <div class="resources-grid-horizontal">
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Item 1</h4>
+                    <p class="card__description">Primeiro item em layout horizontal. Cada item ocupa 1/3 da largura.</p>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Item 2</h4>
+                    <p class="card__description">Segundo item com a mesma largura. Em telas pequenas, fica em layout vertical.</p>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Item 3</h4>
+                    <p class="card__description">Terceiro item completando o layout horizontal responsivo.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 3rem;">Exemplo com Fundo Azul</h2>
+
+        <!-- Exemplo com fundo azul -->
+        <div class="resources-grid-horizontal blue">
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Card A</h4>
+                    <p class="card__description">Exemplo com background azul aplicado ao grid.</p>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Card B</h4>
+                    <p class="card__description">Segundo card no grid com fundo azul.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 3rem;">Comparação com Grid Normal</h2>
+
+        <!-- Comparação com o grid normal -->
+        <div class="resources-grid">
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Grid Normal 1</h4>
+                    <p class="card__description">Este é o comportamento do resources-grid normal.</p>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Grid Normal 2</h4>
+                    <p class="card__description">Usa auto-fit e minmax para responsividade.</p>
+                </div>
+            </div>
+
+            <div class="card card--compact">
+                <div class="card__content">
+                    <h4 class="card__title">Grid Normal 3</h4>
+                    <p class="card__description">Quebra automaticamente baseado no espaço disponível.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

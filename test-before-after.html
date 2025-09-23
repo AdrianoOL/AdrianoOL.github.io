@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste: Componente Before-After Reutilizável</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding: 2rem;
+            background: #f0f0f0;
+        }
+        
+        .demo-section {
+            margin: 2rem 0;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .demo-section h3 {
+            margin-bottom: 1rem;
+            color: var(--tqs-blue);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .code-example {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--tqs-blue);
+            margin: 1rem 0;
+        }
+        
+        .code-example code {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Componente Before-After Reutilizável</h1>
+        <p>Demonstração do novo sistema de before-after com data attributes.</p>
+        
+        <div class="demo-section">
+            <h3>🚀 Como usar</h3>
+            <div class="code-example">
+                <code>&lt;div class="before-after" data-before="image1.png" data-after="image2.png"&gt;&lt;/div&gt;</code>
+            </div>
+            <p><strong>Pronto!</strong> O JavaScript inicializa automaticamente e os textos TQS25/TQS26 são fixos.</p>
+        </div>
+        
+        <div class="demo-section">
+            <h3>📱 Exemplo 1: Comparação Geral</h3>
+            <div class="before-after" data-before="images/ED2D_6.png" data-after="images/ED2D_5.png"></div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>🎯 Exemplo 2: Múltiplos Componentes</h3>
+            <div class="demo-grid">
+                <div class="before-after" data-before="images/BB_1.png" data-after="images/BB_3.png"></div>
+                <div class="before-after" data-before="images/MC_1.png" data-after="images/MC_2.png"></div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>⚡ Exemplo 3: Adicionado Dinamicamente</h3>
+            <button onclick="addNewComparison()" style="padding: 8px 16px; background: var(--tqs-blue); color: white; border: none; border-radius: 4px; margin-bottom: 1rem;">
+                Adicionar Nova Comparação
+            </button>
+            <div id="dynamic-container"></div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>✨ Recursos</h3>
+            <ul>
+                <li>✅ <strong>Ultra simples:</strong> apenas 1 div com data attributes</li>
+                <li>✅ <strong>Auto-inicialização:</strong> funciona automaticamente</li>
+                <li>✅ <strong>Elementos dinâmicos:</strong> suporta adição via JavaScript</li>
+                <li>✅ <strong>Mobile-first:</strong> funciona perfeitamente em touch</li>
+                <li>✅ <strong>Textos fixos:</strong> TQS25 e TQS26 sempre presentes</li>
+                <li>✅ <strong>Visual consistente:</strong> segue o design system do site</li>
+                <li>✅ <strong>Performance otimizada:</strong> CSS moderno com clip-path</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+    <script>
+        function addNewComparison() {
+            const container = document.getElementById('dynamic-container');
+            const newDiv = document.createElement('div');
+            newDiv.className = 'before-after';
+            newDiv.setAttribute('data-before', 'images/BB_1.png');
+            newDiv.setAttribute('data-after', 'images/BB_3.png');
+            newDiv.style.marginTop = '1rem';
+            container.appendChild(newDiv);
+        }
+    </script>
+</body>
+</html>

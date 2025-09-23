@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Carousel Minimalista</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: #f8fafc;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 60px;
+        }
+        
+        .test-title {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .test-description {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .timing-info {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-family: monospace;
+        }
+        
+        .timing-info h4 {
+            margin: 0 0 10px 0;
+            color: #475569;
+        }
+        
+        .timing-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .timing-list li {
+            padding: 5px 0;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-section">
+            <h1 class="test-title">🧪 Teste: Carousel Minimalista</h1>
+            <p class="test-description">
+                Carousel sem controles visuais (sem bolinhas ou setas) com timing personalizado por imagem.
+            </p>
+            
+            <div class="timing-info">
+                <h4>⏱️ Configuração de Timing:</h4>
+                <ul class="timing-list">
+                    <li>Imagem 1 (LJ_1.png): <strong>2.0s</strong></li>
+                    <li>Imagem 2 (LJ_2.png): <strong>3.5s</strong></li>
+                    <li>Imagem 3 (LJ_3.png): <strong>2.5s</strong></li>
+                    <li>Imagem 4 (LJ_4.png): <strong>4.0s</strong></li>
+                    <li>Imagem 5 (LJ_5.png): <strong>3.0s</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Card com carousel minimalista -->
+            <div class="card card--vertical">
+                <div class="card__content">
+                    <h4 class="card__title">Exemplo: Carousel Minimalista</h4>
+                    <p class="card__description">
+                        Este carousel não possui controles visuais e cada imagem tem um tempo diferente de exibição.
+                    </p>
+                </div>
+                <div class="card__media">
+                    <div class="mini-carousel mini-carousel--clean">
+                        <div class="mini-carousel-track">
+                            <img src="images/LJ_1.png" alt="Imagem 1" class="mini-carousel-image" data-timing="2000">
+                            <img src="images/LJ_2.png" alt="Imagem 2" class="mini-carousel-image" data-timing="3500">
+                            <img src="images/LJ_3.png" alt="Imagem 3" class="mini-carousel-image" data-timing="2500">
+                            <img src="images/LJ_4.png" alt="Imagem 4" class="mini-carousel-image" data-timing="4000">
+                            <img src="images/LJ_5.png" alt="Imagem 5" class="mini-carousel-image" data-timing="3000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">📖 Como usar:</h2>
+            <div class="timing-info">
+                <h4>HTML:</h4>
+                <pre>&lt;div class="mini-carousel mini-carousel--clean"&gt;
+    &lt;div class="mini-carousel-track"&gt;
+        &lt;img src="imagem1.png" data-timing="2000" class="mini-carousel-image"&gt;
+        &lt;img src="imagem2.png" data-timing="3500" class="mini-carousel-image"&gt;
+        &lt;!-- mais imagens --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                
+                <h4>Atributos:</h4>
+                <ul class="timing-list">
+                    <li><strong>class="mini-carousel--clean"</strong>: Ativa o modo minimalista</li>
+                    <li><strong>data-timing="3000"</strong>: Define tempo em milissegundos (opcional)</li>
+                    <li><strong>Padrão:</strong> 3000ms (3s) se não especificar data-timing</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">🎯 Recursos:</h2>
+            <ul style="color: #475569; line-height: 1.8;">
+                <li>✅ Sem controles visuais (bolinhas, setas)</li>
+                <li>✅ Timing configurável por imagem</li>
+                <li>✅ Auto-play contínuo</li>
+                <li>✅ Transições suaves</li>
+                <li>✅ Responsivo</li>
+                <li>✅ Compatível com sistema modular de cards</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

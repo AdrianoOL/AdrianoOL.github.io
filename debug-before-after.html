@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug: Before-After Component</title>
+    <style>
+        body {
+            padding: 2rem;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .debug-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .before-after {
+            position: relative;
+            width: 100%;
+            min-height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid #e74c3c;
+            background: #ecf0f1;
+            margin: 1rem 0;
+        }
+        
+        .before-after__images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            border: 2px solid #3498db;
+        }
+        
+        .before-after__image-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            border: 2px solid #27ae60;
+        }
+        
+        .before-after__image-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            clip-path: inset(0 50% 0 0);
+            border: 2px solid #f39c12;
+        }
+        
+        .before-after__handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: #e74c3c;
+            z-index: 3;
+            transform: translateX(-50%);
+        }
+        
+        .before-after__grabber {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            border: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .before-after__label {
+            position: absolute;
+            top: 50%;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            transform: translateY(-50%);
+        }
+        
+        .before-after__label--left {
+            left: 16px;
+        }
+        
+        .before-after__label--right {
+            right: 16px;
+        }
+        
+        .debug-info {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Debug: Before-After Component</h1>
+        
+        <div class="debug-info" id="debug-info">
+            Aguardando inicialização...
+        </div>
+        
+        <h3>Componente 1: Automático</h3>
+        <div class="before-after" data-before="images/ED2D_6.png" data-after="images/ED2D_5.png"></div>
+        
+        <h3>Componente 2: Manual (sem JavaScript)</h3>
+        <div class="before-after">
+            <div class="before-after__images">
+                <img class="before-after__image-after" src="images/ED2D_5.png" alt="Depois" />
+                <img class="before-after__image-before" src="images/ED2D_6.png" alt="Antes" />
+            </div>
+            <div class="before-after__handle">
+                <div class="before-after__grabber">◄►</div>
+            </div>
+            <div class="before-after__label before-after__label--left">TQS25</div>
+            <div class="before-after__label before-after__label--right">TQS26</div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+    <script>
+        function updateDebugInfo() {
+            const debugInfo = document.getElementById('debug-info');
+            const beforeAfterElements = document.querySelectorAll('.before-after');
+            
+            debugInfo.innerHTML = `
+                <strong>Debug Info:</strong><br>
+                - Elementos .before-after encontrados: ${beforeAfterElements.length}<br>
+                - Data attributes primeiro elemento: before="${beforeAfterElements[0]?.dataset.before}" after="${beforeAfterElements[0]?.dataset.after}"<br>
+                - Dimensões primeiro elemento: ${beforeAfterElements[0]?.getBoundingClientRect().width}x${beforeAfterElements[0]?.getBoundingClientRect().height}<br>
+                - Imagens carregadas: ${document.querySelectorAll('.before-after__image-after').length} after, ${document.querySelectorAll('.before-after__image-before').length} before<br>
+                - Timestamp: ${new Date().toLocaleTimeString()}
+            `;
+        }
+        
+        // Atualizar debug info a cada segundo
+        setInterval(updateDebugInfo, 1000);
+        updateDebugInfo();
+        
+        // Log adicional
+        console.log('Debug page loaded');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            setTimeout(updateDebugInfo, 2000);
+        });
+    </script>
+</body>
+</html>

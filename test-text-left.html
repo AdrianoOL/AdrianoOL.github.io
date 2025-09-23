@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste: Card Text Left</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1>Teste do Sistema de Alinhamento de Texto</h1>
+
+        <h2>Card Vertical Padrão (texto à esquerda)</h2>
+        <div class="resources-grid">
+            <div class="card card--vertical card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título Alinhado à Esquerda</h4>
+                    <p class="card__description">Esta é uma descrição de exemplo que mostra como o texto fica alinhado à esquerda por padrão nos cards verticais.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Card Vertical com Texto Centralizado</h2>
+        <div class="resources-grid">
+            <div class="card card--vertical card--text-center card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título Centralizado</h4>
+                    <p class="card__description">Esta é uma descrição de exemplo que mostra como o texto fica centralizado quando usamos o modificador card--text-center.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Comparação Lado a Lado</h2>
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Alinhado à Esquerda (padrão)</h3>
+                <div class="card card--vertical card--transparent">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Teste" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Título à Esquerda</h4>
+                        <p class="card__description">Texto alinhado à esquerda por padrão.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Centralizado</h3>
+                <div class="card card--vertical card--text-center card--transparent">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Teste" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Título Centralizado</h4>
+                        <p class="card__description">Texto centralizado com o modificador.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

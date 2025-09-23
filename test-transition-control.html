@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Controle de Transições no Carousel</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+        }
+
+        .test-title {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .test-description {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .carousel-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #333; margin-bottom: 40px;">
+            Teste de Controle de Transições - Mini Carousel Clean
+        </h1>
+
+        <div class="test-section">
+            <h2 class="test-title">🔄 Teste 1: Com Transições (Padrão)</h2>
+            <p class="test-description">
+                Todas as imagens mantêm as transições suaves entre os slides.
+                Note como há um fade entre as imagens.
+            </p>
+            <div class="carousel-container">
+                <div class="mini-carousel mini-carousel--clean">
+                    <div class="mini-carousel-track">
+                        <img src="images/VG_1a.png" alt="Viewport 1a" class="mini-carousel-image active" data-timing="2000">
+                        <img src="images/VG_1b.png" alt="Viewport 1b" class="mini-carousel-image" data-timing="2000">
+                        <img src="images/VG_1c.png" alt="Viewport 1c" class="mini-carousel-image" data-timing="2000">
+                    </div>
+                </div>
+            </div>
+            <div class="code-example">
+&lt;div class="mini-carousel mini-carousel--clean"&gt;
+    &lt;div class="mini-carousel-track"&gt;
+        &lt;img src="imagem1.png" class="mini-carousel-image" data-timing="2000"&gt;
+        &lt;img src="imagem2.png" class="mini-carousel-image" data-timing="2000"&gt;
+        &lt;img src="imagem3.png" class="mini-carousel-image" data-timing="2000"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2 class="test-title">⚡ Teste 2: Sem Transições Específicas</h2>
+            <p class="test-description">
+                A primeira e terceira imagem não têm transição (<code>data-transition="false"</code>).
+                A mudança para elas é instantânea, mas a segunda imagem ainda mantém transição suave.
+            </p>
+            <div class="carousel-container">
+                <div class="mini-carousel mini-carousel--clean">
+                    <div class="mini-carousel-track">
+                        <img src="images/BIM_1.png" alt="BIM 1" class="mini-carousel-image active" data-timing="2000" data-transition="false">
+                        <img src="images/BIM_2.png" alt="BIM 2" class="mini-carousel-image" data-timing="2000">
+                        <img src="images/BIM_3.png" alt="BIM 3" class="mini-carousel-image" data-timing="2000" data-transition="false">
+                    </div>
+                </div>
+            </div>
+            <div class="code-example">
+&lt;div class="mini-carousel mini-carousel--clean"&gt;
+    &lt;div class="mini-carousel-track"&gt;
+        &lt;img src="imagem1.png" class="mini-carousel-image" data-timing="2000" data-transition="false"&gt;
+        &lt;img src="imagem2.png" class="mini-carousel-image" data-timing="2000"&gt;
+        &lt;img src="imagem3.png" class="mini-carousel-image" data-timing="2000" data-transition="false"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2 class="test-title">🚫 Teste 3: Totalmente Sem Transições</h2>
+            <p class="test-description">
+                Todas as imagens têm <code>data-transition="false"</code>.
+                Todas as mudanças são instantâneas, sem qualquer fade ou transição.
+            </p>
+            <div class="carousel-container">
+                <div class="mini-carousel mini-carousel--clean">
+                    <div class="mini-carousel-track">
+                        <img src="images/ED3D_1.png" alt="Editor 3D 1" class="mini-carousel-image active" data-timing="1500" data-transition="false">
+                        <img src="images/ED3D_2.png" alt="Editor 3D 2" class="mini-carousel-image" data-timing="1500" data-transition="false">
+                        <img src="images/LJ_1.png" alt="Laje 1" class="mini-carousel-image" data-timing="1500" data-transition="false">
+                        <img src="images/LJ_2.png" alt="Laje 2" class="mini-carousel-image" data-timing="1500" data-transition="false">
+                    </div>
+                </div>
+            </div>
+            <div class="code-example">
+&lt;div class="mini-carousel mini-carousel--clean"&gt;
+    &lt;div class="mini-carousel-track"&gt;
+        &lt;img src="imagem1.png" class="mini-carousel-image" data-timing="1500" data-transition="false"&gt;
+        &lt;img src="imagem2.png" class="mini-carousel-image" data-timing="1500" data-transition="false"&gt;
+        &lt;img src="imagem3.png" class="mini-carousel-image" data-timing="1500" data-transition="false"&gt;
+        &lt;img src="imagem4.png" class="mini-carousel-image" data-timing="1500" data-transition="false"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div style="background: #f0f7ff; padding: 20px; border-radius: 10px; border-left: 4px solid #0066cc;">
+            <h3 style="margin: 0 0 10px 0; color: #0066cc;">📋 Como Usar</h3>
+            <ul style="color: #333; margin: 0; padding-left: 20px;">
+                <li><strong>Sem o atributo:</strong> Transição suave padrão</li>
+                <li><strong>data-transition="true":</strong> Transição suave (mesmo que sem o atributo)</li>
+                <li><strong>data-transition="false":</strong> Mudança instantânea, sem transição</li>
+                <li><strong>Combinar:</strong> Você pode misturar imagens com e sem transição no mesmo carousel</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

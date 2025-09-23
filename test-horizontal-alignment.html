@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Alinhamento Cards Horizontais</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-title {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .image-small {
+            width: 80px !important;
+            height: 80px !important;
+        }
+        .image-medium {
+            width: 150px !important;
+            height: 120px !important;
+        }
+        .image-large {
+            width: 250px !important;
+            height: 200px !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste - Alinhamento Cards Horizontais</h1>
+    <p>Testando o novo alinhamento para cards horizontais com diferentes tamanhos de imagem.</p>
+
+    <div class="test-section">
+        <h2 class="test-title">Card Horizontal - Imagem Pequena (80x80px)</h2>
+        <div class="resources-grid">
+            <div class="card card--horizontal card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image image-small">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título do Card</h4>
+                    <p class="card__description">Esta é uma descrição de teste para verificar como o texto se alinha à direita quando a imagem é pequena. O texto deve ficar próximo da imagem.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">Card Horizontal - Imagem Média (150x120px)</h2>
+        <div class="resources-grid">
+            <div class="card card--horizontal card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image image-medium">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título do Card</h4>
+                    <p class="card__description">Esta é uma descrição de teste para verificar como o texto se alinha à direita quando a imagem é de tamanho médio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">Card Horizontal - Imagem Grande (250x200px)</h2>
+        <div class="resources-grid">
+            <div class="card card--horizontal card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image image-large">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título do Card</h4>
+                    <p class="card__description">Esta é uma descrição de teste para verificar como o texto se alinha à direita quando a imagem é grande.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 class="test-title">Card Horizontal Reverse - Imagem Pequena (80x80px)</h2>
+        <div class="resources-grid">
+            <div class="card card--horizontal-reverse card--transparent">
+                <div class="card__media">
+                    <img src="images/test.png" alt="Teste" class="card__image image-small">
+                </div>
+                <div class="card__content">
+                    <h4 class="card__title">Título do Card Reverse</h4>
+                    <p class="card__description">Esta é uma descrição de teste para verificar como o texto se alinha à esquerda no card reverse quando a imagem é pequena.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
