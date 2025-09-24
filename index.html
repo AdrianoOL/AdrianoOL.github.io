@@ -114,7 +114,7 @@
                     <div class="card card--vertical card--black">
                         <div class="card__content">
                             <p class="card__description">
-                                <strong>Funciona da seguinte forma</strong>: Suponha que precise alterar um desenho em DWG, que provavelmente será regerado ao longo do projeto.<br>
+                                <strong>Funciona da seguinte forma</strong>: Suponha que precise alterar um desenho de formas, que provavelmente será regerado ao longo do projeto.<br>
                                 Ao invés de editá-lo, vamos inserí-lo como <strong>Viewport</strong>. Num primeiro momento, o funcionamento é análogo ao de um bloco de desenho.
                             </p>
                             <div class="card__media">
@@ -138,7 +138,7 @@
                     <div class="card card--vertical card--black bottom-aligned">
                         <div class="card__content">
                             <p class="card__description">
-                                O usuário pode <strong>definir regiões que ele queira ocultar.</strong>
+                                O usuário pode <strong>definir regiões que ele queira isolar.</strong>
                             </p>
                         </div>
                         <div class="card__media">
@@ -189,7 +189,7 @@
                     <div class="card card--vertical card--transparent">
                         <div class="card__content">
                             <p class="card__description">
-                                Com o <strong>Viewport 3D</strong> a lógica é bem semelhante, podemos inserir um desenho 3D como Viewport.<br>
+                                Além de funcionar com desenhos 2D, o Viewport também funciona em <strong>3D</strong>. A lógica é bem semelhante, podemos inserir um desenho 3D como Viewport.<br>
                                 E isso traz uma possibilidade que não existia antes: <strong>colocar um 3D dentro de um DWG</strong>.
                             </p>
                         </div>
@@ -259,13 +259,7 @@
                             </p>
                         </div>
                         <div class="card__media">
-                            <div class="mini-carousel mini-carousel--clean">
-                                <div class="mini-carousel-track">
-                                    <img src="images/VP_9.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
-                                    <img src="images/VP_10.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
-                                    <img src="images/VP_11.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
-                                </div>
-                            </div>
+                            <img src="images/VP_13.png" alt="IMG2" class="card__image">
                         </div>
                     </div>
 
@@ -292,7 +286,11 @@
                         </div>
                     </div>
 
-                    <div class="card card--horizontal card--transparent">
+                </div>
+
+                <div class="resources-grid-horizontal">
+
+                    <div class="card card--vertical card--transparent">
                         <div class="card__content">
                             <p class="card__description">
                                 A árvore organiza dados globais do DWG: <strong>Níveis, captura, grade, blocos, e outros</strong>.<br>
@@ -302,10 +300,6 @@
                             <img src="images/ED2D_13.png" alt="Janela lateral com árvore e tabela" class="card__image">
                         </div>
                     </div>
-
-                </div>
-
-                <div class="resources-grid-horizontal">
 
                     <div class="card card--vertical card--transparent">
                         <div class="card__content">
@@ -335,7 +329,6 @@
                                 <div class="mini-carousel-track">
                                     <img src="images/ED2D_20.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
                                     <img src="images/ED2D_21.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
-                                    <img src="images/ED2D_22.png" alt="Detalhamento" class="mini-carousel-image" data-timing="2000">
                                 </div>
                             </div>
                         </div>
@@ -868,9 +861,9 @@
                         <div class="card__content">
                             <h4 class="card__title"></h4>
                             <p class="card__description">
-                                <h2>3x</h2>​<br>
+                                <h4 class="text-group-title">3x</h4>​<br>
                                 O dimensionamento automático de pilares-parede discretizados na versão V26 é cerca de 3x mais veloz do que na V25. Uma incrível <strong>redução no tempo de processamento</strong><sup><small>(1)</small></sup>.​<br><br>
-                                <h2>Grupos</h2>​<br>
+                                <h4 class="text-group-title">Grupos</h4>​<br>
                                 A discretização das faixas de pilares-parede tem influência direta tanto na análise estrutural como no dimensionamento das armaduras. Na versão V26, é possível criar <strong>grupos de faixas exclusivos para o dimensionamento</strong> para obter taxas de armaduras mais adequadas<sup><small>(2)</small></sup>.
                             </p>
                             <div class="footnotes">
@@ -890,7 +883,7 @@
                     <div class="resources-grid">
 
                         <div class="card card--grid4 card--transparent">
-                            <h4 class="card__title">Mais sobre os grupos​</h4>
+                            <h4 class="text-group-title">Mais sobre os grupos​</h4>
                             <p class="card__description topleft">
                                 <span class="highlight-blue">Modelador</span>​<br>
                                 Novos comandos foram adicionados no Modelador Estrutural para criação/edição dos grupos de faixas.
@@ -1066,11 +1059,11 @@
                 </p>
                 <!-- Seção: Editor Rápido de Vigas -->
 
-                <h3 class="resource-subgroup-title">Editor Rápido de Armaduras</h3>
+                <h4 class="resource-subgroup-title">Editor Rápido de Armaduras</h4>
                 <p class="resource-group-description">
                     Uma nova experiência, da visualização à verificação.
                 </p>
-                <p class="card__description" style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">
+                <p class="card__description">
                     <strong>Precisão ponto a ponto.</strong> Diagramas de <i>Armadura necessária</i> x <i>Armadura existente</i> para flexão e
                     cisalhamento considerando as dimensões efetivas de largura e altura da vigas com <strong>
                         variação de seção
@@ -1115,63 +1108,64 @@
                     Edite suas armaduras com a fluidez dos <strong>grips interativos.</strong> <br>
                     Diretamente na janela gráfica, sem precisar procurar por comandos no Ribbon.
                 </p>
-
-                <div class="card card--vertical card--transparent">
-                    <div class="card__content">
-                        <p class="card__description">
-                            <strong style="color: #C8C800;">Altere as pontas </strong> com cliques e um simples arrastar,
-                        </p>
-                    </div>
-                    <div class="card__media">
-                        <div class="mini-carousel mini-carousel--clean">
-                            <div class="mini-carousel-track">
-                                <img src="images/VG_2aI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
-                                <img src="images/VG_2aII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2aIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
-                                <img src="images/VG_2aIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2aV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                <div class="resources-grid-horizontal">
+                    <div class="card card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                <strong style="color: #C8C800;">Altere as pontas </strong> com cliques e um simples arrastar,
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel mini-carousel--clean">
+                                <div class="mini-carousel-track">
+                                    <img src="images/VG_2aI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
+                                    <img src="images/VG_2aII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2aIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
+                                    <img src="images/VG_2aIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2aV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card card--vertical card--transparent">
-                    <div class="card__content">
-                        <p class="card__description">
-                            <strong style="color: #00FF00;">Agrupe</strong> armaduras
-                        </p>
-                    </div>
-                    <div class="card__media">
-                        <div class="mini-carousel mini-carousel--clean">
-                            <div class="mini-carousel-track">
-                                <img src="images/VG_2bI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
-                                <img src="images/VG_2bII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2bIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
-                                <img src="images/VG_2bIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2bV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                    <div class="card card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                <strong style="color: #00FF00;">Agrupe</strong> armaduras
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel mini-carousel--clean">
+                                <div class="mini-carousel-track">
+                                    <img src="images/VG_2bI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
+                                    <img src="images/VG_2bII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2bIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
+                                    <img src="images/VG_2bIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2bV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card card--vertical card--transparent">
-                    <div class="card__content">
-                        <p class="card__description">
-                            E <strong style="color: #FF0000;">junte-as.</strong>
-                        </p>
-                    </div>
-                    <div class="card__media">
-                        <div class="mini-carousel mini-carousel--clean">
-                            <div class="mini-carousel-track">
-                                <img src="images/VG_2cI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
-                                <img src="images/VG_2cII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2cIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
-                                <img src="images/VG_2cIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
-                                <img src="images/VG_2cV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                    <div class="card card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                E <strong style="color: #FF0000;">junte-as.</strong>
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <div class="mini-carousel mini-carousel--clean">
+                                <div class="mini-carousel-track">
+                                    <img src="images/VG_2cI.png" alt="Detalhamento" class="mini-carousel-image" data-timing="500">
+                                    <img src="images/VG_2cII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2cIII.png" alt="Detalhamento" class="mini-carousel-image" data-timing="800">
+                                    <img src="images/VG_2cIV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                    <img src="images/VG_2cV.png" alt="Detalhamento" class="mini-carousel-image" data-timing="1000">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="resources-grid--scroll-fade">
-                    <div class="card card--vertical card--transparent">
+                    <div class="card card--vertical card--text-center card--transparent">
                         <div class="card__content">
                             <p class="card__description">
                                 <strong>Duplo clique</strong> para editar qualquer armadura.
@@ -1181,7 +1175,7 @@
                             <img src="images/VG_3a.png" alt="Mini 1" class="card__image">
                         </div>
                     </div>
-                    <div class="card  card--vertical card--transparent">
+                    <div class="card  card--vertical card--text-center card--transparent">
                         <div class="card__content">
                             <p class="card__description">
                                 <kbd>F5</kbd> para apagar.
@@ -1758,71 +1752,71 @@
                 </p>
 
                 <div class="resource-section dark-blue">
-                <div class="resources-grid">
-                    <div class="card card--vertical card--transparent">
+                    <div class="resources-grid">
+                        <div class="card card--vertical card--transparent">
 
-                        <div class="card__content">
-                            <h4 class="card__title">Visualização 3D​</h4>
-                            <p class="card__description">
-                                O motor gráfico 3D chegou ao Editor de Lajes Protendidas. Como resultado, novas opções de desenhos de cabos e diagramas tridimensionais encontram-se disponíveis, inclusive com gradiente de cores. Todos comandos de criação/edição de RPUs e RTEs continuam iguais, preservando a sua experiência.​
-                            </p>
-                        </div>
+                            <div class="card__content">
+                                <h4 class="card__title">Visualização 3D​</h4>
+                                <p class="card__description">
+                                    O motor gráfico 3D chegou ao Editor de Lajes Protendidas. Como resultado, novas opções de desenhos de cabos e diagramas tridimensionais encontram-se disponíveis, inclusive com gradiente de cores. Todos comandos de criação/edição de RPUs e RTEs continuam iguais, preservando a sua experiência.
+                                </p>
+                            </div>
 
-                        <div class="card__media">
-                            <div class="mini-carousel">
-                                <div class="mini-carousel-track">
-                                    <img src="images/Protendido-1-1.png" alt="Modo 3D" class="mini-carousel-image">
-                                    <img src="images/Protendido-1-2.png" alt="Modo 3D" class="mini-carousel-image">
-                                    <img src="images/Protendido-1-3.png" alt="Modo 3D" class="mini-carousel-image">
-                                    <img src="images/Protendido-1-4.png" alt="Modo 3D" class="mini-carousel-image">
+                            <div class="card__media">
+                                <div class="mini-carousel">
+                                    <div class="mini-carousel-track">
+                                        <img src="images/Protendido-1-1.png" alt="Modo 3D" class="mini-carousel-image">
+                                        <img src="images/Protendido-1-2.png" alt="Modo 3D" class="mini-carousel-image">
+                                        <img src="images/Protendido-1-3.png" alt="Modo 3D" class="mini-carousel-image">
+                                        <img src="images/Protendido-1-4.png" alt="Modo 3D" class="mini-carousel-image">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>   
                 </div>
 
                 <div class="resource-section dark-blue">
-                <div class="resources-grid">
-                    <div class="card card--vertical card--transparent">
+                    <div class="resources-grid">
+                        <div class="card card--vertical card--transparent">
 
-                        <div class="card__content">
-                            <h4 class="card__title">Desenho de Ancoragens​</h4>
-                            <p class="card__description">
-                                Novos blocos de desenhos com melhor representação das ancoragens ativa e passiva.<sup><small>(1)</small></sup>
-                            </p>
-                        </div>
+                            <div class="card__content">
+                                <h4 class="card__title">Desenho de Ancoragens​</h4>
+                                <p class="card__description">
+                                    Novos blocos de desenhos com melhor representação das ancoragens ativa e passiva.<sup><small>(1)</small></sup>
+                                </p>
+                            </div>
 
-                        <div class="card__media">
-                            <img src="images/Protendido-2.png" alt="Ancoragens" class="card__image">
-                        </div>
+                            <div class="card__media">
+                                <img src="images/Protendido-2.png" alt="Ancoragens" class="card__image">
+                            </div>
 
-                        <div class="footnotes">
-                            <sup>(1)</sup> Os blocos de desenhos antigos foram preservados e podem ser restaurados, se necessário.​
+                            <div class="footnotes">
+                                <sup>(1)</sup> Os blocos de desenhos antigos foram preservados e podem ser restaurados, se necessário.
+                            </div>
                         </div>
                     </div>
-                </div>    
                 </div>
 
                 <div class="resource-section dark-blue">
-                <div class="resources-grid">
-                    <div class="card card--vertical card--transparent">
+                    <div class="resources-grid">
+                        <div class="card card--vertical card--transparent">
 
-                        <div class="card__content">
-                            <h4 class="card__title">Mais Opções​</h4>
-                            <p class="card__description">
-                                Visualização de cotas no cruzamento de cabos e de linhas adicionais de cotagem controlada por parâmetros de visualização isolados. Novo parâmetro que permite 
-ativar/desativar a visualização do momento de fissuração nos diagramas em planta. Opção de usar o Visualizador de Grelha/Pórtico anterior.
-                            </p>
-                        </div>
+                            <div class="card__content">
+                                <h4 class="card__title">Mais Opções​</h4>
+                                <p class="card__description">
+                                    Visualização de cotas no cruzamento de cabos e de linhas adicionais de cotagem controlada por parâmetros de visualização isolados. Novo parâmetro que permite
+                                    ativar/desativar a visualização do momento de fissuração nos diagramas em planta. Opção de usar o Visualizador de Grelha/Pórtico anterior.
+                                </p>
+                            </div>
 
-                        <div class="card__media">
-                            <img src="images/Protendido-3.png" alt="Ancoragens" class="card__image">
+                            <div class="card__media">
+                                <img src="images/Protendido-3.png" alt="Ancoragens" class="card__image">
+                            </div>
                         </div>
                     </div>
-                </div>    
                 </div>
-                
+
             </div>
 
             <!-- Seção: SISEs -->
@@ -2021,7 +2015,7 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
 
                 <div class="card card--vertical card--transparent">
                     <div class="card__content">
-                        <p>Novo recurso no Editor de Blocos de Alvenaria</p>
+                        <p class="card__title">Novo recurso no Editor de Blocos de Alvenaria</p>
                         <p class="card__description">
                             Agora é possível visualizar e acessar diretamente os desenhos de blocos grauteados por meio do editor.<br />
                             As variações são geradas automaticamente em tempo de edição. <br />
@@ -2043,96 +2037,21 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
         </div>
 
         <!-- Seção: Paredes de Concreto -->
-        <div class="resource-group light-ice" id="paredes-concreto">
+        <div class="resource-group light-lavander" id="paredes-concreto">
             <h2 class="resource-group-title">Paredes de Concreto</h2>
             <p class="resource-group-description">
-                Melhorias em relatórios e sustentabilidade para paredes de concreto.
+                Automação na verificações das armaduras, melhorias em relatórios e novos parâmetros de sustentabilidade.
             </p>
-            <div class="resources-grid">
-                <div class="card card--vertical card--transparent">
-                    <div class="card__content">
-                        <p class="card__description">
-                            A seção <strong>Carbono incorporado na estrutura</strong> foi adicionada ao relatório de
-                            <strong>Resumo e Custos dos Materiais</strong>
-                            para Paredes de Concreto.
-                        </p>
-                        <div class="card__description">
-                            Estimativa total vinculada ao modelo.
-                            Parâmetros editáveis para maior controle.
-                            Uma base objetiva para decisões e requisitos ESG.
-                        </div>
-                    </div>
-                    <div class="card__media">
-                        <img src="images/PC_1.png" alt="ESG Paredes" class="card__image">
-                    </div>
-                </div>
-            </div>
-            <div class="card--vertical">
-                <p class="card__description">
-                    <span>
-                        Novos Critérios.
-                    </span>
-                    <span>
-                        Que impactam tanto o cálculo estrutural quanto a forma como os desenhos são gerados. Resultados
-                        precisos, adaptados ao seu projeto.
-                    </span>
-                </p>
-                <div class="resources-grid">
-                    <div class="card card--tile card--tile-natural card--tile-ghost">
-                        <div class="card__media">
-                            <img src="images/PC_2.png" alt="ESG Paredes" class="card__image">
-                        </div>
-                        <div class="card__content">
-                            <div class="card__description">
-                                <span class="text-bold text-accent-secondary">Critérios de desenho. </span> Defina sobre a geração da planta, escolha entre desenho de transferência de cargas em um único arquivo ou arquivos
-                                separados e ative cotagem relativa automática.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card--tile card--tile-natural card--tile-ghost">
-                        <div class="card__media">
-                            <img src="images/PC_3.png" alt="ESG Paredes" class="card__image">
-                        </div>
-                        <div class="card__content">
-                            <div class="card__description">
-                                Defina o limite máximo da largura da <span class="text-bold text-accent-secondary">mesa colaborante</span> de vergas em função da altura da laje.
-                                Informe os valores de <span class="text-bold text-accent-secondary">carbono incorporado.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card--tile card--tile-natural card--tile-ghost">
-                        <div class="card__media">
-                            <img src="images/PC_4.png" alt="ESG Paredes" class="card__image">
-                        </div>
-                        <div class="card__content">
-                            <div class="card__description">
-                                Configure a largura das regiões de subconjunto de
-                                <span class="text-bold text-accent-secondary">armadura de tração </span> de acordo com o comprimento do subconjunto.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card--tile card--tile-natural card--tile-ghost">
-                        <div class="card__media">
-                            <img src="images/PC_17.png" alt="ESG Paredes" class="card__image">
-                        </div>
-                        <div class="card__content">
-                            <div class="card__description">
-                                Decida se as <span class="text-bold text-accent-secondary">telas </span> devem ser consideradas nas verificações de armadura.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <p class="card__title">
                 Verificação de armaduras. Mais precisão, menos ruído.
             </p>
             <p class="card__description">
-                As armaduras de tração e cisalhamento lançadas pelo usuário na entrada gráfica agora são verificadas em cada subconjunto.
+                As armaduras de tração e cisalhamento lançadas pelo usuário na entrada gráfica agora são verificadas pelo programa em cada subconjunto.
             </p>
             <div class="resources-grid--carousel--interactive">
                 <div class="card">
                     <div class="card__content">
-                        <h4 class="card__title">Tarjas na elevação de paredes</h4>
+                        <h4 class="card__title">Tarjas na Elevação de Paredes</h4>
                         <p class="card__description">Se forem suficientes, o sistema remove as tarjas automaticamente.</p>
                     </div>
                     <div class="card__media">
@@ -2146,7 +2065,7 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                 </div>
                 <div class="card">
                     <div class="card__content">
-                        <h4 class="card__title">Desenhos de envoltória</h4>
+                        <h4 class="card__title">Desenhos de Envoltória</h4>
                         <p class="card__description">Nos desenhos de envoltória, os avisos de necessidade de armadura de cortante são removidos e as armaduras são representadas.</p>
                     </div>
                     <div class="card__media">
@@ -2172,7 +2091,7 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                 </div>
                 <div class="card">
                     <div class="card__content">
-                        <h4 class="card__title">Emissão de erros graves</h4>
+                        <h4 class="card__title">Emissão de Erros Graves</h4>
                         <p class="card__description">Quando a armadura definida pelo usuário atende a verificação, os erros graves somem.</p>
                     </div>
                     <div class="card__media">
@@ -2184,14 +2103,116 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card__content">
+                        <h4 class="card__title">Armaduras na Elevação de Paredes</h4>
+                        <p class="card__description">As armaduras convencionais impostas na entrada gráfica aparecem em todas as vistas — gabarito, <strong>planta</strong> e cortes.</p>
+                    </div>
+                    <div class="card__media">
+                        <div class="mini-carousel mini-carousel--clean">
+                            <div class="mini-carousel-track">
+                                <img src="images/PC_9.png" class="mini-carousel-image" data-timing="800" alt="Erros - detalhe 1">
+                                <img src="images/PC_10.png" class="mini-carousel-image" data-timing="800" alt="Erros - detalhe 1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resources-grid">
+                <div class="card card--vertical card--text-center card--transparent">
+                    <div class="card__content">
+                        <p class="card__description">
+                            Possibilidade de edição da <strong>taxa geométrica de armadura vertical</strong> e do limite <strong>Vdmax</strong> por subestrutura.
+                        </p>
+                    </div>
+                    <div class="card__media">
+                        <img src="images/PC_14.png" alt="Coef Paredes" class="card__image">
+                    </div>
+                </div>
             </div>
             <div class="resources-grid">
                 <div class="card card--vertical card--transparent">
                     <div class="card__content">
                         <p class="card__description">
-                            <span class="text-large-medium">
-                                Novo Relatório.
-                            </span> <span class="text-thin-small">Geometrias, formulações, armaduras, verificações e resultados — tudo reunido em uma apresentação clara.</span>
+                            A seção <strong>Carbono incorporado na estrutura</strong> foi adicionada ao relatório de
+                            <strong>Resumo e Custos dos Materiais</strong>
+                            para Paredes de Concreto.
+                        </p>
+                        <div class="card__description">
+                            Estimativa total vinculada ao modelo.
+                            Parâmetros editáveis para maior controle.
+                            Uma base objetiva para decisões e requisitos ESG.
+                        </div>
+                    </div>
+                    <div class="card__media">
+                        <img src="images/PC_1.png" alt="ESG Paredes" class="card__image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card--vertical">
+                <p class="card__description">
+                    <strong>
+                        Novos Critérios.
+                    </strong>
+                    <span>
+                        Que impactam tanto o cálculo estrutural quanto a forma como os desenhos são gerados. Resultados
+                        precisos, adaptados ao seu projeto.
+                    </span>
+                </p>
+                <div class="resources-grid">
+                    <div class="card card--tile card--tile-natural card--tile-ghost">
+                        <div class="card__media">
+                            <img src="images/PC_2.png" alt="ESG Paredes" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__description">
+                                <span class="text-bold text-accent-orange">Critérios de desenho. </span> Defina sobre a geração da planta, escolha entre desenho de transferência de cargas em um único arquivo ou arquivos
+                                separados e ative cotagem relativa automática.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card--tile card--tile-natural card--tile-ghost">
+                        <div class="card__media">
+                            <img src="images/PC_3.png" alt="ESG Paredes" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__description">
+                                Defina o limite máximo da largura da <span class="text-bold text-accent-orange">mesa colaborante</span> de vergas em função da altura da laje.
+                                Informe os valores de <span class="text-bold text-accent-orange">carbono incorporado.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card--tile card--tile-natural card--tile-ghost">
+                        <div class="card__media">
+                            <img src="images/PC_4.png" alt="ESG Paredes" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__description">
+                                Configure a largura das regiões de subconjunto de
+                                <span class="text-bold text-accent-orange">armadura de tração </span> de acordo com o comprimento do subconjunto.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card--tile card--tile-natural card--tile-ghost">
+                        <div class="card__media">
+                            <img src="images/PC_17.png" alt="ESG Paredes" class="card__image">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__description">
+                                Decida se as <span class="text-bold text-accent-orange">telas </span> devem ser consideradas nas verificações de armadura.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resources-grid">
+                <div class="card card--vertical card--transparent">
+                    <div class="card__content">
+                        <p class="card__description">
+                            <strong>
+                                Relatório ainda mais completo.
+                            </strong> <span>Com geometrias, mais formulações, verificações e resultados — tudo reunido em uma apresentação clara.</span>
                         </p>
                         <p class="card__description">
                             O relatório simplifica o gerenciamento e as verificações de subconjuntos e paredes, mantendo a mesma uniformidade dos demais sistemas TQS.
@@ -2206,20 +2227,6 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                                 <img src="images/PC_8.png" alt="Relatório Paredes - 4" class="mini-carousel-image">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="resources-grid">
-                    <div class="card card--vertical card--transparent">
-                        <div class="card__content">
-                            <h4 class="card_title">Elevações de paredes agora mais completas.</h4>
-                            <p class="card__description">
-                                As armaduras convencionais aparecem em todas as vistas — gabarito, planta e cortes.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="resources-grid--scroll-fade" data-scroll-variant="before-after" data-before-label="" data-after-label="" data-scroll-height="220">
-                        <img src="images/PC_9.png" alt="Interface anterior" class="scroll-compare__source scroll-compare__source--before">
-                        <img src="images/PC_10.png" alt="Interface atual" class="scroll-compare__source scroll-compare__source--after">
                     </div>
                 </div>
             </div>
@@ -2319,29 +2326,13 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                 Outras melhorias implementadas na versão 26 para aprimorar sua experiência.
             </p>
             <div class="resources-grid">
-                <div class="card card--compact">
-                    <div class="card__content">
-                        <h4 class="card__title">Exportação de índices de carbono para o SIDAC</h4>
-                        <p class="card__description">
-                            Integração direta com o sistema SIDAC para análise de sustentabilidade.
-                        </p>
-                    </div>
-                </div>
+
 
                 <div class="card card--compact">
                     <div class="card__content">
                         <h4 class="card__title">Restaurador de backup com nova interface</h4>
                         <p class="card__description">
                             Interface renovada para facilitar a recuperação de arquivos.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card card--compact">
-                    <div class="card__content">
-                        <h4 class="card__title">Realinhamento de textos de ferros inteligentes</h4>
-                        <p class="card__description">
-                            Com seleção múltipla para maior produtividade.
                         </p>
                     </div>
                 </div>
@@ -2372,6 +2363,25 @@ ativar/desativar a visualização do momento de fissuração nos diagramas em pl
                         </p>
                     </div>
                 </div>
+
+                <div class="card card--compact">
+                    <div class="card__content">
+                        <h4 class="card__title">Exportação de índices de carbono para o SIDAC</h4>
+                        <p class="card__description">
+                            Integração direta com o sistema SIDAC para análise de sustentabilidade.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card--compact">
+                    <div class="card__content">
+                        <h4 class="card__title">Realinhamento de textos de ferros inteligentes</h4>
+                        <p class="card__description">
+                            Com seleção múltipla para maior produtividade.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

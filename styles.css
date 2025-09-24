@@ -1,4 +1,4 @@
-﻿/* ========================================
+/* ========================================
       PAINEL DE CONTROLE (VARIÁVEIS GLOBAIS)
    ======================================== */
 
@@ -7,6 +7,7 @@
     --font-title: "Roboto", "Helvetica Neue", Arial, sans-serif;
     --font-text: "Inter", "Helvetica Neue", Arial, sans-serif;
     /* --- 2. Pesos de Fonte --- */
+    --font-weight-light: 300;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -25,6 +26,9 @@
     --color-accent-tqs: #215F9A;
     --color-accent-apple: #0071E3;
     --color-accent-green: #22c55e;
+    --color-accent-orange: #EA580C;
+    --color-accent-lavander: #7C3AED;
+    --color-accent-esmeralda: #059669;
     --color-highlight-yellow: #ffff00;
     --color-border-light: rgba(255, 255, 255, 0.1);
     --color-border-dark: rgba(0, 0, 0, 0.1);
@@ -49,9 +53,10 @@
     /* --- 4. Escala de Tipografia Fluida --- */
     --font-size-small: clamp(0.8rem, 0.17vw + 0.76rem, 0.94rem);
     --font-size-body: clamp(1.1rem, 0.25vw + 1rem, 1.25rem);
-    --font-size-item-title: clamp(1.1rem, 0.25vw + 1rem, 1.25rem);
+    --font-size-item-title: clamp(1.8rem, 1vw + 1.5rem, 2.2rem);
     --font-size-section-subtitle: clamp(1.2rem, 0.3vw + 1.1rem, 1.3rem);
     --font-size-subgroup-title: clamp(2rem, 1vw + 1.8rem, 2.5rem);
+    --font-size-group-title: clamp(2rem, 1vw + 1.7rem, 3rem);
     --font-size-section-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
     --font-size-hero-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
     --font-size-highlight-title: clamp(1.8rem, 1vw + 1.5rem, 2.2rem);
@@ -74,7 +79,7 @@ html {
 body {
     font-family: var(--font-text);
     font-size: var(--font-size-body);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-light);
     line-height: 1.6;
     color: var(--color-text-dark-primary);
     background-color: var(--bg-light);
@@ -134,7 +139,7 @@ h4, h5, h6 {
 p {
     font-family: var(--font-text);
     font-size: var(--font-size-body);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-light);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -157,6 +162,14 @@ strong {
 .text-section-subtitle {
     font-family: var(--font-text);
     font-size: var(--font-size-section-subtitle);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
+}
+
+/* Para aplicar o estilo de título de grupo em qualquer elemento */
+.text-group-title {
+    font-family: var(--font-text);
+    font-size: var(--font-size-group-title);
     font-weight: var(--font-weight-regular);
     color: var(--color-text-secondary);
 }
@@ -189,6 +202,18 @@ strong {
 
 .text-accent-secondary {
     color: var(--color-accent-secondary); /* Usa a variável que já definimos no :root */
+}
+
+.text-accent-lavander {
+    color: var(--color-accent-lavander); /* Usa a variável que já definimos no :root */
+}
+
+.text-accent-orange {
+    color: var(--color-accent-orange); /* Usa a variável que já definimos no :root */
+}
+
+.text-accent-esmeralda {
+    color: var(--color-accent-esmeralda); /* Usa a variável que já definimos no :root */
 }
 
 .text-white {
@@ -1748,7 +1773,7 @@ img {
     grid-template-areas: "controls media";
     align-items: center;
     gap: 40px;
-    height: 650px;
+    height: 520px;
     max-width: 1200px;
     position: relative;
 }
@@ -3000,7 +3025,7 @@ COMO USAR:
 
     /* Resource Group Dark Blue - Fundo azul escuro */
     .resource-group.dark-blue {
-        background: var(--bg-dark-blue);
+        background: #163E64;
         color: var(--color-text-light-primary);
         border-radius: 0;
         padding: 4rem 0;
@@ -3064,6 +3089,20 @@ COMO USAR:
     margin-right: -50vw;
 }
 
+.resource-group.light-lavander {
+    background: linear-gradient(180deg, #F5F3FF 0%, #FAF9FF 50%, #FFFFFF 100%);
+    color: #1d1d1f;
+    border-radius: 0;
+    padding: 4rem 0;
+    margin: 4rem 0 0 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
 .resource-group.ia-dark {
     background: radial-gradient(900px 500px at 75% -10%, rgba(79,163,255,0.18), transparent 60%), linear-gradient(180deg, #0B1A36 0%, #0A1327 100%);
     color: #E9EEF6;
@@ -3092,10 +3131,17 @@ COMO USAR:
 .resource-group.light-ice + .resource-group.dark,
 .resource-group.light-ice + .resource-group.dark-blue,
 .resource-group.light-ice + .resource-group.darker-blue,
+.resource-group.light-lavander + .resource-group.dark,
+.resource-group.light-lavander + .resource-group.dark-blue,
+.resource-group.light-lavander + .resource-group.darker-blue,
 .resource-group.dark + .resource-group.light-ice,
 .resource-group.dark-blue + .resource-group.light-ice,
 .resource-group.darker-blue + .resource-group.light-ice,
-.resource-group.light-ice + .resource-group.light-ice {
+.resource-group.light-ice + .resource-group.light-ice,
+.resource-group.dark + .resource-group.light-lavander,
+.resource-group.dark-blue + .resource-group.light-lavander,
+.resource-group.darker-blue + .resource-group.light-lavander,
+.resource-group.light-lavander + .resource-group.light-lavander {
     margin-top: 0;
 }
 
@@ -3103,7 +3149,8 @@ COMO USAR:
 .resource-group.dark > *,
 .resource-group.dark-blue > *,
 .resource-group.darker-blue > *,
-.resource-group.light-ice > * {
+.resource-group.light-ice > *,
+.resource-group.light-lavander > *{
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -3116,7 +3163,8 @@ COMO USAR:
     .resource-group.dark > *,
     .resource-group.dark-blue > *,
     .resource-group.darker-blue > *,
-    .resource-group.light-ice > * {
+    .resource-group.light-ice > *, 
+    .resource-group.light-lavander > * {
         max-width: 1600px;
     }
 }
@@ -3125,7 +3173,8 @@ COMO USAR:
     .resource-group.dark > *,
     .resource-group.dark-blue > *,
     .resource-group.darker-blue > *,
-    .resource-group.light-ice > * {
+    .resource-group.light-ice > *,
+    .resource-group.light-lavander > * {
         max-width: 2000px;
     }
 }
