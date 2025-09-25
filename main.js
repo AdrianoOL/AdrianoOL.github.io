@@ -272,31 +272,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // REMOVIDO: Carousel principal não existe mais no sistema modular
 
-// Mini carousel functionality for cards
-function currentMiniSlide(slideIndex, carouselIndex, restartTimer = true) {
-    const miniCarousels = document.querySelectorAll('.mini-carousel');
-    const carousel = miniCarousels[carouselIndex];
-    
+// Mini carousel functionality - usando referência direta ao elemento
+function currentMiniSlideByElement(slideIndex, carousel, restartTimer = true) {
     if (carousel) {
         const images = carousel.querySelectorAll('.mini-carousel-image');
         const dots = carousel.querySelectorAll('.mini-dot');
-        
+
         // Remove active class from all
         images.forEach(img => img.classList.remove('active'));
         if (dots.length > 0) {
             dots.forEach(dot => dot.classList.remove('active'));
         }
-        
+
+        // Add active class to selected
+        if (images[slideIndex]) {
+            images[slideIndex].classList.add('active');
+        }
+
+        if (dots[slideIndex]) {
+            dots[slideIndex].classList.add('active');
+        }
+
+        // Reiniciar timer se solicitado (interações manuais)
+        if (restartTimer && carousel.autoTimer) {
+            clearInterval(carousel.autoTimer);
+        }
+    }
+}
+
+// Mini carousel functionality for cards
+function currentMiniSlide(slideIndex, carouselIndex, restartTimer = true) {
+    const miniCarousels = document.querySelectorAll('.mini-carousel');
+    const carousel = miniCarousels[carouselIndex];
+
+    if (carousel) {
+        const images = carousel.querySelectorAll('.mini-carousel-image');
+        const dots = carousel.querySelectorAll('.mini-dot');
+
+        // Remove active class from all
+        images.forEach(img => img.classList.remove('active'));
+        if (dots.length > 0) {
+            dots.forEach(dot => dot.classList.remove('active'));
+        }
+
         // Add active class to selected (slideIndex is 1-based, convert to 0-based)
         const targetIndex = slideIndex - 1;
-        
+
         if (images[targetIndex]) {
             images[targetIndex].classList.add('active');
         }
         if (dots[targetIndex]) {
             dots[targetIndex].classList.add('active');
         }
-        
+
         // Reiniciar timer se solicitado (interações manuais)
         if (restartTimer && carousel.autoTimer) {
             clearInterval(carousel.autoTimer);
@@ -305,14 +333,11 @@ function currentMiniSlide(slideIndex, carouselIndex, restartTimer = true) {
     }
 }
 
-// Navigation arrows for mini carousels
-function changeMiniSlide(direction, carouselIndex) {
-    const miniCarousels = document.querySelectorAll('.mini-carousel');
-    const carousel = miniCarousels[carouselIndex];
-    
+// Navigation arrows for mini carousels - usando referência direta ao elemento
+function changeMiniSlideByElement(direction, carousel) {
     if (carousel) {
         const images = carousel.querySelectorAll('.mini-carousel-image');
-        
+
         // Find current active slide
         let currentSlide = 0;
         images.forEach((img, index) => {
@@ -320,18 +345,49 @@ function changeMiniSlide(direction, carouselIndex) {
                 currentSlide = index;
             }
         });
-        
+
         // Calculate new slide index
         let newSlide = currentSlide + direction;
-        
+
         // Wrap around
         if (newSlide >= images.length) {
             newSlide = 0;
         } else if (newSlide < 0) {
             newSlide = images.length - 1;
         }
-        
-        // Update active slide (currentMiniSlide expects 1-based index) - reiniciar timer por ser interação manual
+
+        // Update active slide directly
+        currentMiniSlideByElement(newSlide, carousel, true);
+    }
+}
+
+// Navigation arrows for mini carousels
+function changeMiniSlide(direction, carouselIndex) {
+    const miniCarousels = document.querySelectorAll('.mini-carousel');
+    const carousel = miniCarousels[carouselIndex];
+
+    if (carousel) {
+        const images = carousel.querySelectorAll('.mini-carousel-image');
+
+        // Find current active slide
+        let currentSlide = 0;
+        images.forEach((img, index) => {
+            if (img.classList.contains('active')) {
+                currentSlide = index;
+            }
+        });
+
+        // Calculate new slide index
+        let newSlide = currentSlide + direction;
+
+        // Wrap around
+        if (newSlide >= images.length) {
+            newSlide = 0;
+        } else if (newSlide < 0) {
+            newSlide = images.length - 1;
+        }
+
+        // Update active slide (currentMiniSlide expects 1-based index)
         currentMiniSlide(newSlide + 1, carouselIndex, true);
     }
 }
@@ -1008,7 +1064,7 @@ function goToCardSlide(carouselIndex, slideIndex) {
 function setupCarouselControls(carousel, carouselIndex) {
     const images = carousel.querySelectorAll('.mini-carousel-image');
     const track = carousel.querySelector('.mini-carousel-track');
-    
+
     // Se não há track ou menos de 2 imagens, não precisa de controles
     if (!track || images.length < 2) return;
     
@@ -1031,8 +1087,18 @@ function setupCarouselControls(carousel, carouselIndex) {
     }
     
     // Setup eventos dos botões
-    prevBtn.onclick = () => changeMiniSlide(-1, carouselIndex);
-    nextBtn.onclick = () => changeMiniSlide(1, carouselIndex);
+    prevBtn.removeEventListener('click', prevBtn._clickHandler);
+    nextBtn.removeEventListener('click', nextBtn._clickHandler);
+
+    prevBtn._clickHandler = () => {
+        changeMiniSlideByElement(-1, carousel);
+    };
+    nextBtn._clickHandler = () => {
+        changeMiniSlideByElement(1, carousel);
+    };
+
+    prevBtn.addEventListener('click', prevBtn._clickHandler);
+    nextBtn.addEventListener('click', nextBtn._clickHandler);
     
     // Criar container de dots se não existir
     let dotsContainer = carousel.querySelector('.mini-carousel-dots');
@@ -1041,19 +1107,18 @@ function setupCarouselControls(carousel, carouselIndex) {
         dotsContainer.className = 'mini-carousel-dots';
         carousel.appendChild(dotsContainer);
     }
-    
+
     // Limpar dots existentes e criar novos baseado no número de imagens
     dotsContainer.innerHTML = '';
     images.forEach((_, dotIndex) => {
         const dot = document.createElement('span');
-        // NÃO definir classe active aqui - deixar para a inicialização das imagens
         dot.className = 'mini-dot';
         dot.onclick = () => {
-            currentMiniSlide(dotIndex + 1, carouselIndex, true); // Reiniciar timer ao clicar no dot
+            currentMiniSlideByElement(dotIndex, carousel, true);
         };
         dotsContainer.appendChild(dot);
     });
-    
+
     // APÓS criar os dots, ativar o primeiro baseado no estado atual das imagens
     const activeDots = dotsContainer.querySelectorAll('.mini-dot');
     if (activeDots.length > 0) {
