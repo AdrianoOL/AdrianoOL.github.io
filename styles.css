@@ -1,5 +1,5 @@
 /* ========================================
-      PAINEL DE CONTROLE (VARIÁVEIS GLOBAIS)
+      PAINEL DE CONTROLE (VARIÝVEIS GLOBAIS)
    ======================================== */
 
 :root {
@@ -58,7 +58,7 @@
     --font-size-subgroup-title: clamp(2rem, 1vw + 1.8rem, 2.5rem);
     --font-size-group-title: clamp(2rem, 1vw + 1.7rem, 3rem);
     --font-size-section-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
-    --font-size-hero-title: clamp(2.5rem, 3vw + 2rem, 5.5rem);
+    --font-size-hero-title: clamp(2rem, 2.5vw + 1.5rem, 4rem);
     --font-size-highlight-title: clamp(1.8rem, 1vw + 1.5rem, 2.2rem);
 }
 
@@ -74,6 +74,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -85,29 +86,18 @@ body {
     background-color: var(--bg-light);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding-top: 80px; /* Compensar altura do header fixed */
 }
 
 /* ========================================
-      LAYOUT E CLASSES UTILITÁRIAS
+      LAYOUT E CLASSES UTILITÝRIAS
    ======================================== */
 
 .container {
-    max-width: 1200px;
+    width: 95%;
+    max-width: 2000px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-/* Container expandido para telas grandes */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1600px;
-    }
-}
-
-@media (min-width: 1800px) {
-    .container {
-        max-width: 2000px;
-    }
 }
 
 /* ========================================
@@ -149,7 +139,7 @@ strong {
     font-weight: var(--font-weight-bold);
 }
 
-/* --- CLASSES UTILITÁRIAS (PARA FLEXIBILIDADE) --- */
+/* --- CLASSES UTILITÝRIAS (PARA FLEXIBILIDADE) --- */
 
 /* Para aplicar o estilo de Título de Seção em qualquer elemento */
 .text-section-title {
@@ -363,8 +353,8 @@ img {
     }
 
 .btn-large {
-    padding: 16px 32px;
-    font-size: var(--font-size-item-title);
+    padding: 12px 24px;
+    font-size: var(--font-size-body);
 }
 
 .btn-video {
@@ -538,6 +528,11 @@ img {
 
 .card--black {
     background: var(--bg-dark-section);
+    color: var(--color-text-light-primary);
+}
+
+.card--dark-blue {
+    background: #013364;
     color: var(--color-text-light-primary);
 }
 
@@ -983,7 +978,7 @@ img {
 }
 
 /* ========================================
-   RESOURCE SECTION - AGRUPAMENTO TEMÁTICO
+   RESOURCE SECTION - AGRUPAMENTO TEMÝTICO
    ======================================== */
 
 /* Wrapper para agrupar múltiplos resources-grid com tema comum */
@@ -1144,9 +1139,12 @@ img {
 .header {
     background: var(--bg-dark-blue);
     backdrop-filter: blur(10px);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -1340,13 +1338,15 @@ img {
 }
 
 .hero-container {
-    max-width: 1200px;
+    width: 95%;
+    max-width: 2000px;
     margin: 0 auto;
     padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
     align-items: center;
+    text-align: center;
     position: relative;
     z-index: 1;
 }
@@ -1357,19 +1357,21 @@ img {
 }
 
 .hero-title {
-    font-size: var(--font-size-hero-title);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff, #e2e8f0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-text);
+    font-size: clamp(1.8rem, 2vw + 1.3rem, 3rem);
+    font-weight: 200 !important;
+    margin-bottom: 0.2rem;
+    color: #4e95d9;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4);
 }
 
 .hero-subtitle {
-    font-size: var(--font-size-xl); /* Usando a escala */
-    color: var(--color-text-light-secondary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(1.2rem, 1.5vw + 1rem, 2rem);
+    font-weight: 300;
     color: #e2e8f0;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4);
 }
 
 .hero-description {
@@ -1390,6 +1392,7 @@ img {
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-top: -0.5rem;
 }
 
     .hero-image::before {
@@ -1398,9 +1401,9 @@ img {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 30%, transparent 70%);
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.05) 40%, transparent 60%);
         pointer-events: none;
         z-index: 1;
     }
@@ -1409,7 +1412,6 @@ img {
     width: 100%;
     max-width: 750px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     position: relative;
     z-index: 2;
 }
@@ -1742,7 +1744,7 @@ img {
 }
 
 /* =================================================================== */
-/* COMPONENTE DE FEATURES INTERATIVAS (REATORADO COM VARIÁVEIS CSS)    */
+/* COMPONENTE DE FEATURES INTERATIVAS (REATORADO COM VARIÝVEIS CSS)    */
 /* =================================================================== */
 
 /* --- O Container Principal com as variáveis do tema padrão (escuro) --- */
@@ -1774,7 +1776,8 @@ img {
     align-items: center;
     gap: 40px;
     height: 520px;
-    max-width: 1200px;
+    width: 95%;
+    max-width: 2000px;
     position: relative;
 }
 
@@ -2048,7 +2051,7 @@ img {
 }
 
 
-/* --- ESTÁGIO 1: DESKTOP (acima de 1024px) --- */
+/* --- ESTÝGIO 1: DESKTOP (acima de 1024px) --- */
 /* Garante que as setas sejam Cima/Baixo apenas no desktop. */
 @media (min-width: 1025px) {
     /* Rota??o para criar a seta para CIMA no desktop */
@@ -2062,7 +2065,7 @@ img {
     }
 }
 
-/* --- Ícones e Navegação --- */
+/* --- Ýcones e Navegação --- */
 @media (min-width: 1025px) {
     .resources-grid--carousel--interactive .feature-nav {
         position: absolute;
@@ -2646,7 +2649,7 @@ img {
     }
 }
 
-/* ===== COMPONENTE BEFORE-AFTER REUTILIZÁVEL ===== */
+/* ===== COMPONENTE BEFORE-AFTER REUTILIZÝVEL ===== */
 /*
 COMO USAR:
 1. Uso básico: <div class="before-after" data-before="img1.png" data-after="img2.png"></div>
@@ -2801,7 +2804,7 @@ COMO USAR:
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
-/* Ícone de setas duplas */
+/* Ýcone de setas duplas */
 .before-after__handle-icon {
     width: 20px;
     height: 20px;
@@ -2921,13 +2924,115 @@ COMO USAR:
 
 /* Resources Section */
 .resources {
-    padding: 6rem 0;
+    padding: 0;
     background: #f8fafc;
+}
+
+.resources .container {
+    padding-bottom: 4rem;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin: 0;
+    margin-bottom: -4rem;
+    background: linear-gradient(to bottom,
+        #000000 0%,
+        #536682 45%,
+        #536682 84%,
+        #364254 100%
+    );
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 3rem 0 7rem 0;
+    color: white;
+    position: relative;
+}
+
+.section-header__hero {
+    margin-bottom: 2rem;
+}
+
+.section-header__logo {
+    width: 25%;
+    height: auto;
+    max-width: 300px;
+}
+
+.section-header__intro {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.section-header__intro b {
+    font-weight: 400;
+}
+
+.section-header__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem auto;
+    padding: 0 2rem;
+}
+
+.section-header__column {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: white;
+}
+
+.section-header__column p {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+}
+
+
+.section-header__column--left {
+    text-align: left;
+}
+
+.section-header__column--right {
+    text-align: right;
+}
+
+.section-header__outro {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 1.6rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: white;
+}
+
+.section-header__outro b {
+    font-weight: 400;
+}
+
+/* Responsive adjustments for section-header */
+@media (max-width: 768px) {
+    .section-header__columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .section-header__column--left,
+    .section-header__column--right {
+        text-align: center;
+    }
+
+    .section-header__logo {
+        width: 40%;
+    }
 }
 
 .section-title {
@@ -2997,7 +3102,7 @@ COMO USAR:
 /* Resource Groups */
 .resource-group {
     margin-bottom: 6rem;
-    padding: 0 1rem;
+    padding: 0;
 }
 
     .resource-group:last-child {
@@ -3005,7 +3110,9 @@ COMO USAR:
     }
 
     .resource-group:first-child {
-        margin-top: 2rem;
+        margin-top: -4rem !important;
+        position: relative;
+        z-index: 10;
     }
 
     /* Resource Group Dark - Fundo totalmente preto */
@@ -3072,6 +3179,8 @@ COMO USAR:
     color: #888888;
     line-height: 1.4;
     margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
 }
 
 /* Resource Group Light Ice - Azul mais frio que vai ao branco mais rápido */
@@ -3133,38 +3242,20 @@ COMO USAR:
 }
 
 /* Container interno para manter o conteúdo centralizado */
+.resource-group > *,
 .resource-group.dark > *,
 .resource-group.dark-blue > *,
 .resource-group.darker-blue > *,
 .resource-group.light-ice > *,
 .resource-group.light-lavander > *{
-    max-width: 1200px;
+    width: 95%;
+    max-width: 2000px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 2rem;
     padding-right: 2rem;
 }
 
-/* Ajuste para telas maiores */
-@media (min-width: 1400px) {
-    .resource-group.dark > *,
-    .resource-group.dark-blue > *,
-    .resource-group.darker-blue > *,
-    .resource-group.light-ice > *, 
-    .resource-group.light-lavander > * {
-        max-width: 1600px;
-    }
-}
-
-@media (min-width: 1800px) {
-    .resource-group.dark > *,
-    .resource-group.dark-blue > *,
-    .resource-group.darker-blue > *,
-    .resource-group.light-ice > *,
-    .resource-group.light-lavander > * {
-        max-width: 2000px;
-    }
-}
 
 /* Ajustar cores dos títulos dentro do resource-group dark, dark-blue e darker-blue */
 .resource-group.dark .resource-group-title,
@@ -3218,7 +3309,7 @@ COMO USAR:
 }
 
 .resource-group:first-child .resource-group-title {
-    padding-top: 0;
+    padding-top: 0 !important;
 }
 
 .resource-group-title::after {
@@ -3295,6 +3386,7 @@ COMO USAR:
 .resource-group.darker-blue strong {
     color: #ffff00;
 }
+
 
 /* Classe para destaque azul */
 .highlight-blue {
@@ -3989,9 +4081,7 @@ COMO USAR:
     }
 
     .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
+        gap: 0.3rem;
     }
 
     .hero-cta {
@@ -3999,7 +4089,8 @@ COMO USAR:
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 2vw + 1.3rem, 3rem);
+        font-weight: 200;
     }
 
     .resource-highlight {
@@ -4482,6 +4573,111 @@ kbd {
 @media (max-width: 900px) {
     .theme-ai .pillars-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+      SEÇÃO DE INTRODUÇÃO
+   ======================================== */
+
+.intro-section {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.intro-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.intro-text {
+    position: absolute;
+    color: var(--color-text-light-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: var(--font-size-body);
+    font-weight: 300;
+    line-height: 1.6;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 3rem 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.intro-text-left {
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 200px;
+}
+
+.intro-text-right {
+    top: 0;
+    right: 0;
+    width: 50%;
+    text-align: right;
+    height: 200px;
+}
+
+.intro-text-center {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: calc(var(--font-size-body) * 1.6);
+    transform: none;
+    padding: 4rem 1.5rem;
+    background: rgba(41, 68, 85, 0.50);
+}
+
+/* Responsivo para mobile */
+@media (max-width: 768px) {
+    .intro-container {
+        height: 80vh;
+        min-height: 500px;
+    }
+
+.intro-text {
+        font-size: var(--font-size-small);
+        padding: 2rem 1rem;
+    }
+
+    .intro-text-left {
+        top: 0;
+        left: 0;
+        width: 50%;
+    }
+
+    .intro-text-right {
+        top: 0;
+        right: 0;
+        width: 50%;
+        text-align: right;
+    }
+
+    .intro-text-center {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        font-size: var(--font-size-body);
+        padding: 3rem 1rem;
     }
 }
 

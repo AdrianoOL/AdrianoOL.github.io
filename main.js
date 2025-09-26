@@ -1362,7 +1362,7 @@ function initCarouselFade() {
 // Scroll-triggered Fade - Abordagem Natural
 function initScrollFade() {
     const scrollFadeElements = document.querySelectorAll('.resources-grid--scroll-fade');
-    
+
     scrollFadeElements.forEach(element => {
         if (element.dataset.scrollInitialized === 'true') return;
 
@@ -1378,9 +1378,44 @@ function initScrollFade() {
 
         const cards = element.querySelectorAll(':scope > .card');
         if (cards.length <= 1) return;
-        
+
         setupScrollFadeCards(element, cards);
         element.dataset.scrollInitialized = 'true';
+    });
+}
+
+// Alternativa: Inicializar animação apenas quando seção fica visível
+function initScrollFadeOnVisible() {
+    const scrollFadeElements = document.querySelectorAll('.resources-grid--scroll-fade');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const element = entry.target;
+
+            if (entry.isIntersecting && element.dataset.scrollInitialized !== 'true') {
+                const variant = element.dataset.scrollVariant || 'fade';
+
+                if (variant === 'before-after') {
+                    const initialized = setupScrollBeforeAfter(element);
+                    if (initialized) {
+                        element.dataset.scrollInitialized = 'true';
+                    }
+                } else {
+                    const cards = element.querySelectorAll(':scope > .card');
+                    if (cards.length > 1) {
+                        setupScrollFadeCards(element, cards);
+                        element.dataset.scrollInitialized = 'true';
+                    }
+                }
+            }
+        });
+    }, {
+        threshold: 0.1, // Ativar quando 10% da seção estiver visível
+        rootMargin: '50px' // Ativar 50px antes da seção aparecer
+    });
+
+    scrollFadeElements.forEach(element => {
+        observer.observe(element);
     });
 }
 
@@ -1670,7 +1705,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start fade
     initCarouselFade();
     initScrollFade();
-    
+
+    // Reload página após navegação via menu (solução para animações)
+    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Aguardar rolagem terminar antes de recarregar
+            setTimeout(() => {
+                // Recarregar página após navegação
+                window.location.reload();
+            }, 1000); // Delay maior para aguardar rolagem terminar
+        });
+    });
+
     // Ajustar tamanho dos mini-carousels baseado nas imagens
     setTimeout(() => {
         adjustMiniCarouselSize();
