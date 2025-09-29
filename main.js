@@ -358,6 +358,7 @@ function changeMiniSlideByElement(direction, carousel) {
 
         // Update active slide directly
         currentMiniSlideByElement(newSlide, carousel, true);
+    } else {
     }
 }
 
@@ -990,7 +991,16 @@ function initCardCarouselSwipe(carousel, carouselIndex) {
     
     track.addEventListener('touchmove', (e) => {
         if (!isDown) return;
-        e.preventDefault();
+
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        const diffX = Math.abs(startX - currentX);
+        const diffY = Math.abs(startY - currentY);
+
+        // Só previne scroll se o movimento for mais horizontal que vertical
+        if (diffX > diffY && diffX > 10) {
+            e.preventDefault();
+        }
     });
     
     track.addEventListener('touchend', (e) => {
@@ -1384,41 +1394,6 @@ function initScrollFade() {
     });
 }
 
-// Alternativa: Inicializar animação apenas quando seção fica visível
-function initScrollFadeOnVisible() {
-    const scrollFadeElements = document.querySelectorAll('.resources-grid--scroll-fade');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const element = entry.target;
-
-            if (entry.isIntersecting && element.dataset.scrollInitialized !== 'true') {
-                const variant = element.dataset.scrollVariant || 'fade';
-
-                if (variant === 'before-after') {
-                    const initialized = setupScrollBeforeAfter(element);
-                    if (initialized) {
-                        element.dataset.scrollInitialized = 'true';
-                    }
-                } else {
-                    const cards = element.querySelectorAll(':scope > .card');
-                    if (cards.length > 1) {
-                        setupScrollFadeCards(element, cards);
-                        element.dataset.scrollInitialized = 'true';
-                    }
-                }
-            }
-        });
-    }, {
-        threshold: 0.1, // Ativar quando 10% da seção estiver visível
-        rootMargin: '50px' // Ativar 50px antes da seção aparecer
-    });
-
-    scrollFadeElements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
 function setupScrollFadeCards(originalElement, cards) {
     // Criar nova estrutura
     const stickyContainer = document.createElement('div');
@@ -1751,36 +1726,49 @@ window.addEventListener('resize', function() {
 
 // Touch/Swipe support for mini carousels
 function initTouchSupport() {
-    const miniCarousels = document.querySelectorAll('.mini-carousel-track');
-    
-    miniCarousels.forEach((track, carouselIndex) => {
+    const miniCarousels = document.querySelectorAll('.mini-carousel');
+    miniCarousels.forEach((carousel, carouselIndex) => {
+        const track = carousel.querySelector('.mini-carousel-track');
+        if (!track) return;
+
+        const images = track.querySelectorAll('.mini-carousel-image');
+        const firstImageSrc = images[0]?.src || 'sem-imagem';
         let startX = 0;
         let startY = 0;
         let endX = 0;
         let endY = 0;
         let isDown = false;
-        
-        // Touch events
+
+        // Touch events com capture para garantir que não sejam bloqueados
         track.addEventListener('touchstart', (e) => {
             isDown = true;
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
-        });
+        }, { capture: true, passive: true });
         
         track.addEventListener('touchmove', (e) => {
             if (!isDown) return;
-            e.preventDefault(); // Prevent scrolling
+
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const diffX = Math.abs(startX - currentX);
+            const diffY = Math.abs(startY - currentY);
+
+            // Só previne scroll se o movimento for mais horizontal que vertical
+            if (diffX > diffY && diffX > 10) {
+                e.preventDefault();
+            }
         });
         
         track.addEventListener('touchend', (e) => {
             if (!isDown) return;
             isDown = false;
-            
+
             endX = e.changedTouches[0].clientX;
             endY = e.changedTouches[0].clientY;
-            
-            handleSwipe(startX, startY, endX, endY, carouselIndex);
-        });
+
+            handleSwipe(startX, startY, endX, endY, carousel);
+        }, { capture: true, passive: true });
         
         // Mouse events for desktop testing
         track.addEventListener('mousedown', (e) => {
@@ -1800,8 +1788,8 @@ function initTouchSupport() {
             
             endX = e.clientX;
             endY = e.clientY;
-            
-            handleSwipe(startX, startY, endX, endY, carouselIndex);
+
+            handleSwipe(startX, startY, endX, endY, carousel);
         });
         
         track.addEventListener('mouseleave', () => {
@@ -1810,20 +1798,26 @@ function initTouchSupport() {
     });
 }
 
-function handleSwipe(startX, startY, endX, endY, carouselIndex) {
+function handleSwipe(startX, startY, endX, endY, carousel) {
     const diffX = startX - endX;
     const diffY = startY - endY;
-    const minSwipeDistance = 50;
-    
+    const minSwipeDistance = 30;
+
     // Check if it's more horizontal than vertical movement
     if (Math.abs(diffX) > Math.abs(diffY)) {
         if (Math.abs(diffX) > minSwipeDistance) {
-            if (diffX > 0) {
-                // Swipe left - next slide (changeMiniSlide já reinicia o timer)
-                changeMiniSlide(1, carouselIndex);
+            const images = carousel.querySelectorAll('.mini-carousel-image');
+
+            // Usar função direta em vez de changeMiniSlide com índice
+            if (typeof changeMiniSlideByElement === 'function') {
+                if (diffX > 0) {
+                    // Swipe left - next slide
+                    changeMiniSlideByElement(1, carousel);
+                } else {
+                    // Swipe right - previous slide
+                    changeMiniSlideByElement(-1, carousel);
+                }
             } else {
-                // Swipe right - previous slide (changeMiniSlide já reinicia o timer)
-                changeMiniSlide(-1, carouselIndex);
             }
         }
     }
@@ -2049,10 +2043,6 @@ class BeforeAfterComponent {
         this.imageWrapper.style.top = '0';
         this.imageWrapper.style.left = '0';
         
-        console.log('Before/After sync - fixed dimensions:', {
-            containerSize: `${containerWidth}x${containerHeight}`,
-            beforeImagePixels: `${containerWidth}px x ${containerHeight}px`
-        });
     }
     
     startDrag(e) {

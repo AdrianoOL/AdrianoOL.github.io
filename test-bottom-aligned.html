@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Bottom Aligned</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-container {
+            background: yellow;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .debug-info {
+            background: red;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste do Modificador bottom-aligned</h1>
+
+    <div class="debug-info">Seção NORMAL (deveria ter margem inferior)</div>
+    <div class="test-container">
+        <div class="resource-section blue">
+            <h4>Seção Normal</h4>
+            <p>Esta seção deveria ter margem inferior</p>
+        </div>
+        <div class="debug-info">ESPAÇO AQUI = margem inferior funcionando</div>
+    </div>
+
+    <div class="debug-info">Seção BOTTOM-ALIGNED (NÃO deveria ter margem inferior)</div>
+    <div class="test-container">
+        <div class="resource-section bottom-aligned blue">
+            <h4>Seção Bottom Aligned</h4>
+            <p>Esta seção NÃO deveria ter margem inferior</p>
+        </div>
+        <div class="debug-info">SEM ESPAÇO AQUI = bottom-aligned funcionando</div>
+    </div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>TQS v26 - Lançamento</title>
     <meta name="description" content="Descubra as novidades da versão 26 do TQS - Software de cálculo estrutural com novos recursos e melhorias.">
     <link rel="stylesheet" href="styles.css">
@@ -97,15 +97,15 @@
         <div class="container">
 
 
-            <div class="section-header">
-                <div class="section-header__hero">
-                    <img src="images/hero-main.png" alt="TQS V26" class="section-header__logo">
+            <div class="section-header-intro">
+                <div class="section-header-intro__hero">
+                    <img src="images/hero-main.png" alt="TQS V26" class="section-header-intro__logo">
                 </div>
-                <p class="section-header__intro">
+                <p class="section-header-intro__intro">
                     <b>A nova Versão V26 traz recursos que tornam o TQS ainda mais completo e definitivo.</b>
                 </p>
-                <div class="section-header__columns">
-                    <div class="section-header__column section-header__column--left">
+                <div class="section-header-intro__columns">
+                    <div class="section-header-intro__column section-header-intro__column--left">
                         <p>
                             <strong>Viewport</strong><br>
                             Inovador. Minimiza retrabalhos nas revisões de projeto. Agregue mais valor em suas plantas incluindo detalhes em 3D.
@@ -124,7 +124,7 @@
 
                         </p>
                     </div>
-                    <div class="section-header__column section-header__column--right">
+                    <div class="section-header-intro__column section-header-intro__column--right">
                         <p>
                             <strong>Editor Gráfico</strong><br>
                             Mais produtividade e assertividade na execução de comandos. Nova biblioteca de desenho, com notas de projeto.
@@ -143,7 +143,7 @@
                         </p>
                     </div>
                 </div>
-                <p class="section-header__outro">
+                <p class="section-header-intro__outro">
                     <b>Conheça todas as novidades da Versão V26, com detalhes, a seguir.</b>
                 </p>
             </div>
@@ -741,160 +741,180 @@
             <div class="resource-group" id="analise-estrutural">
                 <h3 class="resource-group-title">Análise Estrutural</h3>
                 <p class="resource-group-description">
-                    Melhorias significativas na visualização de resultados, processamento e análise de estruturas.
+                    Mais facilidade na interpretação de resultados. Pacotes EPP e EPP3 com dinâmica.
                 </p>
 
-                <!-- Subseção: Visualizador -->
-                <h4 class="resource-subgroup-title">Visualizador</h4>
-                <div class="resources-grid">
-                    <div class="card card--horizontal-reverse card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Visualização simultânea de momentos</h4>
-                            <p class="card__description">
-                                Momentos fletores My e Mz visualizados simultaneamente.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <div class="mini-carousel">
-                                <div class="mini-carousel-track">
-                                    <img src="images/test.png" alt="Momentos My" class="mini-carousel-image active">
-                                    <img src="images/test.png" alt="Momentos Mz" class="mini-carousel-image">
-                                    <img src="images/test.png" alt="Momentos Simultâneos" class="mini-carousel-image">
-                                </div>
+                <div class="resource-section white">
+                    <h4 class="resource-subgroup-title">Visualizador de Pórtico Espacial e Grelha</h4>
+
+                    <div class="resources-grid">
+                     
+                        <div class="card card--horizontal-reverse no-vertical-margin card--transparent">
+                            <div class="card__content">
+                                <h4 class="card__title">Menos Textos</h4>
+                                <p class="card__description">
+                                    Visualize somente os valores que interessam.
+                                </p>
+                            </div>
+                            <div class="card__media">
+                                <div class="before-after" data-before="images/Analise-1-1.png" data-after="images/Analise-1-2.png"></div>
                             </div>
                         </div>
+
+                        <div class="card card--horizontal no-vertical-margin card--transparent">
+                            <div class="card__content">
+                                <h4 class="card__title">Momentos Simultâneos</h4>
+                                <p class="card__description">
+                                    Mais facilidade na interpretação de momentos fletores nos pilares.
+                                </p>
+                            </div>
+                            <div class="card__media">
+                                <img src="images/Analise-2.png" alt="Redução de textos" class="card__image">
+                            </div>
+                        </div>
+
+                        <div class="card card--horizontal-reverse no-vertical-margin card--transparent">
+                            <div class="card__content">
+                                <h4 class="card__title">Envoltória</h4>
+                                <p class="card__description">
+                                    Agora com todos valores extremos detectados, independentes do sinal.
+                                </p>
+                            </div>
+                            <div class="card__media">
+                                <img src="images/Analise-3.png" alt="Redução de textos" class="card__image">
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="card card--horizontal card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Redução de quantidade de textos</h4>
-                            <p class="card__description">
-                                Visualização apenas dos picos para melhor legibilidade.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Redução de textos" class="card__image">
-                        </div>
-                    </div>
+                    <div class="resources-grid-horizontal">
 
-                    <div class="card card--horizontal-reverse card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Barra de escala de cores</h4>
-                            <p class="card__description">
-                                Tabela de reações gravada no DWG.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Barra de escala" class="card__image">
-                        </div>
-                    </div>
+                        <div class="card card--vertical card--transparent">
+                            
+                            <div class="card__media">
+                                <img src="images/Analise-4.png" alt="Redução de textos" class="card__image">
+                            </div>
 
-                    <div class="card card--horizontal card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Melhoria na visualização do nó</h4>
-                            <p class="card__description">
-                                Nó localizado com melhor apresentação visual.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Nó localizado" class="card__image">
-                        </div>
-                    </div>
+                            <div class="card__content">
+                                <h4 class="card__title">Apoios Alternativos</h4>
+                                <p class="card__description">
+                                    Dados na tabela de propriedades.
+                                </p>
+                            </div>
 
-                    <div class="card card--horizontal-reverse card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Melhoria no desenho de envoltórias</h4>
-                            <p class="card__description">
-                                Representação gráfica aprimorada das envoltórias.
-                            </p>
                         </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Envoltórias" class="card__image">
-                        </div>
-                    </div>
 
-                    <div class="card card--horizontal card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Dados alternativos de apoios</h4>
-                            <p class="card__description">
-                                Para análise de vento com configurações específicas.
-                            </p>
+                        <div class="card card--vertical card--transparent">
+                            
+                            <div class="card__media">
+                                <img src="images/Analise-5.png" alt="Redução de textos" class="card__image">
+                            </div>
+
+                            <div class="card__content">
+                                <h4 class="card__title">Localizar Texto</h4>
+                                <p class="card__description">
+                                    Mais informações do nó localizado.
+                                </p>
+                            </div>
+
                         </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Dados apoios" class="card__image">
+
+                        <div class="card card--vertical card--transparent">
+                            
+                            <div class="card__media">
+                                <img src="images/Analise-6.png" alt="Redução de textos" class="card__image">
+                            </div>
+
+                            <div class="card__content">
+                                <h4 class="card__title">Salvar DWG</h4>
+                                <p class="card__description">
+                                    Escala de cores e tabela de reações salvos no arquivo.
+                                </p>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
 
-                <!-- Subseção: Análise Incremental -->
-                <h4 class="resource-subgroup-title">Análise Incremental</h4>
-                <div class="resources-grid">
-                    <div class="card card--horizontal">
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Tempo processamento" class="card__image">
-                        </div>
-                        <div class="card__content">
-                            <h4 class="card__title">Melhoria no tempo de processamento</h4>
-                            <p class="card__description">
-                                Processamento mais rápido na Análise Incremental.
-                            </p>
-                        </div>
-                    </div>
+                <div class="resource-section bottom-aligned white">
+                     <h4 class="resource-subgroup-title">Análise Construtiva</h4>
 
-                    <div class="card card--horizontal">
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Comparação resultados" class="card__image">
+                    <div class="resources-grid">
+
+                        <div class="card card--horizontal-reverse bottom-aligned card--transparent">
+
+                            <div class="card__content">
+                                <p class="card__description">
+                                    <strong>3x</strong><br>
+                                    Com processamento paralelo das subestruturas e outras estratégias, a análise incremental na Versão V26 é cerca de 3x mais veloz do que na V25<sup><small>(1)</small></sup>.
+                                    <br><br>
+                                    <strong>Visualizador</strong><br>
+                                    Agora é possível comparar resultados entre quaisquer combinações calculadas com efeito construtivo.
+                                </p>
+                                <div class="footnotes">
+                                    <br><br>
+                                    <sup>(1)</sup> A redução é válida para análise sem fluência e retração, e com módulo Ec constante.​<br>
+                                </div>
+                            </div>
+
+                            <div class="card__media">
+                                <img src="images/Analise-7.png" alt="Redução de textos" class="card__image">
+                            </div>
+
                         </div>
-                        <div class="card__content">
-                            <h4 class="card__title">Melhoria na comparação de resultados</h4>
-                            <p class="card__description">
-                                No Visualizador de Análise Incremental.
-                            </p>
-                        </div>
+
                     </div>
                 </div>
 
-                <!-- Subseção: Outros -->
-                <h4 class="resource-subgroup-title">Outros</h4>
-                <div class="resources-grid">
-                    <div class="card card--horizontal-reverse card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Pilares-parede discretizados</h4>
-                            <p class="card__description">
-                                No pórtico espacial principal.
-                            </p>
+                <div class="resource-section bottom-aligned white">
+                     <h4 class="resource-subgroup-title">Pacotes EPP3 e EPP</h4>
+
+                    <div class="resources-grid">
+
+                        <div class="card card--horizontal-reverse bottom-aligned card--transparent">
+
+                            <div class="card__content">
+                                <p class="card__description">
+                                    <strong>Dinâmica</strong><br>
+                                    Análise modal foi introduzida no solver leve. Com isso, o estado-limite de vibrações excessivas (ELS-VIB) pode ser avaliado em estruturas de pequeno porte.
+                                    <br><br>
+                                    <strong>Grelha Não-Linear</strong><br>
+                                    Adaptado para o solver leve, a análise de flechas e aberturas de fissuras com o grelha não-linear ficou muito mais veloz.
+                                </p>
+                            </div>
+
+                            <div class="card__media">
+                                <img src="images/Analise-8.png" alt="Redução de textos" class="card__image">
+                            </div>
+
                         </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Pilares-parede" class="card__image">
-                        </div>
+
                     </div>
                 </div>
 
-                <div class="resources-grid">
-                    <div class="card card--vertical">
-                        <div class="card__content">
-                            <h4 class="card__title">Abertura de pórticos ELU e ELS</h4>
-                            <p class="card__description">
-                                No Visualizador de Análise Sísmica/Dinâmica.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Pórticos ELU ELS" class="card__image">
-                        </div>
-                    </div>
+                <div class="resource-section bottom-aligned white">
+                     <h4 class="resource-subgroup-title">Outras Novidades</h4>
 
-                    <div class="card card--vertical">
-                        <div class="card__content">
-                            <h4 class="card__title">Análise dinâmica em pacote EPP</h4>
-                            <p class="card__description">
-                                Solver leve para melhor performance.
-                            </p>
+                    <div class="resources-grid">
+
+                        <div class="card card--transparent bottom-aligned card--black">
+
+                            <div class="card__content">
+                                <p class="card__description">
+                                    A malha do pilar-parede discretizado foi incorporada ao pórtico espacial principal (antes, estava nas subestruturas) para uma análise P-D levemente mais precisa. Seleção de modelo ELU ou ELS no Visualizador de Análise Dinâmica.
+                                </p>
+                            </div>
+
+                            <div class="card__media">
+                                <img src="images/Analise-9.png" alt="Redução de textos" class="card__image">
+                            </div>
+
                         </div>
-                        <div class="card__media">
-                            <img src="images/test.png" alt="Análise dinâmica EPP" class="card__image">
-                        </div>
+
                     </div>
                 </div>
+
             </div>
 
             <!-- Seção: Pilares -->
@@ -1102,12 +1122,7 @@
 
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Continuação dos Grupos de Recursos -->
-    <section class="resources">
-        <div class="container">
             <!-- Seção: Vigas -->
             <div class="resource-group" id="vigas">
                 <h3 class="resource-group-title">Vigas</h3>
