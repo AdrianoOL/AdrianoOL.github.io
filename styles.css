@@ -79,6 +79,8 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    /* Previne bounce horizontal no Safari iOS sem afetar getBoundingClientRect */
+    overscroll-behavior-x: none;
 }
 
 body {
@@ -91,6 +93,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-top: 80px; /* Compensar altura do header fixed */
+    width: 100%;
+    position: relative;
+    /* Previne bounce horizontal no Safari iOS */
+    overscroll-behavior-x: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ========================================
