@@ -1536,16 +1536,22 @@ function setupScrollFadeCards(originalElement, cards) {
     adjustStickyHeight(0);
 
     function handleScroll() {
-        const rect = originalElement.getBoundingClientRect();
+        // Usar offsetTop e scrollY ao invés de getBoundingClientRect para compatibilidade com overflow-x: hidden
+        const elementTop = originalElement.offsetTop;
         const elementHeight = originalElement.offsetHeight;
         const viewportHeight = window.innerHeight;
-        
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        // Calcular posição relativa do elemento
+        const relativeTop = elementTop - scrollY;
+        const relativeBottom = relativeTop + elementHeight;
+
         // Verificar se a seção está na viewport
-        const isInView = rect.top <= 0 && rect.bottom >= viewportHeight;
-        
+        const isInView = relativeTop <= 0 && relativeBottom >= viewportHeight;
+
         if (isInView) {
             // Calcular progresso dentro da seção (0 a 1)
-            const scrolledIntoSection = Math.abs(rect.top);
+            const scrolledIntoSection = Math.abs(relativeTop);
             const maxScroll = elementHeight - viewportHeight;
             let scrollPercent = Math.min(Math.max(scrolledIntoSection / maxScroll, 0), 1);
             
@@ -1728,9 +1734,13 @@ function setupScrollBeforeAfter(originalElement) {
     let ticking = false;
 
     function updateReveal() {
-        const rect = originalElement.getBoundingClientRect();
+        // Usar offsetTop e scrollY ao invés de getBoundingClientRect para compatibilidade com overflow-x: hidden
+        const elementTop = originalElement.offsetTop;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const relativeTop = elementTop - scrollY;
+
         const maxScroll = Math.max(originalElement.offsetHeight - window.innerHeight, 1);
-        const currentScroll = Math.min(Math.max(-rect.top, 0), maxScroll);
+        const currentScroll = Math.min(Math.max(-relativeTop, 0), maxScroll);
         const progress = currentScroll / maxScroll;
         const revealPercentage = (1 - progress) * 100;
         afterImage.style.setProperty('--reveal', `${revealPercentage}%`);

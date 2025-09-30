@@ -95,6 +95,7 @@ body {
     padding-top: 80px; /* Compensar altura do header fixed */
     width: 100%;
     position: relative;
+    overflow-x: hidden; /* Impede scroll horizontal */
     /* Previne bounce horizontal no Safari iOS */
     overscroll-behavior-x: none;
     -webkit-overflow-scrolling: touch;
