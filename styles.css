@@ -3,6 +3,10 @@
    ======================================== */
 
 :root {
+    /* --- 0. Layout e Espaçamento --- */
+    --header-height: 70px; /* Altura aproximada do header fixo (padding 1rem * 2 + conteúdo) */
+    --header-height-mobile: 60px; /* Altura do header em mobile */
+
     /* --- 1. Famílias de Fonte --- */
     --font-title: "Roboto", "Helvetica Neue", Arial, sans-serif;
     --font-text: "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -572,6 +576,34 @@ img {
     .card--transparent:hover {
         box-shadow: none;
         transform: none;
+    }
+
+/* Modificador: Card com fundo salmão */
+.card--salmon {
+    background: #C7BEB5;
+    box-shadow: none;
+    border: none;
+    color: #1d1d1f; /* Texto escuro para contraste */
+}
+
+    .card--salmon:hover {
+        box-shadow: 0 8px 24px rgba(199, 190, 181, 0.3); /* Sombra suave na cor salmão */
+        transform: translateY(-4px);
+    }
+
+    /* Títulos em cards salmão */
+    .card--salmon .card__title {
+        color: #1d1d1f;
+    }
+
+    /* Descrições em cards salmão */
+    .card--salmon .card__description {
+        color: #3d3d3f;
+    }
+
+    /* Overlay com fundo salmão */
+    .card--overlay.card--salmon::before {
+        background: rgba(199, 190, 181, 0.9);
     }
 
 /* Overlay específico */
@@ -3247,9 +3279,69 @@ COMO USAR:
     margin-right: -50vw;
 }
 
+/* Resource Group Salmon - Fundo salmão/bege suave */
+.resource-group.salmon {
+    background: #C7BEB5;
+    color: #1d1d1f;
+    border-radius: 0;
+    padding: 4rem 0;
+    margin: 4rem 0 6rem 0; /* margin-bottom padrão de 6rem */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* Remove margin-bottom quando salmon contém scroll-fade */
+.resource-group.salmon:has(.resources-grid--scroll-fade) {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+    .resource-group.salmon h2 {
+        color: #1d1d1f;
+    }
+
+    .resource-group.salmon .resource-group-title {
+        color: #1d1d1f;
+    }
+
+    .resource-group.salmon .resource-group-description {
+        color: #3d3d3f;
+    }
+
+    .resource-group.salmon .resource-subgroup-title {
+        color: #8B7355; /* Tom mais escuro de salmão para contraste */
+    }
+
+    /* Linha decorativa dos títulos em salmon */
+    .resource-group.salmon .resource-group-title::after,
+    .resource-group.salmon .resource-subgroup-title::after {
+        background: linear-gradient(135deg, #8B7355, #A89080);
+    }
+
+    /* Ajustar cores dos cards dentro do salmon */
+    .resource-group.salmon .card--transparent .card__title,
+    .resource-group.salmon .card--salmon .card__title {
+        color: #1d1d1f;
+    }
+
+    .resource-group.salmon .card--transparent .card__description,
+    .resource-group.salmon .card--salmon .card__description {
+        color: #3d3d3f;
+    }
+
+    /* Strong tags em salmon */
+    .resource-group.salmon strong {
+        color: #6B5345; /* Tom escuro para destaque */
+        font-weight: 700;
+    }
 
 
-/* Eliminar margem entre seções escuras adjacentes */
+
+/* Eliminar margem entre seções adjacentes com fundo */
 .resource-group.dark + .resource-group.dark,
 .resource-group.dark-blue + .resource-group.dark,
 .resource-group.darker-blue + .resource-group.dark,
@@ -3272,7 +3364,12 @@ COMO USAR:
 .resource-group.dark + .resource-group.light-lavander,
 .resource-group.dark-blue + .resource-group.light-lavander,
 .resource-group.darker-blue + .resource-group.light-lavander,
-.resource-group.light-lavander + .resource-group.light-lavander {
+.resource-group.light-lavander + .resource-group.light-lavander,
+.resource-group.salmon + .resource-group.salmon,
+.resource-group.salmon + .resource-group.dark,
+.resource-group.salmon + .resource-group.dark-blue,
+.resource-group.dark + .resource-group.salmon,
+.resource-group.dark-blue + .resource-group.salmon {
     margin-top: 0;
 }
 
@@ -3282,7 +3379,8 @@ COMO USAR:
 .resource-group.dark-blue > *,
 .resource-group.darker-blue > *,
 .resource-group.light-ice > *,
-.resource-group.light-lavander > *{
+.resource-group.light-lavander > *,
+.resource-group.salmon > * {
     width: 95%;
     max-width: 2000px;
     margin-left: auto;
@@ -3797,24 +3895,61 @@ COMO USAR:
 /* Scroll-triggered Fade - Controle Preciso */
 .resources-grid--scroll-fade {
     position: relative;
+    margin-bottom: 0; /* ✅ Remove margem inferior */
     /* Altura proporcional: base de 200vh + 50vh por card adicional */
     /* Calculado dinamicamente via JS */
+}
+
+/* Remove margem de QUALQUER resource-group que contém scroll-fade */
+.resource-group:has(.resources-grid--scroll-fade),
+.resource-group.dark:has(.resources-grid--scroll-fade),
+.resource-group.dark-blue:has(.resources-grid--scroll-fade),
+.resource-group.darker-blue:has(.resources-grid--scroll-fade),
+.resource-group.light-ice:has(.resources-grid--scroll-fade),
+.resource-group.light-lavander:has(.resources-grid--scroll-fade),
+.resource-group.salmon:has(.resources-grid--scroll-fade) {
+    margin-bottom: 0 !important; /* ✅ Remove margem inferior do grupo */
+}
+
+/* Garante que não há padding inferior também */
+.resources-grid--scroll-fade {
+    padding-bottom: 0 !important;
+}
+
+/* Remove qualquer margem do último elemento dentro do scroll-fade */
+.resources-grid--scroll-fade > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Remove margem do resource-group seguinte quando precedido por scroll-fade */
+.resource-group:has(.resources-grid--scroll-fade) + .resource-group,
+.resource-group:has(.resources-grid--scroll-fade) + .resource-group.dark,
+.resource-group:has(.resources-grid--scroll-fade) + .resource-group.dark-blue,
+.resource-group:has(.resources-grid--scroll-fade) + .resource-group.salmon {
+    margin-top: 0 !important;
 }
 
 /* Container fixo no centro da tela */
 .scroll-fade-sticky {
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: auto; /* Altura dinâmica definida via JS */
+    min-height: 200px; /* Altura mínima para evitar colapso */
     width: 100%;
     max-width: none; /* Remove limitação de largura para cards overlay */
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    padding: 0; /* Sem padding para cards overlay ocuparem 100% */
     z-index: 10;
+    transition: height 0.3s ease-out; /* Transição suave entre alturas */
 }
+
+    /* Padding apenas para cards não-overlay */
+    .scroll-fade-sticky:not(:has(.card--overlay)) {
+        padding: 0 20px;
+    }
 
     /* Limitação apenas para cards não-overlay */
     .scroll-fade-sticky:not(:has(.card--overlay)) {
@@ -3825,10 +3960,11 @@ COMO USAR:
 .scroll-fade-content {
     position: relative;
     width: 100%;
-    min-height: 400px; /* Altura mínima para evitar colapso */
+    min-height: 200px; /* Altura mínima para evitar colapso */
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: height 0.3s ease-out; /* Transição suave entre alturas */
     /* Altura será definida dinamicamente via JS */
 }
 
@@ -3839,27 +3975,39 @@ COMO USAR:
         transform: translateY(0);
         transition: none;
         z-index: 1;
+        margin-bottom: 0; /* ✅ Remove margem inferior */
         /* Posicionamento absoluto será aplicado via JS */
     }
 
-    /* Cards overlay no scroll-fade seguem o tamanho natural da imagem */
+    /* Cards overlay no scroll-fade ocupam 100% da largura */
     .scroll-fade-content .card--overlay {
-        width: fit-content !important; /* Card se ajusta ao tamanho da imagem */
-        height: fit-content; /* Altura também se ajusta */
+        width: 100vw !important; /* Largura total da viewport */
+        height: fit-content; /* Altura se ajusta ao conteúdo */
+        max-height: calc(100vh - var(--header-height)); /* ✅ Limita altura máxima */
         min-width: unset !important; /* Remove min-width do carousel */
         max-width: none !important; /* Remove limitações de max-width */
         flex-shrink: 0; /* Não encolhe */
-        display: inline-block; /* Garante comportamento inline-block */
+        display: flex; /* ✅ Flex para centralizar imagem */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        margin: 0; /* Remove margens */
+        padding: 0; /* Remove padding */
+        overflow: hidden; /* ✅ Esconde partes que excedem os limites */
+        position: relative; /* Para posicionamento da imagem */
     }
 
-        /* Limitação aplicada apenas na imagem, que define o tamanho do card */
+        /* Imagem adapta-se: largura 100% OU altura limitada (o que couber melhor) */
         .scroll-fade-content .card--overlay .card__image {
-            max-width: min(90vw, 80vh * 1.5); /* Limita imagem baseado na tela */
-            max-height: 80vh; /* Limita altura da imagem */
-            width: auto; /* Mantém proporções */
-            height: auto; /* Mantém proporções */
-            object-fit: contain; /* Preserva aspect ratio */
+            width: auto; /* ✅ Largura automática */
+            max-width: 100%; /* ✅ Máximo = container width */
+            height: auto; /* ✅ Altura automática */
+            max-height: calc(100vh - var(--header-height)); /* ✅ Limita pela altura disponível */
+            min-width: 100%; /* ✅ Tenta ocupar 100% da largura */
+            flex-shrink: 0; /* Não encolhe */
+            object-fit: contain; /* ✅ Contém a imagem inteira sem recortar */
+            object-position: center; /* Centraliza */
             display: block; /* Remove espaçamento inline */
+            border-radius: 0; /* Remove border-radius para efeito imersivo */
         }
 
     /* Correção específica para card--overlay-right no scroll-fade */
@@ -3895,8 +4043,8 @@ COMO USAR:
     }
 
 
-/* Indicador sutil de progresso */
-.scroll-fade-progress {
+/* Indicador sutil de progresso - REMOVIDO (mantido apenas em carousels tradicionais) */
+/* .scroll-fade-progress {
     position: absolute;
     bottom: -60px;
     left: 50%;
@@ -3916,20 +4064,36 @@ COMO USAR:
     .scroll-fade-dot.active {
         background: #3b82f6;
         transform: scale(1.3);
-    }
+    } */
 
 /* Responsividade para cards overlay no scroll-fade */
 @media (max-width: 768px) {
+    .scroll-fade-content .card--overlay {
+        max-height: calc(100vh - var(--header-height-mobile)); /* Header mobile */
+    }
+
     .scroll-fade-content .card--overlay .card__image {
-        max-width: min(95vw, 75vh * 1.2); /* Mais espaço em mobile */
-        max-height: 75vh; /* Altura menor em mobile */
+        width: auto; /* ✅ Largura automática */
+        max-width: 100%; /* Máximo = container */
+        min-width: 100%; /* Tenta ocupar 100% */
+        height: auto; /* ✅ Altura automática */
+        max-height: calc(100vh - var(--header-height-mobile)); /* Limita altura */
+        object-fit: contain; /* Contém sem recortar */
     }
 }
 
 @media (max-width: 480px) {
+    .scroll-fade-content .card--overlay {
+        max-height: calc(100vh - var(--header-height-mobile)); /* Header mobile pequeno */
+    }
+
     .scroll-fade-content .card--overlay .card__image {
-        max-width: 98vw; /* Usa quase toda largura em telas pequenas */
-        max-height: 70vh; /* Altura ainda menor */
+        width: auto; /* ✅ Largura automática */
+        max-width: 100%; /* Máximo = container */
+        min-width: 100%; /* Tenta ocupar 100% */
+        height: auto; /* ✅ Altura automática */
+        max-height: calc(100vh - var(--header-height-mobile)); /* Limita altura */
+        object-fit: contain; /* Contém sem recortar */
     }
 }
 

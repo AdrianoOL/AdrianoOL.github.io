@@ -1,30 +1,76 @@
 ﻿// Função para ajustar tamanho dos textos nos cards overlay-right proporcionalmente
 function adjustOverlayRightTextSizes() {
     const overlayRightCards = document.querySelectorAll('.card--overlay-right');
-    
+
     overlayRightCards.forEach(card => {
         const image = card.querySelector('.card__image');
         const title = card.querySelector('.card__title h4');
         const subtitle = card.querySelector('.card__title p');
         const description = card.querySelector('.card__description');
-        
-        if (image && image.complete) {
+
+        if (image && image.complete && image.naturalHeight !== 0) {
             // Aguarda a imagem carregar completamente
             const imageWidth = image.offsetWidth;
             const imageHeight = image.offsetHeight;
-            
-            // Calcula tamanhos baseados na largura da imagem (reduzidos em 0.7)
+
+            // Verifica se as dimensões são válidas
+            if (imageWidth === 0 || imageHeight === 0) {
+                return; // Pula este card, layout ainda não calculado
+            }
+
+            // Calcula largura REAL renderizada da imagem (considerando object-fit: contain)
+            const naturalWidth = image.naturalWidth;
+            const naturalHeight = image.naturalHeight;
+            const aspectRatio = naturalWidth / naturalHeight;
+
+            // Determina se a imagem está limitada por largura ou altura
+            let renderedWidth = imageWidth;
+            let isHeightConstrained = false;
+
+            if (imageHeight * aspectRatio < imageWidth) {
+                // Imagem está limitada pela altura (telas largas)
+                // Largura real = altura renderizada * aspect ratio
+                renderedWidth = imageHeight * aspectRatio;
+                isHeightConstrained = true;
+            }
+            // Caso contrário, usa a largura do container (imageWidth)
+
+            // Calcula tamanhos baseados na largura RENDERIZADA da imagem (reduzidos em 0.7)
             // Título: 5.6% da largura da imagem (8% * 0.7)
-            const titleSize = Math.max(11, imageWidth * 0.056); // Mínimo 11px
+            const titleSize = Math.max(11, renderedWidth * 0.056); // Mínimo 11px
             // Subtítulo: 1.54% da largura da imagem (2.2% * 0.7)
-            const subtitleSize = Math.max(8, imageWidth * 0.0154); // Mínimo 8px
+            const subtitleSize = Math.max(8, renderedWidth * 0.0154); // Mínimo 8px
             // Descrição: 1.26% da largura da imagem (1.8% * 0.7)
-            const descriptionSize = Math.max(7, imageWidth * 0.0126); // Mínimo 7px
-            
+            const descriptionSize = Math.max(7, renderedWidth * 0.0126); // Mínimo 7px
+
             // Aplica os tamanhos
             if (title) title.style.fontSize = titleSize + 'px';
             if (subtitle) subtitle.style.fontSize = subtitleSize + 'px';
             if (description) description.style.fontSize = descriptionSize + 'px';
+
+            // Ajusta posicionamento do conteúdo quando imagem está limitada pela altura
+            const content = card.querySelector('.card__content');
+            if (content && isHeightConstrained) {
+                // Calcula o offset horizontal (espaço vazio nas laterais)
+                const horizontalOffset = (imageWidth - renderedWidth) / 2;
+
+                // Posiciona o conteúdo relativo à imagem renderizada
+                // left: começa após 55% da imagem + offset
+                const leftPosition = horizontalOffset + (renderedWidth * 0.55);
+                content.style.left = `${leftPosition}px`;
+
+                // max-width: 45% da imagem renderizada
+                const maxContentWidth = renderedWidth * 0.45;
+                content.style.maxWidth = `${maxContentWidth}px`;
+
+                // right: mantém margem fixa
+                content.style.right = 'auto';
+            } else if (content) {
+                // Reset para comportamento padrão em telas normais
+                content.style.left = '';
+                content.style.maxWidth = '';
+                content.style.right = '';
+            }
         }
     });
 }
@@ -34,26 +80,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Espera todas as imagens carregarem
     const images = document.querySelectorAll('.card--overlay-right .card__image');
     let loadedImages = 0;
-    
+
     function checkAllImagesLoaded() {
         loadedImages++;
         if (loadedImages === images.length) {
-            adjustOverlayRightTextSizes();
+            // Pequeno delay para garantir que o layout foi calculado
+            setTimeout(adjustOverlayRightTextSizes, 50);
         }
     }
-    
+
     images.forEach(img => {
-        if (img.complete) {
+        if (img.complete && img.naturalHeight !== 0) {
             checkAllImagesLoaded();
         } else {
             img.addEventListener('load', checkAllImagesLoaded);
         }
     });
-    
+
     // Se não há imagens, chama mesmo assim
     if (images.length === 0) {
         adjustOverlayRightTextSizes();
     }
+});
+
+// Garante execução após todo o conteúdo carregar (fallback)
+window.addEventListener('load', function() {
+    setTimeout(adjustOverlayRightTextSizes, 100);
 });
 
 // Reajusta quando a janela é redimensionada
@@ -1410,17 +1462,9 @@ function setupScrollFadeCards(originalElement, cards) {
         contentArea.appendChild(cardClone);
     });
     
-    // Criar indicadores de progresso
-    const progressContainer = document.createElement('div');
-    progressContainer.className = 'scroll-fade-progress';
-    
-    cards.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.className = index === 0 ? 'scroll-fade-dot active' : 'scroll-fade-dot';
-        progressContainer.appendChild(dot);
-    });
-    
-    contentArea.appendChild(progressContainer);
+    // Não criar indicadores de progresso para scroll-fade
+    // (os dots são usados apenas em carousels tradicionais)
+
     stickyContainer.appendChild(contentArea);
     
     // Altura FIXA por card - rolagem uniforme independente da quantidade
@@ -1435,24 +1479,20 @@ function setupScrollFadeCards(originalElement, cards) {
     
     // Configuração do sistema contínuo
     const newCards = contentArea.querySelectorAll('.card');
-    const dots = progressContainer.querySelectorAll('.scroll-fade-dot');
-    
-    // Calcular altura do container baseada no card mais alto
-    let maxCardHeight = 0;
-    cards.forEach(card => {
-        const cardHeight = card.offsetHeight;
-        if (cardHeight > maxCardHeight) {
-            maxCardHeight = cardHeight;
-        }
-    });
-    
-    // Definir altura fixa do container para evitar mudanças de layout
-    contentArea.style.height = `${maxCardHeight}px`;
-    
-    // Inicializar todos os cards com posicionamento absoluto centrado
+
+    // Calcular altura individual de cada card
+    const cardHeights = [];
     newCards.forEach((card, index) => {
-        card.style.opacity = index === 0 ? '1' : '0';
+        // Temporariamente tornar o card visível para medir
+        card.style.position = 'relative';
+        card.style.opacity = '1';
+        card.style.visibility = 'visible';
+        const cardHeight = card.offsetHeight;
+        cardHeights.push(cardHeight);
+
+        // Resetar para posicionamento absoluto
         card.style.position = 'absolute';
+        card.style.opacity = index === 0 ? '1' : '0';
         card.style.top = '50%';
         card.style.left = '50%';
         card.style.width = '100%';
@@ -1460,7 +1500,41 @@ function setupScrollFadeCards(originalElement, cards) {
         card.style.transition = 'none';
         card.classList.remove('active', 'fade-out');
     });
-    
+
+    // Variável para rastrear o card atual
+    let currentActiveCardIndex = 0;
+
+    // Função para obter altura do header do CSS
+    function getHeaderHeight() {
+        const rootStyles = getComputedStyle(document.documentElement);
+        const headerHeight = rootStyles.getPropertyValue('--header-height').trim();
+        return parseFloat(headerHeight) || 70; // Fallback para 70px
+    }
+
+    // Função para ajustar altura e posição do sticky container baseado no card ativo
+    function adjustStickyHeight(cardIndex) {
+        const activeCardHeight = cardHeights[cardIndex];
+        const viewportHeight = window.innerHeight;
+        const headerHeight = getHeaderHeight();
+
+        // Espaço disponível = viewport - header
+        const availableHeight = viewportHeight - headerHeight;
+
+        // Calcular margem superior para centralizar o card no espaço disponível
+        // Margem = altura do header + metade do espaço restante
+        const topMargin = headerHeight + Math.max(0, (availableHeight - activeCardHeight) / 2);
+
+        stickyContainer.style.height = `${activeCardHeight}px`;
+        stickyContainer.style.top = `${topMargin}px`;
+        contentArea.style.height = `${activeCardHeight}px`;
+
+        // Atualizar índice do card ativo
+        currentActiveCardIndex = cardIndex;
+    }
+
+    // Definir altura inicial baseada no primeiro card
+    adjustStickyHeight(0);
+
     function handleScroll() {
         const rect = originalElement.getBoundingClientRect();
         const elementHeight = originalElement.offsetHeight;
@@ -1513,34 +1587,47 @@ function setupScrollFadeCards(originalElement, cards) {
             
             const currentCardIndex = Math.floor(cardPosition);
             const nextCardIndex = Math.min(currentCardIndex + 1, totalCards - 1);
-            
+
+            // Ajustar altura do container dinamicamente durante transição
+            if (fadeProgress > 0 && currentCardIndex !== nextCardIndex) {
+                // Durante transição: interpolar entre altura do card atual e próximo
+                const currentHeight = cardHeights[currentCardIndex];
+                const nextHeight = cardHeights[nextCardIndex];
+                const interpolatedHeight = currentHeight + (nextHeight - currentHeight) * fadeProgress;
+                const viewportHeight = window.innerHeight;
+                const headerHeight = getHeaderHeight();
+                const availableHeight = viewportHeight - headerHeight;
+
+                // Centralizar no espaço disponível durante transição
+                const topMargin = headerHeight + Math.max(0, (availableHeight - interpolatedHeight) / 2);
+
+                stickyContainer.style.height = `${interpolatedHeight}px`;
+                stickyContainer.style.top = `${topMargin}px`;
+                contentArea.style.height = `${interpolatedHeight}px`;
+            } else {
+                // Fora de transição: usar altura do card atual
+                adjustStickyHeight(currentCardIndex);
+            }
+
             // Aplicar opacidade mantendo todos os cards com absolute
             newCards.forEach((card, index) => {
                 let opacity = 0;
-                
+
                 if (index === currentCardIndex) {
                     opacity = 1 - fadeProgress;
                 } else if (index === nextCardIndex && currentCardIndex !== nextCardIndex && fadeProgress > 0) {
                     opacity = fadeProgress;
                 }
-                
+
                 // Garantir que último card fique visível quando scroll chegar ao final SEM animação
                 if (scrollPercent >= 0.9 && index === totalCards - 1) {
                     opacity = 1;
                 }
-                
+
                 card.style.opacity = opacity;
             });
             
-            // Atualizar dots
-            let activeCardIndex = fadeProgress > 0.5 ? nextCardIndex : currentCardIndex;
-            // Garantir que dot do último card fique ativo no final SEM animação
-            if (scrollPercent >= 0.9) {
-                activeCardIndex = totalCards - 1;
-            }
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === activeCardIndex);
-            });
+            // Dots removidos do scroll-fade (mantidos apenas em carousels)
         }
     }
     
@@ -1557,7 +1644,12 @@ function setupScrollFadeCards(originalElement, cards) {
     }
     
     window.addEventListener('scroll', requestTick, { passive: true });
-    
+
+    // Recalcular posições quando a janela é redimensionada
+    window.addEventListener('resize', () => {
+        adjustStickyHeight(currentActiveCardIndex);
+    });
+
     // Executar uma vez no início
     handleScroll();
 }
