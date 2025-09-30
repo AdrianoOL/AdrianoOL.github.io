@@ -78,6 +78,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -90,12 +91,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-top: 80px; /* Compensar altura do header fixed */
-}
-
-/* Prevenir overflow horizontal e bounce no Safari iOS */
-html, body {
-    max-width: 100vw;
-    overflow-x: clip;
+    overflow-x: hidden;
+    min-width: 100%;
 }
 
 /* Prevenir bounce horizontal apenas no Safari iOS */
@@ -3020,8 +3017,7 @@ COMO USAR:
         #536682 84%,
         #364254 100%
     );
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    width: 100%;
     padding: 3rem 0 7rem 0;
     color: white;
     position: relative;
@@ -3202,12 +3198,8 @@ COMO USAR:
         border-radius: 0;
         padding: 4rem 0;
         margin: 4rem 0 0 0;
-        width: 100vw;
+        width: 100%;
         position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
     }
 
     /* Resource Group Dark Blue - Fundo azul escuro */
@@ -3217,12 +3209,8 @@ COMO USAR:
         border-radius: 0;
         padding: 4rem 0;
         margin: 4rem 0 0 0;
-        width: 100vw;
+        width: 100%;
         position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
     }
 
     /* Resource Group Darker Blue - Fundo azul mais saturado */
@@ -3232,12 +3220,8 @@ COMO USAR:
         border-radius: 0;
         padding: 4rem 0;
         margin: 4rem 0 0 0;
-        width: 100vw;
+        width: 100%;
         position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
     }
 
     .resource-group h2 {
@@ -3270,12 +3254,8 @@ COMO USAR:
     border-radius: 0;
     padding: 4rem 0;
     margin: 4rem 0 0 0;
-    width: 100vw;
+    width: 100%;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 .resource-group.light-lavander {
@@ -3284,12 +3264,8 @@ COMO USAR:
     border-radius: 0;
     padding: 4rem 0;
     margin: 4rem 0 0 0;
-    width: 100vw;
+    width: 100%;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
 /* Resource Group Salmon - Fundo salmão/bege suave */
@@ -3299,12 +3275,8 @@ COMO USAR:
     border-radius: 0;
     padding: 4rem 0;
     margin: 4rem 0 6rem 0; /* margin-bottom padrão de 6rem */
-    width: 100vw;
+    width: 100%;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
 }
 
     /* Remove margin-bottom quando salmon contém scroll-fade */
