@@ -1536,8 +1536,14 @@ function setupScrollFadeCards(originalElement, cards) {
     adjustStickyHeight(0);
 
     function handleScroll() {
-        // Usar offsetTop e scrollY ao invés de getBoundingClientRect para compatibilidade com overflow-x: hidden
-        const elementTop = originalElement.offsetTop;
+        // Calcular posição absoluta do elemento no documento
+        let elementTop = 0;
+        let element = originalElement;
+        while (element) {
+            elementTop += element.offsetTop;
+            element = element.offsetParent;
+        }
+
         const elementHeight = originalElement.offsetHeight;
         const viewportHeight = window.innerHeight;
         const scrollY = window.scrollY || window.pageYOffset;
@@ -1734,8 +1740,14 @@ function setupScrollBeforeAfter(originalElement) {
     let ticking = false;
 
     function updateReveal() {
-        // Usar offsetTop e scrollY ao invés de getBoundingClientRect para compatibilidade com overflow-x: hidden
-        const elementTop = originalElement.offsetTop;
+        // Calcular posição absoluta do elemento no documento
+        let elementTop = 0;
+        let element = originalElement;
+        while (element) {
+            elementTop += element.offsetTop;
+            element = element.offsetParent;
+        }
+
         const scrollY = window.scrollY || window.pageYOffset;
         const relativeTop = elementTop - scrollY;
 
