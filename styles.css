@@ -94,8 +94,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
     padding-top: 80px; /* Compensar altura do header fixed */
     width: 100%;
+    max-width: 100vw;
     position: relative;
-    overflow-x: hidden; /* Impede scroll horizontal */
+    /* overflow-x: clip esconde overflow mas não afeta getBoundingClientRect */
+    overflow-x: clip;
     /* Previne bounce horizontal no Safari iOS */
     overscroll-behavior-x: none;
     -webkit-overflow-scrolling: touch;
