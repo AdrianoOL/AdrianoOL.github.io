@@ -48,28 +48,50 @@ function adjustOverlayRightTextSizes() {
             if (subtitle) subtitle.style.fontSize = subtitleSize + 'px';
             if (description) description.style.fontSize = descriptionSize + 'px';
 
-            // Ajusta posicionamento do conteúdo quando imagem está limitada pela altura
+            // Ajusta posicionamento do conteúdo de forma suave e responsiva
             const content = card.querySelector('.card__content');
-            if (content && isHeightConstrained) {
-                // Calcula o offset horizontal (espaço vazio nas laterais)
-                const horizontalOffset = (imageWidth - renderedWidth) / 2;
+            const cardTitle = card.querySelector('.card__title');
 
-                // Posiciona o conteúdo relativo à imagem renderizada
-                // left: começa após 55% da imagem + offset
-                const leftPosition = horizontalOffset + (renderedWidth * 0.55);
-                content.style.left = `${leftPosition}px`;
+            if (content) {
+                const screenWidth = window.innerWidth;
 
-                // max-width: 45% da imagem renderizada
-                const maxContentWidth = renderedWidth * 0.45;
-                content.style.maxWidth = `${maxContentWidth}px`;
+                // Em telas muito estreitas (mobile), reposiciona description abaixo do título
+                if (screenWidth <= 480) {
+                    // Calcula altura do título para posicionar conteúdo abaixo dele
+                    const titleHeight = cardTitle ? cardTitle.offsetHeight : 0;
+                    const topPosition = titleHeight + 30; // 30px de margem
 
-                // right: mantém margem fixa
-                content.style.right = 'auto';
-            } else if (content) {
-                // Reset para comportamento padrão em telas normais
-                content.style.left = '';
-                content.style.maxWidth = '';
-                content.style.right = '';
+                    // Conteúdo vai abaixo do título, ocupando largura quase total
+                    content.style.position = 'absolute';
+                    content.style.top = `${topPosition}px`;
+                    content.style.bottom = '1rem';
+                    content.style.left = '5%';
+                    content.style.right = '5%';
+                    content.style.maxWidth = '90%';
+                    content.style.width = '90%';
+                } else {
+                    // Desktop e tablet: posicionamento lateral
+                    // Calcula porcentagem de recorte da imagem (quanto está sendo cortado)
+                    const cropPercentage = isHeightConstrained ? ((imageWidth - renderedWidth) / imageWidth) * 100 : 0;
+
+                    // Ajusta left baseado no recorte (quanto mais recorte, mais à esquerda para compensar)
+                    // Valores base: 55% (desktop sem recorte), diminui gradualmente com recorte
+                    const leftPercentage = Math.max(55, 55 - (cropPercentage * 0.3));
+                    content.style.left = `${leftPercentage}%`;
+
+                    // Ajusta max-width baseado no recorte (mais recorte = mais espaço para conteúdo)
+                    // Valores base: 43% (desktop), aumenta gradualmente com recorte até 53%
+                    const maxWidthPercentage = Math.min(53, 43 + (cropPercentage * 0.3));
+                    content.style.maxWidth = `${maxWidthPercentage}%`;
+
+                    // Margem direita fixa
+                    content.style.right = '1.5rem';
+
+                    // Reset mobile styles
+                    content.style.top = '';
+                    content.style.bottom = '';
+                    content.style.width = '';
+                }
             }
         }
     });
@@ -2435,4 +2457,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Inicia a funcionalidade de arrastar
         initInteractiveFeaturesSwipe(container, navPrev, navNext);
     });
+});
+
+// Acquisition Modal Functions
+function openAcquisitionModal() {
+    document.getElementById('acquisitionModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAcquisitionModal() {
+    document.getElementById('acquisitionModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('acquisitionModal');
+    if (event.target === modal) {
+        closeAcquisitionModal();
+    }
 });
