@@ -136,19 +136,19 @@ window.addEventListener('resize', function() {
     window.resizeTimeout = setTimeout(adjustOverlayRightTextSizes, 150);
 });
 
-// Smooth scrolling para links de navegação
+// Instant scrolling para links de navegação
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             const headerHeight = document.querySelector('.header').offsetHeight;
             const targetPosition = target.offsetTop - headerHeight - 20;
-            
+
             window.scrollTo({
                 top: targetPosition,
-                behavior: 'smooth'
+                behavior: 'auto'
             });
         }
     });
@@ -2077,7 +2077,27 @@ class BeforeAfterComponent {
         this.setupEventListeners();
         this.setImageWidth();
         this.updateSlider(40); // Posição inicial
-        
+
+
+        this.grabber = this.element.querySelector('.before-after__handle-grabber');
+
+        // Adiciona a classe de animação
+        this.handle.classList.add('is-animating');
+        if (this.grabber) {
+            this.grabber.classList.add('is-animating');
+        }
+
+        const stopAnimation = () => {
+            this.handle.classList.remove('is-animating');
+            if (this.grabber) {
+                this.grabber.classList.remove('is-animating');
+            }
+        };
+
+        this.element.addEventListener('mouseover', stopAnimation, { once: true });
+        this.handle.addEventListener('mousedown', stopAnimation, { once: true });
+        this.handle.addEventListener('touchstart', stopAnimation, { once: true });
+
         // Redimensionar quando a janela mudar
         window.addEventListener('resize', () => {
             setTimeout(() => this.setImageWidth(), 100); // Pequeno delay para aguardar re-layout
