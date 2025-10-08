@@ -146,6 +146,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             const headerHeight = document.querySelector('.header').offsetHeight;
             const targetPosition = target.offsetTop - headerHeight - 20;
 
+            // Fechar menu mobile se estiver aberto
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburgerBtn');
+            const overlay = document.getElementById('navOverlay');
+            if (navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                if (hamburger) hamburger.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'auto'
@@ -330,10 +341,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Fechar menu ao clicar em um link
-        const navLinks = navMenu.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
+        // REMOVIDO: Não adicionar listener aqui, deixar apenas o listener geral funcionar
+        // para ter o mesmo comportamento do botão Adquirir
         
         // Fechar menu com tecla ESC
         document.addEventListener('keydown', (e) => {
@@ -1795,17 +1804,17 @@ document.addEventListener('DOMContentLoaded', function() {
     initCarouselFade();
     initScrollFade();
 
-    // Reload página após navegação via menu (solução para animações)
-    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Aguardar rolagem terminar antes de recarregar
-            setTimeout(() => {
-                // Recarregar página após navegação
-                window.location.reload();
-            }, 1000); // Delay maior para aguardar rolagem terminar
-        });
-    });
+    // // Reload página após navegação via menu (solução para animações)
+    // const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+    // navLinks.forEach(link => {
+    //     link.addEventListener('click', function(e) {
+    //         // Aguardar rolagem terminar antes de recarregar
+    //         setTimeout(() => {
+    //             // Recarregar página após navegação
+    //             //window.location.reload();
+    //         }, 1000); // Delay maior para aguardar rolagem terminar
+    //     });
+    // });
 
     // Ajustar tamanho dos mini-carousels baseado nas imagens
     setTimeout(() => {

@@ -153,6 +153,20 @@ strong {
     font-weight: var(--font-weight-bold);
 }
 
+/* Linha Horizontal */
+hr {
+    border: none;
+    border-top: 1px solid #555555;
+    height: 0;
+    margin: 3rem 0;
+    width: 100%;
+    min-width: 100%;
+    align-self: stretch;
+    display: block;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
 /* --- CLASSES UTILITÝRIAS (PARA FLEXIBILIDADE) --- */
 
 /* Para aplicar o estilo de Título de Seção em qualquer elemento */
@@ -3031,7 +3045,7 @@ COMO USAR:
 }
 
     .resources .container {
-        padding-bottom: 4rem;
+        padding-bottom: 0;
     }
 
 .section-header-intro {
@@ -3617,7 +3631,7 @@ COMO USAR:
 
 /* Acquisition Section */
 .acquisition {
-    padding: 6rem 0;
+    padding: 3rem 0 6rem 0;
     background: linear-gradient(135deg, var(--bg-dark-blue) 0%, var(--bg-dark-card) 100%);
     color: var(--color-text-light-primary);
 }
@@ -5404,9 +5418,9 @@ kbd {
 
 /* 1. LÓGICA DE LAYOUT (LARGURA TOTAL E MARGENS) 
    Aplica-se a todos os temas listados abaixo. */
-.resource-group:is( .dark, .dark-blue, .darker-blue, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) {
+.resource-group:is( .dark, .dark-blue, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) {
     border-radius: 0;
-    padding: 4rem 0;
+    padding: 4rem 0 2rem 0;
     margin: 4rem 0 0 0;
     width: 100vw;
     position: relative;
@@ -5417,20 +5431,20 @@ kbd {
 }
 
     /* 2. REMOVE A MARGEM ENTRE QUAISQUER DOIS TEMAS DA LISTA */
-    .resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) +
-    .resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) {
-        margin-top: 0;
-    }
+.resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) +
+.resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) {
+    margin-top: 0;
+}
 
     /* 3. CENTRALIZA O CONTEÚDO EM TODOS OS TEMAS DA LISTA */
-    .resource-group:is( .dark, .dark-blue, .darker-blue, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
-        width: 95%;
-        max-width: 2000px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+.resource-group:is( .dark, .dark-blue, .darker-blue, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
+    width: 95%;
+    max-width: 2000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
 
 /* EXCEÇÃO: Theme AI tem comportamento especial (imagem fixa de fundo) */
 .resource-group.theme-ai {
@@ -5766,6 +5780,55 @@ kbd {
     .resource-group.luz-estelar strong {
         color: #A17D48;
     }
+
+/* ===================================================================
+   TEMA: AÇO ESCOVADO v2 (Texturizado e com Brilho)
+   =================================================================== */
+
+.resource-group.aco-escovado {
+    /* FUNDO EM CAMADAS PARA EFEITO METÁLICO REALISTA */
+    background-color: #dde1e5; /* 1. Cor base: um cinza-aço claro e frio */
+    background-image:
+    /* 4. Iluminação superior para um brilho suave */
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, transparent 70%),
+    /* 3. Brilho direcional para simular o "escovado" */
+    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100% );
+    color: #434D5A; /* Cor do texto principal: um cinza-azulado escuro */
+    position: relative;
+    overflow: hidden;
+}
+
+    /* 2. Textura de ruído para dar a sensação de material */
+    .resource-group.aco-escovado::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.12;
+        z-index: 0;
+    }
+
+    /* TÍTULO: Um azul-marinho muito escuro para um contraste forte e técnico */
+    .resource-group.aco-escovado .resource-group-title,
+    .resource-group.aco-escovado .card--transparent .card__title {
+        color: #252E3D;
+    }
+
+        /* LINHA DO TÍTULO: Mantém o azul vibrante da Apple */
+        .resource-group.aco-escovado .resource-group-title::after {
+            background: linear-gradient(90deg, #0071E3, #409CFF);
+        }
+
+    /* TEXTO DE DESTAQUE (strong): O azul clássico da Apple se destaca ainda mais */
+    .resource-group.aco-escovado strong {
+        color: #0071E3;
+    }
+
+    /* DESCRIÇÃO: Usa a mesma cor do texto principal para consistência */
+    .resource-group.aco-escovado .resource-group-description,
+    .resource-group.aco-escovado .card--transparent .card__description {
+        color: #434D5A;
+    }
 /* --- TEMAS COM EFEITO DE BRILHO E ANIMAÇÃO --- */
 
 /* Estrutura Base */
@@ -6002,26 +6065,44 @@ kbd {
 
 /* --- TEMA: AZUL PROFUNDO (Estilo Apple AirPods) --- */
 .resource-group.azul-profundo-apple {
-    background: radial-gradient(ellipse at center, #1a73e8 0%, #0c5bc6 30%, #003d80 70%, #000033 100%);
-    color: #e0f2fe;
+    /* FUNDO: Gradiente mais sutil com azuis profundos e dessaturados */
+    background: radial-gradient(ellipse at center, #102a43 0%, #0d1e30 70%);
+    color: #c7d2fe; /* Cor base do texto: um azul-claro suave */
+    position: relative;
+    overflow: hidden;
 }
 
+    /* Textura de ruído para materialidade */
+    .resource-group.azul-profundo-apple::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.05;
+        z-index: 0;
+    }
+
+    /* TÍTULO: Um branco suave (off-white), menos "duro" que o branco puro */
     .resource-group.azul-profundo-apple .resource-group-title,
     .resource-group.azul-profundo-apple .card--transparent .card__title {
-        color: #ffffff;
+        color: #f0f6fc;
     }
 
+    /* DESCRIÇÃO: Mantém o tom azulado, mas distinto do título */
     .resource-group.azul-profundo-apple .resource-group-description,
     .resource-group.azul-profundo-apple .card--transparent .card__description {
-        color: #e0f2fe;
+        color: #c7d2fe;
     }
 
+    /* LINHA DO TÍTULO: Gradiente suave para combinar */
     .resource-group.azul-profundo-apple .resource-group-title::after {
-        background: linear-gradient(90deg, #60a5fa, #ffffff);
+        background: linear-gradient(90deg, #93c5fd, #c7d2fe);
     }
 
+    /* DESTAQUE (strong): O ponto de cor mais vibrante, com um brilho sutil */
     .resource-group.azul-profundo-apple strong {
         color: #93c5fd;
+        text-shadow: 0 0 8px rgba(147, 197, 253, 0.3);
     }
 
 /* --- TEMA: LAVANDA CLARO (Light Lavander - Versão Revisada) --- */
