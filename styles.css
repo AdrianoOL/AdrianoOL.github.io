@@ -1044,7 +1044,7 @@ img {
     .card--horizontal-reverse {
         flex-direction: column !important;
         gap: 1.5rem;
-        padding: 1.5rem;
+        padding: 1.5rem 0.5rem;
     }
 
         .card--horizontal .card__media,
@@ -1057,6 +1057,14 @@ img {
             width: 100% !important;
             text-align: center;
         }
+
+    .card--vertical .card__content {
+        padding: 2rem 0.5rem;
+    }
+
+    .card--vertical .card__media {
+        margin: 0 0.5rem 1.5rem 0.5rem;
+    }
 
     .card__title {
         font-size: 1.5rem;
@@ -4373,6 +4381,24 @@ COMO USAR:
         width: calc(100% + 20px) !important;
     }
 
+    /* Reduzir padding horizontal dos resource-groups em mobile */
+    .resource-group > *:not(.theme-background),
+    .resource-group.dark > *:not(.theme-background),
+    .resource-group.dark-blue > *:not(.theme-background),
+    .resource-group.darker-blue > *:not(.theme-background),
+    .resource-group.light-ice > *:not(.theme-background),
+    .resource-group.light-lavander > *:not(.theme-background),
+    .resource-group.salmon > *:not(.theme-background),
+    .resource-group.theme-ai > *:not(.theme-background) {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) > *:not(.theme-background) {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
         /* Ajustar botão Adquirir em mobile */
         .nav-container .btn {
             margin-right: 12px !important;
@@ -5418,7 +5444,7 @@ kbd {
 
 /* 1. LÓGICA DE LAYOUT (LARGURA TOTAL E MARGENS) 
    Aplica-se a todos os temas listados abaixo. */
-.resource-group:is( .dark, .dark-blue, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) {
+.resource-group:is( .dark, .dark-blue, .terra-batida, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) {
     border-radius: 0;
     padding: 4rem 0 2rem 0;
     margin: 4rem 0 0 0;
@@ -5431,13 +5457,13 @@ kbd {
 }
 
     /* 2. REMOVE A MARGEM ENTRE QUAISQUER DOIS TEMAS DA LISTA */
-.resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) +
-.resource-group:is(.dark, .dark-blue, .darker-blue, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) {
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) +
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) {
     margin-top: 0;
 }
 
     /* 3. CENTRALIZA O CONTEÚDO EM TODOS OS TEMAS DA LISTA */
-.resource-group:is( .dark, .dark-blue, .darker-blue, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
+.resource-group:is( .dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
     width: 95%;
     max-width: 2000px;
     margin-left: auto;
@@ -5829,6 +5855,86 @@ kbd {
     .resource-group.aco-escovado .card--transparent .card__description {
         color: #434D5A;
     }
+
+/* ===================================================================
+   TEMA: TERRA BATIDA (PARA ALVENARIA / ALVEST)
+   =================================================================== */
+
+.resource-group.terra-batida {
+    /* FUNDO: Um gradiente de marrons escuros e dessaturados */
+    background: linear-gradient(160deg, #4E443A 0%, #2A241F 100%);
+    /* Cor base para parágrafos: um tom de "osso" ou creme suave */
+    color: #DCD1C2;
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Textura de ruído para dar a sensação de material granulado */
+    .resource-group.terra-batida::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.1;
+        z-index: 0;
+    }
+
+    /* Aurora de luz quente e sutil para dar profundidade */
+    .resource-group.terra-batida .theme-background::before {
+        content: '';
+        position: absolute;
+        width: 1200px;
+        height: 1200px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(251, 146, 60, 0.1) 0%, transparent 70%);
+        animation: aurora-pulse 15s infinite ease-in-out; /* Uma animação de pulso lenta */
+    }
+
+
+    .resource-group.terra-batida .card--black {
+        /* 1. Suaviza o fundo de preto puro para um tom café-escuro */
+        background: #211d1a;
+        /* 2. Adiciona uma borda sutil com a cor de destaque do tema */
+        border: 1px solid rgba(251, 169, 92, 0.2); /* Borda âmbar com 20% de opacidade */
+        /* BÔNUS: Uma sombra externa para dar profundidade e destacar o card */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+        /* Ajusta o efeito hover para ser mais sutil */
+        .resource-group.terra-batida .card--black:hover {
+            border-color: rgba(251, 169, 92, 0.4); /* Apenas a borda fica mais visível */
+            transform: translateY(-4px); /* Mantém o efeito de elevação */
+        }
+
+    /* TÍTULO: Um tom de creme claro para contraste suave */
+    .resource-group.terra-batida .resource-group-title,
+    .resource-group.terra-batida .card--transparent .card__title {
+        color: #F5EFE6;
+    }
+
+        /* LINHA DO TÍTULO: Gradiente de tons quentes e terrosos */
+        .resource-group.terra-batida .resource-group-title::after {
+            background: linear-gradient(90deg, #FBA95C, #F5EFE6);
+        }
+
+    /* TEXTO DE DESTAQUE (strong): Um tom de âmbar/terracota */
+    .resource-group.terra-batida strong {
+        color: #FBA95C;
+    }
+
+@keyframes aurora-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0.95);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.2;
+    }
+}
 /* --- TEMAS COM EFEITO DE BRILHO E ANIMAÇÃO --- */
 
 /* Estrutura Base */

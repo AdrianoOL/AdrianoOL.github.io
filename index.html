@@ -685,6 +685,7 @@
 
             <!-- Seção: Modelador Estrutural -->
             <div class="resource-group iridescente" id="modelador-estrutural">
+                <div class="theme-background"></div>
                 <h3 class="resource-group-title">Modelador Estrutural</h3>
                 <p class="resource-group-description"></p>
                 <div class="resources-grid">
@@ -849,9 +850,9 @@
                                 <h4 class="resource-subgroup-title resource-subgroup-title--left">Análise Construtiva</h4>
 
                                 <p class="card__description">
-                                    <strong>3x</strong><br>
+                                    <!-- <strong>3x</strong><br>
                                     Com processamento paralelo das subestruturas e outras estratégias, a análise incremental na Versão V26 é cerca de 3x mais veloz do que na V25<sup><small>(1)</small></sup>.
-                                    <br><br>
+                                    <br><br> -->
                                     <strong>Visualizador</strong><br>
                                     Agora é possível comparar resultados entre quaisquer combinações calculadas com efeito construtivo.
                                 </p>
@@ -1383,7 +1384,8 @@
                             <h4 class="card__title">Blocos de Fundação</h4>
                             <div class="card__description">
                                 O TQS v26 traz avanços importantes: <strong>altura mínima de blocos sobre uma estaca</strong>
-                                conforme as principais referências, cálculo do <strong>Método A de Fusco</strong> com armadura real do <strong>arranque do pilar</strong> e <strong>relatórios</strong> de blocos aprimorados.
+                                conforme as principais referências, cálculo do <strong>Método A de Fusco com armadura real do arranque do pilar</strong>, <strong>relatórios de blocos aprimorados</strong> e
+                                <strong>edição automatizada de armaduras</strong>, que ajusta o espaçamento ao mudar o diâmetro.
                             </div>
                         </div>
                         <div class="card__media">
@@ -1395,8 +1397,8 @@
                         <div class="card__content">
                             <h4 class="card__title">Modelagem Genérica de Blocos</h4>
                             <p class="card__description">
-                                Na modelagem genérica de blocos, a <strong>área ampliada do pilar</strong> passa a ser considerada na verificação da biela, trazendo ainda mais rigor e consistência ao cálculo.<br />
-                                As <strong>configurações de tirantes são salvas</strong> ao fechar o programa para melhorar seu fluxo de trabalho.
+                                Na modelagem genérica de blocos, a <strong>área ampliada do pilar</strong> passa a ser considerada na verificação da biela, conferindo ainda mais rigor e consistência ao cálculo.<br />
+                                As <strong>configurações de tirantes agora são mantidas</strong> automaticamente ao fechar o programa para melhorar seu fluxo de trabalho.
 
                             </p>
                         </div>
@@ -1644,19 +1646,19 @@
                             <img src="images/BIM_1.png" alt="Revit 2026" class="card__image">
                         </div>
                     </div>
-<!-- 
-                    <div class="card card--vertical card--transparent">
-                        <div class="card__content">
-                            <h4 class="card__title">Título de viga por vão</h4>
-                            <p class="card__description">
-                                No TQS há a opção de definir textos complementares para cada tramo da viga.<br>
-                                Agora esses títulos são exportados em <strong>IFC</strong> e para o Revit via <strong>plugin</strong>.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/BIM_2.png" alt="Título viga" class="card__image">
-                        </div>
-                    </div> -->
+                    <!--
+                                        <div class="card card--vertical card--transparent">
+                                            <div class="card__content">
+                                                <h4 class="card__title">Título de viga por vão</h4>
+                                                <p class="card__description">
+                                                    No TQS há a opção de definir textos complementares para cada tramo da viga.<br>
+                                                    Agora esses títulos são exportados em <strong>IFC</strong> e para o Revit via <strong>plugin</strong>.
+                                                </p>
+                                            </div>
+                                            <div class="card__media">
+                                                <img src="images/BIM_2.png" alt="Título viga" class="card__image">
+                                            </div>
+                                        </div> -->
                 </div>
 
                 <!-- Subseção: Importação de IFC -->
@@ -1746,7 +1748,7 @@
             </div>
 
             <!-- Seção: MetalCheck -->
-            <div class="resource-group cinza-espacial" id="metalcheck">
+            <div class="resource-group aco-escovado" id="metalcheck">
                 <h3 class="resource-group-title">MetalCheck</h3>
                 <p class="resource-group-description">
                     Nova ABNT NBR 8800:2024 e pilares mistos no Modelador Estrutural.
@@ -1894,7 +1896,7 @@
             <div class="resource-group azul-meia-noite" id="sises">
                 <h3 class="resource-group-title">SISEs</h3>
                 <p class="resource-group-description">
-                    Novo Editor de Sondagens 3D e interfaces melhoradas.
+                    Novo Editor de Sondagens 3D com interface ainda mais amigável.
                 </p>
                 <div class="resources-grid">
                     <div class="card card--vertical card--transparent">
@@ -1906,8 +1908,6 @@
                                 Reescrito para simplificar o processo de criação e inserção dos dados relacionados a sondagens
                                 e camadas de solo, o novo editor reúne tudo em uma única janela, com preenchimento mais rápido
                                 e intuitivo.
-                                Agora conta com representação 2D/3D dos furos e permite a visualização simultânea
-                                de múltiplos furos.
                             </p>
                         </div>
                         <div class="card__media">
@@ -1916,26 +1916,29 @@
                     </div>
                 </div>
                 <div class="resources-grid--scroll-fade">
-                    <div class="card card--horizontal card--transparent">
+                    <div class="card card--vertical card--text-center card--transparent">
                         <div class="card__content">
                             <p class="card__title">
                                 Camadas do solo com máxima clareza.
+                            </p>
+                            <p class="card_description">
+                                Diversas opções de visualização.
                             </p>
                         </div>
                         <div class="card__media">
                             <img src="images/SS_1.png" alt="Mini 1" class="card__image">
                         </div>
                     </div>
-                    <div class="card  card--horizontal card--transparent">
-                        <div>
-                            <h4 class="card__title">
+                    <div class="card  card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__title">
                                 Mais
                                 <span class="texto-intercalado texto-intercalado--azul">
                                     <span>c</span><span>o</span><span>r</span><span>e</span><span>s</span>.
                                 </span>
                                 Mais agradável. Mais <span class="text-embossed-dark">3D</span>
-                            </h4>
-                            <p>
+                            </p>
+                            <p class="card_description">
                                 Explore as propriedades do solo em 3D com cores definidas por profundidade,
                                 facilitando a interpretação visual.
                             </p>
@@ -1944,16 +1947,16 @@
                             <img src="images/SS_2.png" alt="Mini 1" class="card__image">
                         </div>
                     </div>
-                    <div class="card  card--horizontal card--transparent">
-                        <div>
-                            <h4 class="card__title">
+                    <div class="card  card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__title">
                                 Mais
                                 <span class="texto-intercalado texto-intercalado--earth">
                                     <span>c</span><span>o</span><span>r</span><span>e</span><span>s</span>.
                                 </span>
                                 Mais agradável. Mais <span class="text-embossed-dark">3D</span>
-                            </h4>
-                            <p>
+                            </p>
+                            <p class="card_description">
                                 Visualização tridimensional com cores atribuídas às diferentes camadas de solo.
                             </p>
                         </div>
@@ -1961,14 +1964,30 @@
                             <img src="images/SS_3.png" alt="Mini 1" class="card__image">
                         </div>
                     </div>
-                    <div class="card  card--vertical card--transparent">
+                    <div class="card  card--vertical card--text-center card--transparent">
                         <div class="card__content">
+                            <p class="card__title">
+                                Visualização simultânea de múltiplos furos.
+                            </p>
                             <p class="card__description">
-                                Todos os furos de sondagem em perspectiva, de uma só vez.
+                                Todos os furos de sondagem em perspectiva, de uma só vez em <strong>modo 3D</strong>.
                             </p>
                         </div>
                         <div class="card__media">
                             <img src="images/SS_4.png" alt="Mini 1" class="card__image">
+                        </div>
+                    </div>
+                    <div class="card  card--vertical card--text-center card--transparent">
+                        <div class="card__content">
+                            <p class="card__title">
+                                Visualização simultânea de múltiplos furos.
+                            </p>
+                            <p class="card__description">
+                                Todos os furos de sondagem em perspectiva, de uma só vez em <strong>modo comparativo</strong>.
+                            </p>
+                        </div>
+                        <div class="card__media">
+                            <img src="images/SS_6.png" alt="Mini 1" class="card__image">
                         </div>
                     </div>
                 </div>
@@ -1990,9 +2009,10 @@
                     </p>
                 </div>
             </div>-->
-
             <!-- Seção: Alvest -->
-            <div class="resource-group dark-blue" id="alvest">
+            <div class="resource-group terra-batida" id="alvest">
+                <div class="theme-background"></div>
+
                 <h3 class="resource-group-title">Alvest</h3>
                 <p class="resource-group-description">
                     Melhorias no Modelador Estrutural de alvenarias, fabricantes, calculadoras e mais.
@@ -2316,60 +2336,60 @@
                 </div>
             </div>
 
-        <!-- Seção: IA -->
-        <div class="resource-group theme-ai" id="ia">
-            <div class="resources-grid--scroll-fade">
-                <!-- Card 1: Apenas título sobre imagem nítida -->
-                <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
-                    <div class="card__media">
-                        <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__fill">
+            <!-- Seção: IA -->
+            <div class="resource-group theme-ai" id="ia">
+                <div class="resources-grid--scroll-fade">
+                    <!-- Card 1: Apenas título sobre imagem nítida -->
+                    <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
+                        <div class="card__media">
+                            <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__fill">
+                        </div>
+                        <div class="card__content">
+                            <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
+                        </div>
                     </div>
-                    <div class="card__content">
-                        <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
-                    </div>
-                </div>
 
-                <!-- Card 2: Conteúdo principal sobre imagem com blur -->
-                <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
-                    <div class="card__media">
-                        <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__blur">
+                    <!-- Card 2: Conteúdo principal sobre imagem com blur -->
+                    <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
+                        <div class="card__media">
+                            <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__blur">
+                        </div>
+                        <div class="card__content">
+                            <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
+                            <p class="ia-lead">
+                                Estamos atentos às rápidas evoluções da Inteligência Artificial. Temos pesquisado, testado e aprendido muito.<br><br>
+                                Nosso objetivo é que a IA atue de duas formas principais: como <strong>orientação</strong> — sugerindo caminhos e boas práticas, quase como um engenheiro experiente — e como <strong>otimização</strong>, acelerando processos e tornando cálculos mais eficientes.<br><br>
+                                Já usamos IA em processos internos para acelerar entregas e resolver desafios complexos. E, com nossa <strong>API em Python</strong>, abrimos espaço para integrações que aproximam ainda mais esse futuro.<br><br>
+                                Acreditamos que a IA terá papel importante no TQS: não substituindo engenheiros, mas ampliando sua capacidade de decisão e criação.
+                            </p>
+                            <p class="apple-glow-text">O futuro da engenharia com IA já começou.</p>
+                        </div>
                     </div>
-                    <div class="card__content">
-                        <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
-                        <p class="ia-lead">
-                            Estamos atentos às rápidas evoluções da Inteligência Artificial. Temos pesquisado, testado e aprendido muito.<br><br>
-                            Nosso objetivo é que a IA atue de duas formas principais: como <strong>orientação</strong> — sugerindo caminhos e boas práticas, quase como um engenheiro experiente — e como <strong>otimização</strong>, acelerando processos e tornando cálculos mais eficientes.<br><br>
-                            Já usamos IA em processos internos para acelerar entregas e resolver desafios complexos. E, com nossa <strong>API em Python</strong>, abrimos espaço para integrações que aproximam ainda mais esse futuro.<br><br>
-                            Acreditamos que a IA terá papel importante no TQS: não substituindo engenheiros, mas ampliando sua capacidade de decisão e criação.
-                        </p>
-                        <p class="apple-glow-text">O futuro da engenharia com IA já começou.</p>
-                    </div>
-                </div>
 
-                <!-- Card 3: Pillars e Timeline sobre imagem com blur -->
-                <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
-                    <div class="card__media">
-                        <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__blur">
-                    </div>
-                    <div class="card__content">
-                        <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
-                        <section class="pillars">
-                            <h2 class="pillars-title">As questões que nos guiam</h2>
-                            <div class="pillars-grid">
-                                <article class="pillar-card">
-                                    <h3>E se o software pudesse orientar como um especialista?</h3>
-                                    <p><strong>Orientação</strong>: Apoiar decisões com base em dados, sugerindo caminhos seguros e destacando padrões que muitas vezes passam despercebidos.</p>
-                                </article>
-                                <article class="pillar-card">
-                                    <h3>E se o software revelasse novas possibilidades?</h3>
-                                    <p><strong>Otimização</strong>: Identificar cenários econômicos e eficientes, explorar alternativas de dimensionamento e agilizar análises — sem abrir mão da segurança.</p>
-                                </article>
-                                <article class="pillar-card">
-                                    <h3>E se o software conseguisse assumir o repetitivo?</h3>
-                                    <p><strong>Automação</strong>: Organizar verificações, priorizar itens críticos e liberar tempo do engenheiro para criar e resolver problemas complexos.</p>
-                                </article>
-                            </div>
-                        </section>
+                    <!-- Card 3: Pillars e Timeline sobre imagem com blur -->
+                    <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
+                        <div class="card__media">
+                            <img src="images/IA_5.png" alt="O futuro da engenharia com IA" class="card__image__blur">
+                        </div>
+                        <div class="card__content">
+                            <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
+                            <section class="pillars">
+                                <h2 class="pillars-title">As questões que nos guiam</h2>
+                                <div class="pillars-grid">
+                                    <article class="pillar-card">
+                                        <h3>E se o software pudesse orientar como um especialista?</h3>
+                                        <p><strong>Orientação</strong>: Apoiar decisões com base em dados, sugerindo caminhos seguros e destacando padrões que muitas vezes passam despercebidos.</p>
+                                    </article>
+                                    <article class="pillar-card">
+                                        <h3>E se o software revelasse novas possibilidades?</h3>
+                                        <p><strong>Otimização</strong>: Identificar cenários econômicos e eficientes, explorar alternativas de dimensionamento e agilizar análises — sem abrir mão da segurança.</p>
+                                    </article>
+                                    <article class="pillar-card">
+                                        <h3>E se o software conseguisse assumir o repetitivo?</h3>
+                                        <p><strong>Automação</strong>: Organizar verificações, priorizar itens críticos e liberar tempo do engenheiro para criar e resolver problemas complexos.</p>
+                                    </article>
+                                </div>
+                            </section>
 
                             <div class="timeline">
                                 <div class="step"><div class="dot"></div><div class="label">Pesquisa</div><div class="highlight">Exploratória</div></div>

@@ -316,7 +316,7 @@ function toggleMobileMenu() {
     }
     
     // Prevenir scroll do body quando menu está ativo
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    //document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
 }
 
 // Inicializar menu hambúrguer
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navMenu) navMenu.classList.remove('active');
         if (hamburger) hamburger.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        //document.body.style.overflow = 'auto';
     }
     
     if (hamburger && navMenu) {
