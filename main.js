@@ -154,7 +154,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 navMenu.classList.remove('active');
                 if (hamburger) hamburger.classList.remove('active');
                 if (overlay) overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                //document.body.style.overflow = 'auto';
             }
 
             window.scrollTo({
@@ -1497,13 +1497,20 @@ function setupScrollFadeCards(originalElement, cards) {
     // (os dots são usados apenas em carousels tradicionais)
 
     stickyContainer.appendChild(contentArea);
-    
-    // Altura FIXA por card - rolagem uniforme independente da quantidade
+
+    // Altura por card - permite controle individual via data-duration
     const totalCards = cards.length;
-    const heightPerCard = 100; // 100vh por card = rolagem consistente entre todos os cards
-    const totalHeight = heightPerCard * totalCards;
+    const cardDurations = []; // Duração em vh de cada card
+    let totalHeight = 0;
+
+    // Ler duração de cada card (data-duration em vh, padrão 100vh)
+    cards.forEach((card) => {
+        const duration = parseInt(card.dataset.duration) || 100;
+        cardDurations.push(duration);
+        totalHeight += duration;
+    });
     originalElement.style.height = `${totalHeight}vh`;
-    
+
     // Substituir elemento original
     originalElement.innerHTML = '';
     originalElement.appendChild(stickyContainer);
@@ -1580,14 +1587,31 @@ function setupScrollFadeCards(originalElement, cards) {
             const maxScroll = elementHeight - viewportHeight;
             let scrollPercent = Math.min(Math.max(scrolledIntoSection / maxScroll, 0), 1);
             
-            // Sistema uniforme: cada card ocupa exatamente o mesmo espaço de scroll
-            const viewTime = 0.85; // 85% do tempo para visualizar sem transição  
+            // Sistema com durações personalizáveis: cada card ocupa espaço proporcional ao data-duration
+            const viewTime = 0.85; // 85% do tempo para visualizar sem transição
             const transitionTime = 0.15; // 15% do tempo para transição (MUITO mais rápida - metade de 0.3)
-            const segmentSize = 1 / totalCards; // Cada card ocupa proporção igual do scroll total
-            
+
+            // Calcular segmentos proporcionais baseados em cardDurations
+            const cardSegments = [];
+            let cumulativeHeight = 0;
+
+            cardDurations.forEach((duration) => {
+                const segmentStart = cumulativeHeight / totalHeight;
+                cumulativeHeight += duration;
+                const segmentEnd = cumulativeHeight / totalHeight;
+                const segmentSize = segmentEnd - segmentStart;
+
+                cardSegments.push({
+                    start: segmentStart,
+                    end: segmentEnd,
+                    size: segmentSize
+                });
+            });
+
             let cardPosition = 0;
             let fadeProgress = 0;
-            
+
+
             // Caso especial: se chegou ao final, mostrar último card com opacidade total SEM ANIMAÇÃO
             if (scrollPercent >= 0.9) {
                 cardPosition = totalCards - 1;
@@ -1595,12 +1619,11 @@ function setupScrollFadeCards(originalElement, cards) {
             } else {
                 // Para cada card, calcular zona de visualização vs transição
                 for (let i = 0; i < totalCards; i++) {
-                    const segmentStart = i * segmentSize;
-                    const segmentEnd = (i + 1) * segmentSize;
-                    
-                    if (scrollPercent >= segmentStart && scrollPercent <= segmentEnd) {
-                        const segmentProgress = (scrollPercent - segmentStart) / segmentSize;
-                        
+                    const segment = cardSegments[i];
+
+                    if (scrollPercent >= segment.start && scrollPercent <= segment.end) {
+                        const segmentProgress = (scrollPercent - segment.start) / segment.size;
+
                         if (segmentProgress <= viewTime) {
                             // Zona de visualização - card 100% opaco, sem transição
                             cardPosition = i;

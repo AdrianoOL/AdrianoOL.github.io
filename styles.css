@@ -1293,8 +1293,14 @@ img {
     margin: 0 auto;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
 .logo {
     height: 40px;
+    display: block;
 }
 
 .nav-menu {
@@ -5039,8 +5045,8 @@ kbd {
     background: none;
     /* Sombra escura para criar separação */
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-    / -webkit-background-clip: text;
-    background-clip: text;
+    /* -webkit-background-clip: text; */
+    /* background-clip: text; */
 }
 
 /* Um azul-acinzentado, que recua para o fundo, indicando baixa prioridade */
