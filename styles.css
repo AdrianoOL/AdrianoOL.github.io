@@ -31,7 +31,7 @@
     --color-accent-apple: #0071E3;
     --color-accent-green: #22c55e;
     --color-accent-orange: #EA580C;
-    --color-accent-lavander: #7C3AED;
+    --color-accent-lavander: #8B5CF6;
     --color-accent-esmeralda: #059669;
     --color-highlight-yellow: #ffff00;
     --color-border-light: rgba(255, 255, 255, 0.1);
@@ -2284,6 +2284,9 @@ img {
     --color-arrow-icon: #4b5563;
     --color-plus-icon: #4b5563;
 }
+    .resources-grid--carousel--interactive.theme-light .feature-list-item.active .card .card__description strong {
+        color: var(--color-text-primary); /* Garante que o texto seja #1d1d1f */
+    }
 
 /* Cards clonados para navegação circular - invisíveis para o usuário */
 .card-clone {
@@ -5450,7 +5453,7 @@ kbd {
 
 /* 1. LÓGICA DE LAYOUT (LARGURA TOTAL E MARGENS) 
    Aplica-se a todos os temas listados abaixo. */
-.resource-group:is( .dark, .dark-blue, .terra-batida, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) {
+.resource-group:is( .dark, .dark-blue, .terra-batida, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo ) {
     border-radius: 0;
     padding: 4rem 0 2rem 0;
     margin: 4rem 0 0 0;
@@ -5463,13 +5466,13 @@ kbd {
 }
 
     /* 2. REMOVE A MARGEM ENTRE QUAISQUER DOIS TEMAS DA LISTA */
-.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) +
-.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo) {
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) +
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) {
     margin-top: 0;
 }
 
     /* 3. CENTRALIZA O CONTEÚDO EM TODOS OS TEMAS DA LISTA */
-.resource-group:is( .dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
+.resource-group:is( .dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
     width: 95%;
     max-width: 2000px;
     margin-left: auto;
@@ -6133,46 +6136,69 @@ kbd {
         /* Um novo gradiente que vai da nova cor ameixa para o laranja vibrante */
         background: linear-gradient(90deg, #A13D6F, #f97316);
     }
-/* TEMA: OCEANO CALMO */
+/* --- TEMA: OCEANO CALMO */
 .resource-group.oceano-calmo {
-    background: #F7FAFC;
+    /* FUNDO: Um gradiente sutil de branco-gelo para branco puro */
+    background: linear-gradient(180deg, #F7FAFC 0%, #FFFFFF 100%);
     color: var(--color-text-dark-secondary);
+    position: relative;
+    overflow: hidden;
 }
 
+    /* Textura de ruído sutil para dar materialidade */
+    .resource-group.oceano-calmo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.1;
+        z-index: 0;
+    }
+
+    /* AURORAS DE LUZ: Cores mais suaves, menos opacidade e mais desfoque */
     .resource-group.oceano-calmo .theme-background::before {
-        width: 700px;
-        height: 700px;
-        top: 50%;
-        left: -20%;
-        background: linear-gradient(135deg, #67e8f9, #a5f3fc);
-        opacity: 0.4;
-        animation: aurora-float-1 25s infinite linear alternate;
+        width: 900px;
+        height: 900px;
+        top: 40%;
+        left: -30%;
+        /* Gradiente de ciano para um azul-céu bem pálido */
+        background: linear-gradient(135deg, #a5f3fc, #dbeafe);
+        opacity: 0.3; /* Menos opacidade */
+        filter: blur(180px); /* Mais desfoque */
+        animation: aurora-float-1 28s infinite linear alternate;
     }
 
     .resource-group.oceano-calmo .theme-background::after {
-        width: 600px;
-        height: 600px;
-        top: -20%;
-        left: 50%;
-        background: linear-gradient(135deg, #a7f3d0, #d1fae5);
-        opacity: 0.5;
-        animation: aurora-float-2 29s infinite linear alternate;
+        width: 800px;
+        height: 800px;
+        top: -30%;
+        left: 40%;
+        /* Gradiente de menta pálido para um verde quase branco */
+        background: linear-gradient(135deg, #d1fae5, #f0fdf4);
+        opacity: 0.35; /* Menos opacidade */
+        filter: blur(180px); /* Mais desfoque */
+        animation: aurora-float-2 32s infinite linear alternate;
     }
 
-    .resource-group.oceano-calmo strong {
-        color: var(--color-accent-primary);
-    }
-
-    .resource-group.oceano-calmo .resource-group-title, .resource-group.oceano-calmo .card--transparent .card__title {
+    /* TIPOGRAFIA: Cores escuras mantidas para legibilidade */
+    .resource-group.oceano-calmo .resource-group-title,
+    .resource-group.oceano-calmo .card--transparent .card__title {
         color: var(--color-text-dark-primary);
     }
 
-    .resource-group.oceano-calmo .resource-group-description, .resource-group.oceano-calmo .card--transparent .card__description {
+    .resource-group.oceano-calmo .resource-group-description,
+    .resource-group.oceano-calmo .card--transparent .card__description {
         color: var(--color-text-dark-secondary);
     }
 
+    /* ACENTO DE COR: Trocamos o azul padrão por um verde-mar profundo */
+    .resource-group.oceano-calmo strong {
+        color: #047857; /* Verde-esmeralda/Teal profundo */
+    }
+
+    /* LINHA DO TÍTULO: Usa o novo acento de cor temático */
     .resource-group.oceano-calmo .resource-group-title::after {
-        background: var(--gradient-button-primary);
+        background: linear-gradient(90deg, #047857, #0d9488);
     }
 
 /* --- TEMA: AZUL PROFUNDO (Estilo Apple AirPods) --- */
@@ -6240,6 +6266,74 @@ kbd {
 
     .resource-group.light-lavander strong {
         color: var(--color-accent-lavander); /* Roxo vibrante para destaque */
+    }
+
+
+/* ===================================================================
+   TEMA: MEIA-NOITE
+   =================================================================== */
+
+.resource-group.meia-noite {
+    /* FUNDO: Gradiente sutil de azul-noite com textura */
+    background: radial-gradient(ellipse at 50% 0%, #1a2035 0%, #101525 70%);
+    color: #E8E8ED; /* Cor do texto principal: um branco suave */
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Textura de ruído para dar a sensação de material */
+    .resource-group.meia-noite::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.05;
+        z-index: 0;
+    }
+
+    /* ILUMINAÇÃO: Uma única aurora grande, suave e com cores profundas */
+    .resource-group.meia-noite .theme-background::before {
+        content: '';
+        position: absolute;
+        width: 1200px;
+        height: 1200px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #3B306A, #1E3A5F); /* Roxo e Azul profundos e dessaturados */
+        opacity: 0.15; /* Opacidade muito baixa */
+        filter: blur(200px);
+        animation: aurora-float-1 30s infinite linear alternate;
+    }
+
+    /* Esconde a segunda aurora desnecessária */
+    .resource-group.meia-noite .theme-background::after {
+        display: none;
+    }
+
+
+    /* --- TIPOGRAFIA NÍTIDA E ELEGANTE --- */
+
+    /* TÍTULO: Branco puro e nítido, sem gradiente, para máxima clareza */
+    .resource-group.meia-noite .resource-group-title,
+    .resource-group.meia-noite .card--transparent .card__title {
+        color: #F5F5F7;
+        text-shadow: 0 0 20px rgba(245, 245, 247, 0.1); /* Brilho quase imperceptível */
+    }
+
+    /* DESCRIÇÃO: Um branco um pouco mais suave para hierarquia */
+    .resource-group.meia-noite .resource-group-description {
+        color: #E8E8ED;
+    }
+
+    /* LINHA DO TÍTULO: Um gradiente azul sutil */
+    .resource-group.meia-noite .resource-group-title::after {
+        background: linear-gradient(90deg, #5E9DFF, #C7D2FE);
+    }
+
+    /* DESTAQUE (strong): Um único tom de azul claro e limpo */
+    .resource-group.meia-noite strong {
+        color: #5E9DFF;
     }
 
 /* Acquisition Modal Styles */
