@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Resource Group Fixed Media (Apple Vision Pro Style)</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos extras para demonstração */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Seção de demonstração anterior/posterior */
+        .demo-section {
+            padding: 4rem 2rem;
+            background: #f5f5f7;
+            text-align: center;
+        }
+
+        .demo-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-section p {
+            font-size: 1.25rem;
+            color: #6e6e73;
+        }
+    </style>
+</head>
+<body>
+    <!-- Seção antes do fixed media -->
+    <section class="demo-section">
+        <h2>Seção Anterior</h2>
+        <p>Role para baixo para ver o efeito de background fixo</p>
+    </section>
+
+    <!-- ========================================
+         EXEMPLO 1: Background Fixo com Imagem
+         ======================================== -->
+    <section class="resource-group resource-group--fixed-media overlay-dark">
+        <!-- Background fixo -->
+        <div class="fixed-media-background">
+            <img src="images/hero-main.png" alt="Background Fixo" class="fixed-media-bg">
+        </div>
+
+        <!-- Conteúdo que rola -->
+        <div class="fixed-media-content">
+            <h2 class="resource-group-title" style="color: white;">Editor Gráfico Revolucionário</h2>
+            <p class="resource-group-description" style="color: rgba(255,255,255,0.9);">
+                Uma nova maneira de visualizar e editar seus projetos estruturais
+            </p>
+
+            <div class="resources-grid">
+                <div class="card card--transparent">
+                    <div class="card__content">
+                        <h4 class="card__title" style="color: white;">Interface Intuitiva</h4>
+                        <p class="card__description" style="color: rgba(255,255,255,0.8);">
+                            Controles precisos e responsivos para máxima produtividade
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card--transparent">
+                    <div class="card__content">
+                        <h4 class="card__title" style="color: white;">Visualização em Tempo Real</h4>
+                        <p class="card__description" style="color: rgba(255,255,255,0.8);">
+                            Veja suas modificações instantaneamente no modelo 3D
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card--transparent">
+                    <div class="card__content">
+                        <h4 class="card__title" style="color: white;">Performance Otimizada</h4>
+                        <p class="card__description" style="color: rgba(255,255,255,0.8);">
+                            Trabalhe com projetos grandes sem perda de desempenho
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção intermediária -->
+    <section class="demo-section">
+        <h2>Seção Intermediária</h2>
+        <p>Continue rolando para ver outro exemplo com overlay azul</p>
+    </section>
+
+    <!-- ========================================
+         EXEMPLO 2: Background Fixo com Overlay Azul
+         ======================================== -->
+    <section class="resource-group resource-group--fixed-media overlay-blue">
+        <!-- Background fixo -->
+        <div class="fixed-media-background">
+            <img src="images/hero-main.png" alt="Background Fixo" class="fixed-media-bg">
+        </div>
+
+        <!-- Conteúdo que rola -->
+        <div class="fixed-media-content">
+            <h2 class="resource-group-title" style="color: white;">Análise Estrutural Avançada</h2>
+            <p class="resource-group-description" style="color: rgba(255,255,255,0.9);">
+                Resultados precisos com tecnologia de ponta
+            </p>
+
+            <div class="resources-grid">
+                <div class="card card--horizontal card--transparent">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Análise" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title" style="color: white;">Solver de Alta Performance</h4>
+                        <p class="card__description" style="color: rgba(255,255,255,0.8);">
+                            Algoritmos otimizados para análise rápida e precisa de estruturas complexas
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card--horizontal-reverse card--transparent">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="Visualização" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title" style="color: white;">Visualização de Resultados</h4>
+                        <p class="card__description" style="color: rgba(255,255,255,0.8);">
+                            Gráficos e diagramas interativos para análise detalhada dos resultados
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         EXEMPLO 3: Background Fixo com Overlay Claro
+         ======================================== -->
+    <section class="resource-group resource-group--fixed-media overlay-light">
+        <!-- Background fixo -->
+        <div class="fixed-media-background">
+            <img src="images/hero-main.png" alt="Background Fixo" class="fixed-media-bg">
+        </div>
+
+        <!-- Conteúdo que rola -->
+        <div class="fixed-media-content">
+            <h2 class="resource-group-title" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Integração BIM Completa</h2>
+            <p class="resource-group-description" style="color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                Conecte-se com as principais ferramentas do mercado
+            </p>
+
+            <div class="resources-grid">
+                <div class="card card--overlay">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="BIM" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Revit Integration</h4>
+                        <p class="card__description">
+                            Importação e exportação direta de modelos Revit
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card--overlay">
+                    <div class="card__media">
+                        <img src="images/test.png" alt="IFC" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="card__title">Formato IFC</h4>
+                        <p class="card__description">
+                            Suporte completo ao padrão IFC para interoperabilidade
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção final -->
+    <section class="demo-section">
+        <h2>Seção Final</h2>
+        <p>Fim da demonstração do efeito de background fixo</p>
+    </section>
+
+    <!-- ========================================
+         EXEMPLO COMENTADO: Como usar com Vídeo
+         ======================================== -->
+    <!--
+    <section class="resource-group resource-group--fixed-media overlay-dark">
+        <div class="fixed-media-background">
+            <video autoplay muted loop playsinline class="fixed-media-bg">
+                <source src="videos/seu-video.mp4" type="video/mp4">
+                <source src="videos/seu-video.webm" type="video/webm">
+            </video>
+        </div>
+
+        <div class="fixed-media-content">
+            <h2 class="resource-group-title" style="color: white;">Seu Título Aqui</h2>
+            <div class="resources-grid">
+                <!-- Seus cards aqui --
+            </div>
+        </div>
+    </section>
+    -->
+
+    <script>
+        // Script opcional para demonstração
+        console.log('✅ Teste de Resource Group Fixed Media carregado');
+        console.log('📱 Scroll para ver o efeito parallax');
+    </script>
+</body>
+</html>

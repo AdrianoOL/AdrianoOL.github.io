@@ -503,6 +503,51 @@ img {
     max-width: 100%; /* Não excede container pai */
 }
 
+/* Modificador para adicionar imagem lateral em cards verticais */
+.card--vertical.card--sidebar-image {
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+    .card--vertical.card--sidebar-image .card__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0; /* Permite shrink */
+    }
+
+    .card--vertical.card--sidebar-image .card__sidebar {
+        flex-shrink: 0;
+        width: 300px; /* Largura fixa da sidebar */
+        display: flex;
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center;
+    }
+
+        .card--vertical.card--sidebar-image .card__sidebar img {
+            max-width: 100%; /* Limita ao container */
+            height: auto;
+            object-fit: contain; /* Mantém proporção sem distorcer */
+            border-radius: 8px;
+            margin: 0 2rem 0 0; /* top right bottom left */
+        }
+
+    /* Imagem inferior continua dentro do content */
+    .card--vertical.card--sidebar-image .card__media {
+        margin-top: auto; /* Empurra para baixo */
+    }
+
+    /* Responsivo: em mobile volta para vertical */
+    @media (max-width: 768px) {
+        .card--vertical.card--sidebar-image {
+            flex-direction: column;
+        }
+
+        .card--vertical.card--sidebar-image .card__sidebar {
+            width: 100%;
+        }
+    }
+
 .card--text-center {
     text-align: center;
 }
@@ -592,6 +637,11 @@ img {
 
 .card--blue {
     background: linear-gradient(135deg, var(--color-gradient-blue-start) 0%, var(--color-gradient-blue-end) 100%);
+    color: var(--color-text-light-primary);
+}
+
+.card--blue-alt {
+    background: #003366;
     color: var(--color-text-light-primary);
 }
 
@@ -734,6 +784,16 @@ img {
     justify-content: center;
 }
 
+/* Modificador para centralizar verticalmente o conteúdo do card */
+.card--center-content .card__content {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100%;
+}
+
 /* Título do card overlay-right posicionado no topo centralizado em todo o card */
 .card--overlay-right > .card__title {
     position: absolute;
@@ -813,6 +873,70 @@ img {
     margin: 0;
 }
 
+/* Estilo para div com bordas apenas nos cantos */
+.corner-border {
+    position: relative;
+    margin: 8rem 1.25rem 1.25rem 1.25rem; /* top right bottom left */
+    padding: 2.5rem;
+}
+
+.corner-border::before,
+.corner-border::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-color: #4E95D9;
+    border-style: solid;
+}
+
+/* Canto superior esquerdo */
+.corner-border::before {
+    top: 0;
+    left: 0;
+    border-width: 8px 0 0 8px;
+}
+
+/* Canto superior direito */
+.corner-border::after {
+    top: 0;
+    right: 0;
+    border-width: 8px 8px 0 0;
+}
+
+/* Cantos inferiores usando pseudo-elementos do primeiro filho */
+.corner-border > :first-child::before,
+.corner-border > :first-child::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-color: #4E95D9;
+    border-style: solid;
+    pointer-events: none;
+}
+
+/* Canto inferior esquerdo */
+.corner-border > :first-child::before {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 8px 8px;
+}
+
+/* Canto inferior direito */
+.corner-border > :first-child::after {
+    bottom: 0;
+    right: 0;
+    border-width: 0 8px 8px 0;
+}
+
+/* Aumenta altura do texto */
+.text-taller {
+    display: inline-block;
+    font-size: 1.2em;
+    line-height: 1.1;
+}
+
 .card__image {
     width: 100%;
     max-width: 100%; /* Nunca maior que tamanho original */
@@ -822,6 +946,11 @@ img {
     object-fit: contain; /* Preserva proporções originais, sem corte ou esticamento */
     object-position: center;
     image-rendering: high-quality;
+}
+
+/* Classe para escurecer vídeos/imagens específicos */
+.card__image--darken {
+    filter: brightness(0.45);
 }
 
 /* ========================================
@@ -2046,22 +2175,20 @@ img {
                     bottom: 24px;
                     z-index: 20;
                     pointer-events: all;
-                    background: rgba(29, 29, 31, 0.82);
+                    background: var(--bg-card-active);
+                    border: 1px solid var(--border-card-active);
                     backdrop-filter: blur(26px);
-                    border: 1px solid rgba(84, 84, 88, 0.55);
                     border-radius: 26px;
                     padding: 20px 28px;
                     text-align: left;
                     line-height: 1.5;
-                    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-
-                    /* --- LÓGICA DE CENTRALIZAÇÃO E LARGURA (VERSÃO CORRIGIDA E SIMPLIFICADA) --- */
+                    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+                    /* --- LÓGICA DE CENTRALIZAÇÃO E LARGURA --- */
                     left: 50%;
                     transform: translateX(-50%); /* Centraliza o elemento na tela */
-
                     /* Cria o espacamento nas laterais e define um limite maximo */
                     width: calc(100% - 120px); /* Deixa 70px de espaco em cada lado */
-                    max-width: 520px;          /* O bloco nao passara de 520px de largura */
+                    max-width: 520px; /* O bloco nao passara de 520px de largura */
                 }
 
         /* Navegacao reposicionada ao redor do card ativo */
@@ -2086,9 +2213,9 @@ img {
                 height: 48px;
                 border-radius: 50%;
                 pointer-events: all;
-                background: rgba(29, 29, 31, 0.82);
-                border: 1px solid rgba(84, 84, 88, 0.55);
-                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+                background: var(--bg-arrow);
+                border: 1px solid var(--border-arrow);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
                 flex-shrink: 0;
                 display: flex;
                 align-items: center;
@@ -2097,6 +2224,9 @@ img {
                 transition: background-color 0.2s ease;
             }
 
+                .resources-grid--carousel--interactive .feature-nav .nav-arrow:hover {
+                    background-color: var(--bg-arrow-hover);
+                }
                 .resources-grid--carousel--interactive .feature-nav .nav-arrow.prev {
                     transform: translateX(-60%);
                 }
@@ -4048,6 +4178,19 @@ COMO USAR:
         /* Posicionamento absoluto será aplicado via JS */
     }
 
+    /* Primeiro card fixo como fundo (paralax) */
+    .scroll-fade-content .card:first-child {
+        position: absolute;
+        opacity: 1 !important;
+        z-index: 1 !important;
+        pointer-events: none;
+    }
+
+    /* Cards que rolam por cima (não o primeiro) precisam de transition suave */
+    .scroll-fade-content .card:not(:first-child) {
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
     /* Cards overlay no scroll-fade ocupam 100% da largura */
     .scroll-fade-content .card--overlay {
         width: 100vw !important; /* Largura total da viewport */
@@ -4552,6 +4695,7 @@ COMO USAR:
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             margin-top: 0.5rem;
+            margin-bottom: 2rem;
             padding: 0.4rem;
             opacity: 1;
             visibility: visible;
@@ -4986,7 +5130,9 @@ kbd {
 
 
 .theme-ai__hero-card--content {
-    background: var(--bg);
+    background: rgba(0, 0, 0, 0.4); /* Fundo escuro com 40% de opacidade */
+    backdrop-filter: blur(10px); /* Efeito de blur no conteúdo atrás */
+    -webkit-backdrop-filter: blur(10px); /* Suporte para Safari */
     z-index: 1;
     position: relative;
 }
@@ -5500,7 +5646,7 @@ kbd {
 /* --- TEMAS ESCUROS SIMPLES --- */
 
 .resource-group.azul-tqs-profundo {
-    background: radial-gradient(ellipse at center, #215f9a 0%, #163E64 40%, #0f2742 100%);
+    background: #102C4A;
     color: var(--color-text-light-secondary);
 }
 

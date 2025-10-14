@@ -146,26 +146,59 @@
                     Recurso inédito para melhorar a documentação, evitar retrabalho e inserir detalhes 3D.
                 </p>
 
+                <div class="resources-grid--scroll-fade">
+                    <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
+                            <div class="card__media">
+                                <video src="images/ViewPort-v1.mp4" alt="" width="1280" height="720" class="card__image card__image--darken" preload="metadata" loading="lazy" autoplay muted loop playsinline></video>
+                            </div>
+                            <div class="card__content">
+
+                            </div>
+                    </div>
+
+                    <div class="card card--overlay card--black card--center-content theme-ai__hero-card theme-ai__hero-card--content">
+                        <div class="card__content">
+                            <h4 class="card__title"></h4>
+                            <p class="card__description">
+                                Sabemos que a elaboração de um projeto estrutural não é um processo sequencial perfeito. As <strong>revisões de projeto</strong> são frequentes no dia-a-dia dos engenheiros. Neste cenário, quando é preciso regerar um desenho previamente editado, informações podem ser perdidas e/ou precisam ser readequadas. Gera retrabalho. Gera custo.<br>
+                                <br><strong class="text-taller">Uma mudança seria muito benvinda.</strong><br>
+                                <div class="corner-border">
+                                    Pensando nisso, criamos um recurso inédito, denominado Viewport, que permite que o usuário inclua <strong>edições numa camada extra que não são perdidas quando um desenho é automaticamente regerado</strong>. Conceitualmente, o Viewport é muito simples. Mas, por ser uma alternativa disruptiva, ele pode exigir uma pequena alteração na maneira de preparar os desenhos finais.<br>
+                                     <br><strong class="text-taller">Uma mudança disruptiva, mas com benefícios.</strong>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="resources-grid">
+
+
 
                     <div class="card card--vertical card--transparent">
                         <div class="card__content">
                             <p class="card__description">
-                                Ajustes e alterações ao longo do processo de elaboração de um projeto estrutural são muito comuns, para não dizer obrigatórias. Culminam nas famosas <strong>revisões de projeto</strong>.<br>
-                                Neste cenário, quando é preciso regerar um desenho previamente editado, informações são perdidas e tem que ser reinseridas. Geram retrabalho, custam.<br><br>
-                                Pensando nisso, criamos um <strong>recurso inédito</strong> que permite o usuário incluir edições numa outra camada, que não são perdidas quando um desenho é regerado.
+                                Com a criatividade de todos, vislumbramos que <strong>várias formas de uso</strong> do Viewport surgirão num futuro próximo. Na Versão V26, além da aplicação em desenhos 2D quaisquer, o próprio Viewport já foi aproveitado em um novo comando que gera automaticamente detalhes 3D em desenhos de armação. 
                             </p>
+                            <!-- <div class="card__media">
+                                <img src="images/Viewport-1.png" alt="IMG1" class="card__image">
+                            </div> -->
                         </div>
                     </div>
 
-                    <div class="card card--vertical card--black">
+                    <div class="card card--vertical card--text-center no-vertical-margin card--transparent">
+                        <div class="card__content">
+                            <h4 class="card__title"><strong>O início de uma grande mudança...</strong></h4>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
                         <div class="card__content">
                             <p class="card__description">
-                                <strong>Funciona da seguinte forma</strong>: Suponha que precise alterar um desenho de formas, que provavelmente será regerado ao longo do projeto.<br>
-                                Ao invés de editá-lo, vamos inserí-lo como <strong>Viewport</strong>. Num primeiro momento, o funcionamento é análogo ao de um bloco de desenho.
+                                Veja, a seguir, um <strong>exemplo simples</strong> de uso do Viewport num processo que envolve a revisão de uma planta de fôrma. Dado um pavimento lançado no Modelador Estrutural (com um pilar de elevador ao lado num desenho de referência), vamos gerar a fôrma automaticamente pelo TQS (FORnnnn.DWG). Depois, manualmente, vamos deletar dois textos redundantes em um dos cortes.
                             </p>
                             <div class="card__media">
-                                <img src="images/VP_1.png" alt="IMG1" class="card__image">
+                                <img src="images/Viewport-1.png" alt="IMG1" class="card__image">
                             </div>
                         </div>
                     </div>
@@ -173,61 +206,105 @@
                     <div class="card card--vertical card--transparent">
                         <div class="card__content">
                             <p class="card__description">
-                                Agora é que a <strong>mágica</strong> acontece, no duplo clique se abre um editor especial para criar as regras de edição.
+                                Após a emissão desta planta, imagine que a espessura de uma das paredes do pilar de elevador tenha que ser alterada. Surge, então, a necessidade de criar uma <strong>revisão de projeto</strong>.
                             </p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="resources-grid-horizontal">
-
-                    <div class="card card--vertical card--black bottom-aligned">
-                        <div class="card__content">
-                            <p class="card__description">
-                                O usuário pode <strong>definir regiões que ele queira isolar.</strong>
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/VP_2.png" alt="IMG2" class="card__image">
-                        </div>
-                    </div>
-
-                    <div class="card card--vertical card--black bottom-aligned">
-                        <div class="card__content">
-                            <p class="card__description">
-                                E <strong>adicionar anotações, cotas, linhas</strong>, e o que mais for necessário para complementar o desenho.<br>
-                                Tudo ficará associado ao Viewport.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/VP_3.png" alt="IMG2" class="card__image">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="resources-grid">
-
-                    <div class="card card--horizontal card--black">
-                        <div class="card__content">
-                            <p class="card__description">
-                                No Viewport inserido, é possível alterar a <strong>escala</strong> e outros <strong>atributos</strong> pelo painel lateral.
-                            </p>
-                        </div>
-                        <div class="card__media">
-                            <img src="images/VP_4.png" alt="IMG2" class="card__image">
+                            <div class="card__media">
+                                <img src="images/Viewport-2.png" alt="IMG1" class="card__image">
+                            </div>
                         </div>
                     </div>
 
                     <div class="card card--vertical card--black">
                         <div class="card__content">
                             <p class="card__description">
-                                Veja a seguir um detalhe cotado de um pilar de núcleo. Qualquer alteração feita no modelo, se refletirá no detalhe.
+                                Inicialmente, pensando no processo como é hoje, isto é, <strong>sem o Viewport</strong>, faríamos o ajuste no Modelador Estrutural e reprocessaríamos o edifício. Mas, e o desenho da planta de fôrma? As duas edições realizadas anteriormente – textos dos cortes apagados e o pilar de elevador desenhado ao lado – teriam que ser <strong>revisadas e/ou ajustadas manualmente</strong>. 
+                            </p>
+                            <div class="card__media">
+                                <img src="images/Viewport-3.png" alt="IMG1" class="card__image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Agora, vamos ilustrar como seria esse mesmo processo <strong>com o novo Viewport</strong>. Primeiramente, vamos criar dois novos desenhos (FORnnnn-Editado.DWG e FORnnnn-Pilar.DWG) e adicionar um Viewport em cada um deles, ambos referenciando o desenho de fôrmas gerado automaticamente pelo TQS (FORnnnn.DWG).
+                            </p>
+                            <div class="card__media">
+                                <img src="images/Viewport-4.png" alt="IMG1" class="card__image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                A primeira vista, os Viewports parecem blocos de desenhos. A diferença, porém, é que eles são editáveis numa camada extra. No Viewport do primeiro desenho (FORnnnn-Editado.DWG), é possível incluir <strong>poligonais que eliminam</strong> os textos redundantes dos cortes. No Viewport do outro desenho (FORnnnn-Pilar.DWG), vamos criar uma <strong>poligonal que exclui o que está ao redor</strong> do pilar de elevador.
+                            </p>
+                            <div class="card__media">
+                                <img src="images/Viewport-5.png" alt="IMG1" class="card__image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Com isso, ambos desenhos ficam prontos para serem emitidos em uma planta. Até então, o resultado inicial (antes da necessidade da revisão de projeto) é idêntico ao do processo que usamos atualmente. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--horizontal card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Mas, e quando for necessário alterar a espessura de uma das paredes do pilar de elevador? O que muda na <strong>revisão de projeto com o Viewport</strong>?
                             </p>
                         </div>
                         <div class="card__media">
-                            <img src="images/VP_5.png" alt="IMG2" class="card__image">
+                            <img src="images/Viewport-6.png" alt="IMG1" class="card__image">
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical no-vertical-margin card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Aqui é que a <strong>mágica acontece</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Ao regerar o desenho do TQS (FORnnnn.DWG) com a alteração realizada no Modelador Estrutural, ambos os desenhos com Viewport (FORnnnn-Editado.DWG e FORnnnn-Pilar.DWG) serão automaticamente atualizados, e o melhor, não perderão as edições na camada extra (onde havíamos inserido as poligonais de recorte). Assim, <strong>nenhuma edição será necessária para emitir a revisão de projeto</strong>.
+                            </p>
+                            <div class="card__media">
+                                <img src="images/Viewport-7.png" alt="IMG1" class="card__image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--transparent">
+                        <div class="card__content">
+                            <p class="card__description">
+                                Esse exemplo demonstrou um pouco do <strong>potencial do Viewport</strong>. Uma quebra de paradigma. Uma possibilidade de tornar as frequentes revisões de projeto menos onerosas. Mas, isso não termina aqui. Conheça, a seguir, mais algumas características do Viewport e surpreenda-se com o seu funcionamento em 3D.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card card--vertical card--sidebar-image card--blue-alt">
+                        <div class="card__content">
+                            <h4 class="card__title">Atributos e Anotações</h4>
+                            <p class="card__description">
+                                Controle a escala, adicione título, borda etc. nas propriedades do Viewport. Além das poligonais de recorte, é possível adicionar textos, linhas e outros elementos gráficos na camada extra do Viewport.
+                            </p>
+                            <div class="card__media">
+                                <img src="images/Viewport-8.png" alt="IMG1" class="card__image">
+                            </div>
+                        </div>
+                        <div class="card__sidebar">
+                            <img src="images/Viewport-9.png" alt="Imagem lateral">
                         </div>
                     </div>
 
@@ -558,9 +635,9 @@
             <div class="resource-group salmon hide-on-mobile" id="normas">
 
 
-                <div class="resources-grid--scroll-fade">
+                <div class="resources-grid--scroll-fade" data-scroll-animation="fade-center">
 
-                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right" data-duration="50">
+                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right">
                         <div class="card__title">
                             <h3 class="text-tqs-blue" class>Normas Técnicas</h3>
                             <p>Atenção às revisões normativas.</p>
@@ -573,10 +650,8 @@
                         </div>
                     </div>
 
-                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right" data-duration="100">
+                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right">
                         <div class="card__title">
-                            <h3 class="text-tqs-blue" class>Normas Técnicas</h3>
-                            <p>Atenção às revisões normativas.</p>
                         </div>
                         <div class="card__content">
                             <div class="card__description">
@@ -587,14 +662,12 @@
                             </div>
                         </div>
                         <div class="card__media">
-                            <img src="images/Normas-1.png" width="3636" height="1245" loading="lazy" alt="Normas" class="card__image">
+                            <img width="3636" height="1245" loading="lazy" alt="" class="card__image">
                         </div>
                     </div>
 
-                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right" data-duration="50">
+                    <div class="card card--overlay card--transparent no-vertical-margin card--overlay-right">
                         <div class="card__title">
-                            <h3 class="text-tqs-blue" class>Normas Técnicas</h3>
-                            <p>Atenção às revisões normativas.</p>
                         </div>
                         <div class="card__content">
                             <div class="card__description">
@@ -605,7 +678,7 @@
                             </div>
                         </div>
                         <div class="card__media">
-                            <img src="images/Normas-1.png" width="3636" height="1245" loading="lazy" alt="Normas" class="card__image">
+                            <img width="3636" height="1245" loading="lazy" alt="" class="card__image">
                         </div>
                     </div>
 
@@ -1241,7 +1314,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="resources-grid">
+                    <div class="resources-grid--carousel resources-grid--carousel--highlight">
                         <div class="card card--vertical card--text-center card--transparent">
                             <div class="card__content">
                                 <p class="card__description">
@@ -1908,7 +1981,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="resources-grid--scroll-fade">
+                <div class="resources-grid--carousel resources-grid--carousel--highlight">
                     <div class="card card--vertical card--text-center card--transparent">
                         <div class="card__content">
                             <p class="card__title">
@@ -2396,15 +2469,12 @@
                             <img src="images/IA_5.png" width="1536" height="1024" loading="lazy" alt="O futuro da engenharia com IA" class="card__image__fill">
                         </div>
                         <div class="card__content">
-                            <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
+                            
                         </div>
                     </div>
 
                     <!-- Card 2: Conteúdo principal sobre imagem com blur -->
                     <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
-                        <div class="card__media">
-                            <img src="images/IA_5.png" width="1536" height="1024" loading="lazy" alt="O futuro da engenharia com IA" class="card__image__blur">
-                        </div>
                         <div class="card__content">
                             <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
                             <p class="ia-lead">
@@ -2419,11 +2489,8 @@
 
                     <!-- Card 3: Pillars e Timeline sobre imagem com blur -->
                     <div class="card card--overlay card--transparent theme-ai__hero-card theme-ai__hero-card--content">
-                        <div class="card__media">
-                            <img src="images/IA_5.png" width="1536" height="1024" loading="lazy" alt="O futuro da engenharia com IA" class="card__image__blur">
-                        </div>
+
                         <div class="card__content">
-                            <h1 class="resource-group-title">Inteligência Artificial e o TQS</h1>
                             <section class="pillars">
                                 <h2 class="pillars-title">As questões que nos guiam</h2>
                                 <div class="pillars-grid">

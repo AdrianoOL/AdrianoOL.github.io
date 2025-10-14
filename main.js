@@ -1472,12 +1472,15 @@ function initScrollFade() {
         const cards = element.querySelectorAll(':scope > .card');
         if (cards.length <= 1) return;
 
-        setupScrollFadeCards(element, cards);
+        // Escolher entre animação contínua (padrão) ou fade-out no centro
+        const animationType = element.dataset.scrollAnimation || 'continuous'; // 'continuous' ou 'fade-center'
+
+        setupScrollFadeCards(element, cards, animationType);
         element.dataset.scrollInitialized = 'true';
     });
 }
 
-function setupScrollFadeCards(originalElement, cards) {
+function setupScrollFadeCards(originalElement, cards, animationType = 'continuous') {
     // Criar nova estrutura
     const stickyContainer = document.createElement('div');
     stickyContainer.className = 'scroll-fade-sticky';
@@ -1498,17 +1501,10 @@ function setupScrollFadeCards(originalElement, cards) {
 
     stickyContainer.appendChild(contentArea);
 
-    // Altura por card - permite controle individual via data-duration
+    // Sistema simplificado: altura fixa por card para rolagem natural
     const totalCards = cards.length;
-    const cardDurations = []; // Duração em vh de cada card
-    let totalHeight = 0;
-
-    // Ler duração de cada card (data-duration em vh, padrão 100vh)
-    cards.forEach((card) => {
-        const duration = parseInt(card.dataset.duration) || 100;
-        cardDurations.push(duration);
-        totalHeight += duration;
-    });
+    const scrollHeightPerCard = 160; // 150vh por card para dar tempo de ler o conteúdo
+    const totalHeight = scrollHeightPerCard * (totalCards - 1); // Primeiro card não precisa de scroll
     originalElement.style.height = `${totalHeight}vh`;
 
     // Substituir elemento original
@@ -1587,98 +1583,104 @@ function setupScrollFadeCards(originalElement, cards) {
             const maxScroll = elementHeight - viewportHeight;
             let scrollPercent = Math.min(Math.max(scrolledIntoSection / maxScroll, 0), 1);
             
-            // Sistema com durações personalizáveis: cada card ocupa espaço proporcional ao data-duration
-            const viewTime = 0.85; // 85% do tempo para visualizar sem transição
-            const transitionTime = 0.15; // 15% do tempo para transição (MUITO mais rápida - metade de 0.3)
+            // Manter altura fixa do primeiro card (fundo)
+            adjustStickyHeight(0);
 
-            // Calcular segmentos proporcionais baseados em cardDurations
-            const cardSegments = [];
-            let cumulativeHeight = 0;
-
-            cardDurations.forEach((duration) => {
-                const segmentStart = cumulativeHeight / totalHeight;
-                cumulativeHeight += duration;
-                const segmentEnd = cumulativeHeight / totalHeight;
-                const segmentSize = segmentEnd - segmentStart;
-
-                cardSegments.push({
-                    start: segmentStart,
-                    end: segmentEnd,
-                    size: segmentSize
-                });
-            });
-
-            let cardPosition = 0;
-            let fadeProgress = 0;
-
-
-            // Caso especial: se chegou ao final, mostrar último card com opacidade total SEM ANIMAÇÃO
-            if (scrollPercent >= 0.9) {
-                cardPosition = totalCards - 1;
-                fadeProgress = 0; // Último card sempre 100% opaco no final SEM transição
-            } else {
-                // Para cada card, calcular zona de visualização vs transição
-                for (let i = 0; i < totalCards; i++) {
-                    const segment = cardSegments[i];
-
-                    if (scrollPercent >= segment.start && scrollPercent <= segment.end) {
-                        const segmentProgress = (scrollPercent - segment.start) / segment.size;
-
-                        if (segmentProgress <= viewTime) {
-                            // Zona de visualização - card 100% opaco, sem transição
-                            cardPosition = i;
-                            fadeProgress = 0;
-                        } else {
-                            // Zona de transição - fade rápido para próximo card
-                            cardPosition = i;
-                            const transitionProgress = (segmentProgress - viewTime) / transitionTime;
-                            fadeProgress = Math.min(transitionProgress, 1); // Limitar a 1
-                        }
-                        break;
-                    }
-                }
-            }
-            
-            const currentCardIndex = Math.floor(cardPosition);
-            const nextCardIndex = Math.min(currentCardIndex + 1, totalCards - 1);
-
-            // Ajustar altura do container dinamicamente durante transição
-            if (fadeProgress > 0 && currentCardIndex !== nextCardIndex) {
-                // Durante transição: interpolar entre altura do card atual e próximo
-                const currentHeight = cardHeights[currentCardIndex];
-                const nextHeight = cardHeights[nextCardIndex];
-                const interpolatedHeight = currentHeight + (nextHeight - currentHeight) * fadeProgress;
-                const viewportHeight = window.innerHeight;
-                const headerHeight = getHeaderHeight();
-                const availableHeight = viewportHeight - headerHeight;
-
-                // Centralizar no espaço disponível durante transição
-                const topMargin = headerHeight + Math.max(0, (availableHeight - interpolatedHeight) / 2);
-
-                stickyContainer.style.height = `${interpolatedHeight}px`;
-                stickyContainer.style.top = `${topMargin}px`;
-                contentArea.style.height = `${interpolatedHeight}px`;
-            } else {
-                // Fora de transição: usar altura do card atual
-                adjustStickyHeight(currentCardIndex);
-            }
-
-            // Aplicar opacidade mantendo todos os cards com absolute
+            // Aplicar opacidade e transformação para efeito paralax
+            // NOVO: Primeiro card sempre fixo (fundo), demais cards rolam por cima com movimento
             newCards.forEach((card, index) => {
                 let opacity = 0;
+                let translateY = 0;
 
-                if (index === currentCardIndex) {
-                    opacity = 1 - fadeProgress;
-                } else if (index === nextCardIndex && currentCardIndex !== nextCardIndex && fadeProgress > 0) {
-                    opacity = fadeProgress;
-                }
-
-                // Garantir que último card fique visível quando scroll chegar ao final SEM animação
-                if (scrollPercent >= 0.9 && index === totalCards - 1) {
+                // Primeiro card sempre visível como fundo, fixo
+                if (index === 0) {
                     opacity = 1;
+                    card.style.zIndex = '1';
+                    translateY = 0;
+                } else {
+                    // Cards 2+ rolam por cima do primeiro
+                    card.style.zIndex = '10'; // Z-index alto para ficar sobre o primeiro
+
+                    if (animationType === 'fade-center') {
+                        // MODO FADE-CENTER: Cards sobem até o centro e desaparecem
+                        // Cada card tem seu próprio segmento de scroll
+
+                        const cardIndex = index - 1; // Index relativo aos cards móveis (Card 2 = 0, Card 3 = 1)
+                        const segmentSize = 1 / (totalCards - 1); // Tamanho de cada segmento
+                        const segmentStart = cardIndex * segmentSize;
+                        const segmentEnd = (cardIndex + 1) * segmentSize;
+
+                        if (scrollPercent < segmentStart) {
+                            // Card ainda não entrou
+                            opacity = 0;
+                            translateY = 100;
+                        } else if (scrollPercent >= segmentStart && scrollPercent < segmentEnd) {
+                            // Card está ativo
+                            const segmentProgress = (scrollPercent - segmentStart) / segmentSize;
+
+                            // Fase 1 (0% - 60%): Sobe até o centro
+                            // Fase 2 (60% - 100%): Fica no centro e faz fade out
+                            if (segmentProgress < 0.6) {
+                                // Subindo até o centro
+                                const moveProgress = segmentProgress / 0.6;
+                                translateY = 100 * (1 - moveProgress); // De 100vh para 0vh
+                                opacity = 1;
+                            } else {
+                                // Parado no centro, fazendo fade out
+                                translateY = 0;
+                                const fadeProgress = (segmentProgress - 0.6) / 0.4;
+                                opacity = 1 - fadeProgress;
+                            }
+
+                            // Último card: não faz fade out
+                            if (index === totalCards - 1) {
+                                translateY = 100 * (1 - segmentProgress);
+                                if (translateY <= 0) {
+                                    translateY = 0;
+                                }
+                                opacity = 1;
+                            }
+                        } else {
+                            // Card já passou
+                            opacity = 0;
+                            translateY = 0;
+                        }
+
+                    } else {
+                        // MODO CONTINUOUS (padrão): Cards rolam continuamente
+
+                        // Sistema de "fila": cards móveis ficam um embaixo do outro
+                        // Todos se movem juntos com a mesma velocidade, sem gaps
+
+                        // Distância entre cards: 100vh por card (um começa onde o outro termina)
+                        const cardOffsetMultiplier = 100; // 100vh de distância entre cards
+                        const cardOffset = (index - 1) * cardOffsetMultiplier; // Card 2 = 0vh, Card 3 = 100vh
+
+                        // Movimento unificado: todos os cards se movem juntos baseado no scroll
+                        // scrollPercent de 0 a 1 controla movimento de 0vh a -200vh
+                        const totalMovement = 200; // Quanto o sistema inteiro se move (em vh)
+                        const baseTranslateY = 100 - (totalMovement * scrollPercent);
+
+                        // Aplicar offset individual para cada card
+                        translateY = baseTranslateY + cardOffset;
+
+                        // Opacidade: visível quando está entre -100vh e +100vh
+                        if (translateY > 100 || translateY < -100) {
+                            opacity = 0;
+                        } else {
+                            opacity = 1;
+                        }
+
+                        // Último card: para no centro quando chega
+                        if (index === totalCards - 1 && translateY <= 0) {
+                            translateY = 0;
+                            opacity = 1;
+                        }
+                    }
                 }
 
                 card.style.opacity = opacity;
+                card.style.transform = `translate(-50%, calc(-50% + ${translateY}vh))`;
             });
             
             // Dots removidos do scroll-fade (mantidos apenas em carousels)
