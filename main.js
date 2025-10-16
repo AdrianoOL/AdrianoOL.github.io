@@ -1247,31 +1247,47 @@ function createSimpleCarousel(container, imageUrls, altTexts = []) {
 // Função para equalizar alturas dos cards nos carousels
 function equalizeCarouselCardHeights() {
     const carousels = document.querySelectorAll('.resources-grid--carousel');
-    
+
     carousels.forEach(carousel => {
         const cards = carousel.querySelectorAll('.card');
         if (cards.length <= 1) return; // Não precisa equalizar se há apenas 1 card
-        
+
         // Reset alturas para calcular altura natural
         cards.forEach(card => {
             card.style.height = 'auto';
         });
-        
-        // Aguardar próximo frame para calcular alturas corretas
-        requestAnimationFrame(() => {
-            let maxHeight = 0;
-            
-            // Encontrar a altura máxima
-            cards.forEach(card => {
-                const cardHeight = card.offsetHeight;
-                if (cardHeight > maxHeight) {
-                    maxHeight = cardHeight;
-                }
+
+        // Coletar todas as imagens dentro dos cards
+        const images = carousel.querySelectorAll('.card img');
+        const imagePromises = Array.from(images).map(img => {
+            if (img.complete) {
+                return Promise.resolve();
+            }
+            return new Promise((resolve) => {
+                img.addEventListener('load', resolve);
+                img.addEventListener('error', resolve); // Resolver mesmo em erro
             });
-            
-            // Aplicar altura máxima a todos os cards
-            cards.forEach(card => {
-                card.style.height = maxHeight + 'px';
+        });
+
+        // Aguardar todas as imagens carregarem antes de calcular alturas
+        Promise.all(imagePromises).then(() => {
+            requestAnimationFrame(() => {
+                let maxHeight = 0;
+
+                // Encontrar a altura máxima
+                cards.forEach(card => {
+                    const cardHeight = card.offsetHeight;
+                    if (cardHeight > maxHeight) {
+                        maxHeight = cardHeight;
+                    }
+                });
+
+                // Aplicar altura máxima a todos os cards
+                if (maxHeight > 0) {
+                    cards.forEach(card => {
+                        card.style.height = maxHeight + 'px';
+                    });
+                }
             });
         });
     });
@@ -1841,11 +1857,11 @@ document.addEventListener('DOMContentLoaded', function() {
     //     });
     // });
 
-    // Ajustar tamanho dos mini-carousels baseado nas imagens
-    setTimeout(() => {
-        adjustMiniCarouselSize();
-        equalizeCarouselCardHeights();
-    }, 200); // Delay maior para garantir que imagens carregaram
+    // Ajustar tamanho dos mini-carousels e equalizar alturas
+    // Não precisa mais de setTimeout - a função equalizeCarouselCardHeights
+    // agora espera as imagens carregarem automaticamente
+    adjustMiniCarouselSize();
+    equalizeCarouselCardHeights();
 
     //Start Before/After slider
     const sliderElement = document.getElementById('slider');
