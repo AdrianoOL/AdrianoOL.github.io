@@ -1658,7 +1658,7 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
 
                         // Movimento unificado: todos os cards se movem juntos baseado no scroll
                         // scrollPercent de 0 a 1 controla movimento de 0vh a -200vh
-                        const totalMovement = 200; // Quanto o sistema inteiro se move (em vh)
+                        const totalMovement = (totalCards - 1) * 100; // Agora é dinâmico! // Quanto o sistema inteiro se move (em vh)
                         const baseTranslateY = 100 - (totalMovement * scrollPercent);
 
                         // Aplicar offset individual para cada card

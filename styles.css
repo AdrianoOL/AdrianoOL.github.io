@@ -930,6 +930,14 @@ img {
     border-width: 0 8px 8px 0;
 }
 
+/* Responsive: reduz margin e padding em mobile */
+@media (max-width: 768px) {
+    .corner-border {
+        margin: 0;
+        padding: 1.5rem;
+    }
+}
+
 /* Aumenta altura do texto */
 .text-taller {
     display: inline-block;
@@ -950,7 +958,7 @@ img {
 
 /* Classe para escurecer vídeos/imagens específicos */
 .card__image--darken {
-    filter: brightness(0.45);
+    filter: brightness(0.50);
 }
 
 /* ========================================
@@ -3287,6 +3295,11 @@ COMO USAR:
 
 /* Responsive adjustments for section-header-intro */
 @media (max-width: 768px) {
+    .section-header-intro {
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+    }
+
     .section-header-intro__columns {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -4316,11 +4329,21 @@ COMO USAR:
     .show-on-mobile {
         display: block !important;
     }
+
+    /* Suporte para resources-grid com show-on-mobile */
+    .resources-grid.show-on-mobile {
+        display: grid !important;
+    }
 }
 
 /* Ocultar versão mobile em desktop/tablet */
 @media (min-width: 481px) {
     .show-on-mobile {
+        display: none !important;
+    }
+
+    /* Suporte para resources-grid com show-on-mobile */
+    .resources-grid.show-on-mobile {
         display: none !important;
     }
 }
@@ -4520,6 +4543,11 @@ COMO USAR:
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Ajusta padding do body para compensar header fixo (40px logo + 32px padding) */
+    body {
+        padding-top: 72px;
+    }
+
     /* Reduzir margens horizontais em mobile - abordagem radical */
     .container {
         padding: 0 2px !important;
@@ -5130,11 +5158,16 @@ kbd {
 
 
 .theme-ai__hero-card--content {
-    background: rgba(0, 0, 0, 0.4); /* Fundo escuro com 40% de opacidade */
+    background: rgba(0, 0, 0, 0.25); /* Fundo escuro com 40% de opacidade */
     backdrop-filter: blur(10px); /* Efeito de blur no conteúdo atrás */
     -webkit-backdrop-filter: blur(10px); /* Suporte para Safari */
     z-index: 1;
     position: relative;
+}
+
+/* Força a cor do texto para branco nos cards de sobreposição (efeito de vidro) */
+.theme-ai__hero-card--content .card__description {
+    color: var(--color-text-light-primary); /* Usa sua variável global para branco puro */
 }
 
 .theme-ai__hero-card--content .card__media {
@@ -5339,6 +5372,11 @@ kbd {
     .theme-ai .step:hover .highlight {
         color: #ffffff;
     }
+
+.theme-ai .footnotes {
+    color: #a8b2d1; /* Um tom de azul-cinza claro e sutil */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
 
 /* --- Responsividade --- */
 @media (max-width: 800px) {
@@ -6626,4 +6664,262 @@ kbd {
     .acquisition-option {
         padding: 25px 20px;
     }
+}
+/* ===================================================
+   CÓDIGO COMPLETO E FINAL DO COMPONENTE VIEWPORT ANIMADO
+   =================================================== */
+
+.animated-viewport-wrapper {
+    width: 100%;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.animated-viewport-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+.animated-viewport {
+    position: relative;
+    background-color: #000;
+    -webkit-box-reflect: below 5px linear-gradient(transparent, rgba(0,0,0,0.4));
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out, background-color 0.4s ease;
+}
+
+/* --- A animação é acionada pela classe .visible no .card pai --- */
+.card.visible .animated-viewport {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animated-viewport:nth-child(3) {
+    width: 200px;
+    height: 200px;
+}
+
+.animated-viewport:nth-child(2), .animated-viewport:nth-child(4) {
+    width: 150px;
+    height: 150px;
+}
+
+.animated-viewport:nth-child(1), .animated-viewport:nth-child(5) {
+    width: 100px;
+    height: 100px;
+}
+
+/* --- CORREÇÃO: Mantém o efeito de cascata (stagger) usando transition-delay --- */
+.card.visible .animated-viewport:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.card.visible .animated-viewport:nth-child(2),
+.card.visible .animated-viewport:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.card.visible .animated-viewport:nth-child(1),
+.card.visible .animated-viewport:nth-child(5) {
+    transition-delay: 0.6s;
+}
+
+
+/* Efeito de revelação do texto (Opção 2) */
+.animated-viewport .context-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-text);
+    color: var(--color-accent-apple);
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+    pointer-events: none;
+}
+
+.animated-viewport:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+    .animated-viewport:hover .context-text {
+        opacity: 1;
+    }
+
+/* Tagline/Título abaixo da animação */
+.animated-viewport-tagline {
+    font-family: var(--font-text);
+    text-align: center;
+    font-weight: var(--font-weight-light);
+    letter-spacing: 1px;
+    margin-top: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease-out 1s, transform 1.5s ease-out 1s;
+}
+
+.card.visible .animated-viewport-tagline {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- ESTILO CORRETO DAS CANTONEIRAS  --- */
+.animated-viewport .corner {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    background: transparent !important;
+    border: none !important;
+    animation: viewportSubtlePulse 6s ease-in-out infinite;
+}
+
+    /* Regra que "desenha" as linhas azuladas */
+    .animated-viewport .corner::before,
+    .animated-viewport .corner::after {
+        content: '';
+        position: absolute;
+        background-color: var(--color-accent-apple);
+    }
+
+/* Posicionamento e tamanho de cada cantoneira com classes específicas */
+.animated-viewport .corner--top-left {
+    top: 15px;
+    left: 15px;
+    transform-origin: top left;
+}
+
+    .animated-viewport .corner--top-left::before {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .animated-viewport .corner--top-left::after {
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+    }
+
+.animated-viewport .corner--top-right {
+    top: 15px;
+    right: 15px;
+    transform-origin: top right;
+}
+
+    .animated-viewport .corner--top-right::before {
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .animated-viewport .corner--top-right::after {
+        top: 0;
+        right: 0;
+        width: 5px;
+        height: 100%;
+    }
+
+.animated-viewport .corner--bottom-left {
+    bottom: 15px;
+    left: 15px;
+    transform-origin: bottom left;
+}
+
+    .animated-viewport .corner--bottom-left::before {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .animated-viewport .corner--bottom-left::after {
+        bottom: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+    }
+
+.animated-viewport .corner--bottom-right {
+    bottom: 15px;
+    right: 15px;
+    transform-origin: bottom right;
+}
+
+    .animated-viewport .corner--bottom-right::before {
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .animated-viewport .corner--bottom-right::after {
+        bottom: 0;
+        right: 0;
+        width: 5px;
+        height: 100%;
+    }
+
+
+/* --- Animações Keyframes --- */
+
+
+@keyframes viewportSubtlePulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .animated-viewport-container {
+        gap: 15px;
+        transform: scale(0.8);
+    }
+
+    .animated-viewport-tagline {
+        margin-top: 10px;
+        font-size: var(--font-size-body);
+    }
+}
+
+/* =================================================================
+   ESTILO FINAL PARA IMAGEM CENTRALIZADA NO CARD DE IA
+   ================================================================= */
+
+.ia-card__image {
+    display: block; /* Garante que a imagem se comporte como um bloco */
+    position: relative; /* Tira a imagem do fundo e a coloca no fluxo normal */
+    z-index: 5; /* Garante que fique sobre outros elementos */
+    /* Dimensionamento e centralização */
+    width: auto; /* Usa a largura natural da imagem */
+    max-width: 100%; /* Garante que não ultrapasse a largura do container */
+    max-height: 400px; /* Limita a altura máxima para não ficar muito grande */
+    margin: 2rem auto; /* Adiciona espaçamento vertical e centraliza na horizontal */
+    /* Estilos Visuais */
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
