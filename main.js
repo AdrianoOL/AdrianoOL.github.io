@@ -35,18 +35,7 @@ function adjustOverlayRightTextSizes() {
             }
             // Caso contrário, usa a largura do container (imageWidth)
 
-            // Calcula tamanhos baseados na largura RENDERIZADA da imagem (reduzidos em 0.7)
-            // Título: 5.6% da largura da imagem (8% * 0.7)
-            const titleSize = Math.max(11, renderedWidth * 0.056); // Mínimo 11px
-            // Subtítulo: 1.54% da largura da imagem (2.2% * 0.7)
-            const subtitleSize = Math.max(8, renderedWidth * 0.0154); // Mínimo 8px
-            // Descrição: 1.26% da largura da imagem (1.8% * 0.7)
-            const descriptionSize = Math.max(7, renderedWidth * 0.0126); // Mínimo 7px
-
-            // Aplica os tamanhos
-            if (title) title.style.fontSize = titleSize + 'px';
-            if (subtitle) subtitle.style.fontSize = subtitleSize + 'px';
-            if (description) description.style.fontSize = descriptionSize + 'px';
+            // Tamanhos de fonte removidos - usando tamanhos originais do CSS
 
             // Ajusta posicionamento do conteúdo de forma suave e responsiva
             const content = card.querySelector('.card__content');
@@ -84,8 +73,8 @@ function adjustOverlayRightTextSizes() {
                     const maxWidthPercentage = Math.min(53, 43 + (cropPercentage * 0.3));
                     content.style.maxWidth = `${maxWidthPercentage}%`;
 
-                    // Margem direita fixa
-                    content.style.right = '1.5rem';
+                    // Margem direita reduzida
+                    content.style.right = '0.5rem';
 
                     // Reset mobile styles
                     content.style.top = '';
@@ -169,13 +158,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 function openVideo() {
     const modal = document.getElementById('videoModal');
     const videoFrame = document.getElementById('videoFrame');
-    
+
     // Substitua pela URL real do vídeo do YouTube/Vimeo
     const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
-    
+
     videoFrame.src = videoUrl;
     modal.style.display = 'block';
-    
+
     // Previne scroll do body quando modal está aberto
     document.body.style.overflow = 'hidden';
 }
@@ -183,10 +172,10 @@ function openVideo() {
 function closeVideo() {
     const modal = document.getElementById('videoModal');
     const videoFrame = document.getElementById('videoFrame');
-    
+
     videoFrame.src = '';
     modal.style.display = 'none';
-    
+
     // Restaura scroll do body
     document.body.style.overflow = 'auto';
 }
@@ -232,7 +221,7 @@ function initScrollAnimations() {
         }
         observer.observe(section);
     });
-    
+
     // Resource cards with alternating effects (novo sistema modular)
     const resourceCards = document.querySelectorAll('.card');
     resourceCards.forEach((card, index) => {
@@ -249,13 +238,13 @@ function initScrollAnimations() {
         } else {
             card.classList.add('fade-in-up');
         }
-        
+
         // Add stagger delay
         const delayIndex = (index % 3) + 1;
         card.classList.add(`stagger-delay-${delayIndex}`);
         observer.observe(card);
     });
-    
+
     // Small cards and carousel cards
     const smallCards = document.querySelectorAll('.pricing-card, .update-group');
     smallCards.forEach((card, index) => {
@@ -264,9 +253,9 @@ function initScrollAnimations() {
         card.classList.add(`stagger-delay-${delayIndex}`);
         observer.observe(card);
     });
-    
+
     // Hero section elements - removido as animações de opacidade, elementos ficam visíveis normalmente
-    
+
     // Pricing cards
     const pricingCards = document.querySelectorAll('.pricing-card');
     pricingCards.forEach((card, index) => {
@@ -274,7 +263,7 @@ function initScrollAnimations() {
         card.classList.add(`stagger-delay-${index + 1}`);
         observer.observe(card);
     });
-    
+
     // Update timeline items
     const updateItems = document.querySelectorAll('.update-item');
     updateItems.forEach((item, index) => {
@@ -308,13 +297,13 @@ function toggleMobileMenu() {
     const navMenu = document.querySelector('.nav-menu');
     const hamburger = document.querySelector('.hamburger');
     const overlay = document.querySelector('.nav-overlay');
-    
+
     navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
     if (overlay) {
         overlay.classList.toggle('active');
     }
-    
+
     // Prevenir scroll do body quando menu está ativo
     //document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
 }
@@ -324,26 +313,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.getElementById('hamburgerBtn');
     const navMenu = document.getElementById('navMenu');
     const overlay = document.getElementById('navOverlay');
-    
+
     function closeMobileMenu() {
         if (navMenu) navMenu.classList.remove('active');
         if (hamburger) hamburger.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
         //document.body.style.overflow = 'auto';
     }
-    
+
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', toggleMobileMenu);
-        
+
         // Fechar menu ao clicar no overlay
         if (overlay) {
             overlay.addEventListener('click', closeMobileMenu);
         }
-        
+
         // Fechar menu ao clicar em um link
         // REMOVIDO: Não adicionar listener aqui, deixar apenas o listener geral funcionar
         // para ter o mesmo comportamento do botão Adquirir
-        
+
         // Fechar menu com tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -484,7 +473,7 @@ function shouldCarouselAnimate(carousel) {
     if (!isCarouselInViewport(carousel)) {
         return false;
     }
-    
+
     // 2. Verificar se o card que contém o carousel é o card ativo (se aplicável)
     const parentCard = carousel.closest('.card');
     if (parentCard) {
@@ -498,7 +487,7 @@ function shouldCarouselAnimate(carousel) {
             }
         }
     }
-    
+
     return true; // Se não há restrições, pode animar
 }
 
@@ -508,16 +497,16 @@ function isCarouselInViewport(carousel) {
     if (carousel.dataset.inViewport !== undefined) {
         return carousel.dataset.inViewport === 'true';
     }
-    
+
     // Fallback: verificação manual (para casos onde o observador ainda não executou)
     const rect = carousel.getBoundingClientRect();
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-    
+
     // Verificar se pelo menos 50% do carousel está visível
     const verticalInView = (rect.top < windowHeight * 0.5) && (rect.bottom > windowHeight * 0.5);
     const horizontalInView = (rect.left < windowWidth) && (rect.right > 0);
-    
+
     return verticalInView && horizontalInView;
 }
 
@@ -525,7 +514,7 @@ function isCarouselInViewport(carousel) {
 function notifyCardStateChange(card, isActive) {
     // Encontrar todos os mini-carousels dentro deste card
     const miniCarousels = card.querySelectorAll('.mini-carousel');
-    
+
     miniCarousels.forEach(carousel => {
         if (isActive) {
             // Card se tornou ativo - tentar iniciar animação
@@ -563,15 +552,15 @@ function getCarouselIndex(targetCarousel) {
 function tryStartCarouselAnimation(carousel) {
     const images = carousel.querySelectorAll('.mini-carousel-image');
     if (images.length <= 1) return; // Não animar se só há 1 imagem
-    
+
     // Verificar se deve animar e se já não está animando
     if (shouldCarouselAnimate(carousel) && !carousel.autoTimer) {
         const carouselIndex = getCarouselIndex(carousel);
         const isClean = carousel.classList.contains('mini-carousel--clean');
-        
+
         // Resetar para primeira imagem quando iniciar animação
         resetToFirstSlide(carousel);
-        
+
         if (isClean) {
             startCleanCarouselAutoTimer(carousel, carouselIndex, 0);
         } else {
@@ -592,13 +581,13 @@ function pauseCarouselAnimation(carousel) {
 function resetToFirstSlide(carousel) {
     const images = carousel.querySelectorAll('.mini-carousel-image');
     const dots = carousel.querySelectorAll('.mini-dot');
-    
+
     // Remover classe active de todas as imagens
     images.forEach(img => img.classList.remove('active'));
-    
+
     // Remover classe active de todos os dots
     dots.forEach(dot => dot.classList.remove('active'));
-    
+
     // Ativar primeira imagem e primeiro dot
     if (images.length > 0) {
         images[0].classList.add('active');
@@ -612,9 +601,9 @@ function resetToFirstSlide(carousel) {
 function startCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex = 0) {
     const images = carousel.querySelectorAll('.mini-carousel-image');
     if (images.length <= 1) return; // Não precisa de timer se só há 1 imagem
-    
+
     let slideIndex = currentSlideIndex;
-    
+
     // Função para obter o tempo de uma imagem específica
     function getImageTiming(imageIndex) {
         const image = images[imageIndex];
@@ -622,7 +611,7 @@ function startCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex = 0) 
         const customTiming = image ? image.getAttribute('data-timing') : null;
         return customTiming ? parseInt(customTiming) : 4000; // Default 4 segundos
     }
-    
+
     function scheduleNextSlide() {
         // Verificar se o carousel ainda deve estar animando antes de agendar próximo slide
         if (!shouldCarouselAnimate(carousel)) {
@@ -630,23 +619,23 @@ function startCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex = 0) 
             carousel.autoTimer = setTimeout(scheduleNextSlide, 1000);
             return;
         }
-        
+
         const currentTiming = getImageTiming(slideIndex);
-        
+
         carousel.autoTimer = setTimeout(() => {
             // Verificar novamente antes de executar a animação
             if (!shouldCarouselAnimate(carousel)) {
                 scheduleNextSlide(); // Reagendar
                 return;
             }
-            
+
             slideIndex = (slideIndex + 1) % images.length;
             // Não reiniciar timer aqui (false) pois é mudança automática
             currentMiniSlide(slideIndex + 1, carouselIndex, false);
             scheduleNextSlide(); // Agendar próximo slide com novo timing
         }, currentTiming);
     }
-    
+
     scheduleNextSlide();
 }
 
@@ -654,9 +643,9 @@ function startCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex = 0) 
 function startCleanCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex = 0) {
     const images = carousel.querySelectorAll('.mini-carousel-image');
     if (images.length <= 1) return; // Não precisa de timer se só há 1 imagem
-    
+
     let slideIndex = currentSlideIndex;
-    
+
     // Função para obter o tempo de uma imagem específica
     function getImageTiming(imageIndex) {
         const image = images[imageIndex];
@@ -664,7 +653,7 @@ function startCleanCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex 
         const customTiming = image ? image.getAttribute('data-timing') : null;
         return customTiming ? parseInt(customTiming) : 3000; // Default 3 segundos para carousel minimalista
     }
-    
+
     function scheduleNextSlide() {
         // Verificar se o carousel ainda deve estar animando antes de agendar próximo slide
         if (!shouldCarouselAnimate(carousel)) {
@@ -672,9 +661,9 @@ function startCleanCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex 
             carousel.autoTimer = setTimeout(scheduleNextSlide, 1000);
             return;
         }
-        
+
         const currentTiming = getImageTiming(slideIndex);
-        
+
         carousel.autoTimer = setTimeout(() => {
             // Verificar novamente antes de executar a animação
             if (!shouldCarouselAnimate(carousel)) {
@@ -693,9 +682,9 @@ function startCleanCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex 
 
             // Remove active da imagem atual
             images[slideIndex].classList.remove('active');
-            
+
             slideIndex = (slideIndex + 1) % images.length;
-            
+
             // Adiciona active na próxima imagem
             images[slideIndex].classList.add('active');
 
@@ -710,21 +699,21 @@ function startCleanCarouselAutoTimer(carousel, carouselIndex, currentSlideIndex 
             scheduleNextSlide(); // Agendar próximo slide com novo timing
         }, currentTiming);
     }
-    
+
     scheduleNextSlide();
 }
 
 // Auto-advance mini carousels
 function startMiniCarousels() {
     const miniCarousels = document.querySelectorAll('.mini-carousel');
-    
+
     // Configurar observador de viewport para otimização de performance
     setupMiniCarouselViewportObserver();
-    
+
     miniCarousels.forEach((carousel, index) => {
         const images = carousel.querySelectorAll('.mini-carousel-image');
         const isCleanCarousel = carousel.classList.contains('mini-carousel--clean');
-        
+
         // PRIMEIRO: Garantir que a primeira imagem esteja ativa
         if (images.length > 0) {
             // Limpar todas as classes active primeiro
@@ -732,12 +721,12 @@ function startMiniCarousels() {
             // Ativar apenas a primeira imagem
             images[0].classList.add('active');
         }
-        
+
         // DEPOIS: Setup dos controles apenas para carousels normais
         if (!isCleanCarousel) {
             setupCarouselControls(carousel, index);
         }
-        
+
         // Auto-advance apenas se há mais de 1 imagem E se deve estar animando
         if (images.length > 1 && shouldCarouselAnimate(carousel)) {
             if (isCleanCarousel) {
@@ -757,16 +746,16 @@ function setupMiniCarouselViewportObserver() {
         threshold: 0.5, // 50% do carousel deve estar visível
         rootMargin: '100px' // Começar a observar 100px antes
     };
-    
+
     const viewportObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const carousel = entry.target;
             const isVisible = entry.isIntersecting;
             const wasVisible = carousel.dataset.inViewport === 'true';
-            
+
             // Marcar o carousel como visível/invisível
             carousel.dataset.inViewport = isVisible ? 'true' : 'false';
-            
+
             // Se mudou de estado de visibilidade
             if (isVisible !== wasVisible) {
                 if (isVisible) {
@@ -779,7 +768,7 @@ function setupMiniCarouselViewportObserver() {
             }
         });
     }, observerOptions);
-    
+
     // Observar todos os mini-carousels
     const miniCarousels = document.querySelectorAll('.mini-carousel');
     miniCarousels.forEach(carousel => {
@@ -787,7 +776,7 @@ function setupMiniCarouselViewportObserver() {
         // Inicializar como não visível
         carousel.dataset.inViewport = 'false';
     });
-    
+
     // Após configurar o observador, verificar estado inicial dos carousels visíveis
     setTimeout(() => {
         miniCarousels.forEach(carousel => {
@@ -802,7 +791,7 @@ function setupMiniCarouselViewportObserver() {
 // Carrossel de Cards (resources-grid--carousel)
 function setupCardCarousels() {
     const cardCarousels = document.querySelectorAll('.resources-grid--carousel');
-    
+
     cardCarousels.forEach((carousel, index) => {
         setupCardCarouselControls(carousel, index);
         initCardCarouselSwipe(carousel, index);
@@ -812,62 +801,62 @@ function setupCardCarousels() {
 function setupCardCarouselControls(carousel, carouselIndex) {
     const cards = carousel.querySelectorAll('.card');
     if (cards.length <= 1) return; // Não precisa de carrossel para 1 card
-    
+
     let currentSlide = 0; // Posição atual (0 a totalSlides-1)  
     const totalSlides = cards.length;
     let isTransitioning = false;
-    
+
     // Criar wrapper track se não existir
     let track = carousel.querySelector('.resources-grid-track');
     if (!track) {
         track = document.createElement('div');
         track.className = 'resources-grid-track';
-        
+
         // CONTINUIDADE VISUAL: Clone básico do último/primeiro
-        
+
         // Clone do último card no início (para ver à esquerda do primeiro)
         const lastCardClone = cards[cards.length - 1].cloneNode(true);
         lastCardClone.classList.add('card-clone');
         lastCardClone.dataset.originalIndex = cards.length - 1;
         track.appendChild(lastCardClone);
-        
+
         // Cards originais
         cards.forEach((card, index) => {
             card.dataset.originalIndex = index;
             card.classList.remove('card-clone');
             track.appendChild(card);
         });
-        
+
         // Clone do primeiro card no final (para ver à direita do último)
         const firstCardClone = cards[0].cloneNode(true);
         firstCardClone.classList.add('card-clone');
         firstCardClone.dataset.originalIndex = 0;
         track.appendChild(firstCardClone);
-        
+
         carousel.appendChild(track);
     }
-    
+
     // Criar botões prev/next
     let prevBtn = carousel.querySelector('.carousel-btn.prev');
     let nextBtn = carousel.querySelector('.carousel-btn.next');
-    
+
     if (!prevBtn) {
         prevBtn = document.createElement('button');
         prevBtn.className = 'carousel-btn prev';
         prevBtn.innerHTML = '‹';
         carousel.appendChild(prevBtn);
     }
-    
+
     if (!nextBtn) {
         nextBtn = document.createElement('button');
         nextBtn.className = 'carousel-btn next';
         nextBtn.innerHTML = '›';
         carousel.appendChild(nextBtn);
     }
-    
+
     // Detectar se o carousel usa abas em vez de dots
     const usesTabs = carousel.classList.contains('resources-grid--carousel--tabs');
-    
+
     if (usesTabs) {
         // Criar abas com texto
         let tabsContainer = carousel.querySelector('.carousel-tabs');
@@ -876,7 +865,7 @@ function setupCardCarouselControls(carousel, carouselIndex) {
             tabsContainer.className = 'carousel-tabs';
             carousel.appendChild(tabsContainer);
         }
-        
+
         // Limpar e criar abas baseado nos títulos dos cards
         tabsContainer.innerHTML = '';
         cards.forEach((card, tabIndex) => {
@@ -895,7 +884,7 @@ function setupCardCarouselControls(carousel, carouselIndex) {
             dotsContainer.className = 'carousel-dots';
             carousel.appendChild(dotsContainer);
         }
-        
+
         // Limpar e criar dots baseado no número de cards
         dotsContainer.innerHTML = '';
         cards.forEach((_, dotIndex) => {
@@ -905,57 +894,57 @@ function setupCardCarouselControls(carousel, carouselIndex) {
             dotsContainer.appendChild(dot);
         });
     }
-    
+
     // Função para mover para slide específico (compensando clone inicial)
     function moveToSlide(slideIndex, withTransition = true) {
         if (slideIndex < 0 || slideIndex >= totalSlides) return;
-        
+
         const allTrackItems = track.querySelectorAll('.card');
         const carouselWidth = carousel.offsetWidth;
         const isMobile = window.innerWidth <= 768;
         const gap = isMobile ? 24 : 32; // 1.5rem mobile, 2rem desktop
-        
+
         // Posição física = slideIndex + 1 (devido ao clone inicial)
         const physicalPosition = slideIndex + 1;
         const targetCard = allTrackItems[physicalPosition];
         if (!targetCard) return;
-        
+
         // Centralizar o card - método híbrido mais preciso
         const targetCardWidth = targetCard.offsetWidth;
         const effectiveCarouselWidth = isMobile ? window.innerWidth : carouselWidth;
-        
+
         // Calcular posição relativa do card no track (sem transforms anteriores)
         let cardPosition = 0;
         for (let i = 0; i < physicalPosition; i++) {
             cardPosition += allTrackItems[i].offsetWidth + gap;
         }
-        
+
         // Calcular centro do viewport com offset para mobile
         const mobileOffset = isMobile ? 10 : 0; // Compensar margin negativo
         const viewportCenter = (effectiveCarouselWidth / 2) + mobileOffset;
-        
+
         // Posição do centro do card alvo
         const targetCardCenter = cardPosition + (targetCardWidth / 2);
-        
+
         // Calcular translateX para centralizar
         const translateX = viewportCenter - targetCardCenter;
-        
+
         track.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
         track.style.transform = `translateX(${translateX}px)`;
-        
+
         // Atualizar posição atual
         currentSlide = slideIndex;
-        
+
         // Se não tem transição, restaurar transições após um frame
         if (!withTransition) {
             requestAnimationFrame(() => {
                 track.style.transition = 'transform 0.5s ease-in-out';
             });
         }
-        
+
         // Detectar se usa sistema de destaque
         const usesHighlight = carousel.classList.contains('resources-grid--carousel--highlight');
-        
+
         // Atualizar indicadores (dots ou abas)
         if (usesTabs) {
             const tabs = carousel.querySelectorAll('.carousel-tab');
@@ -968,7 +957,7 @@ function setupCardCarouselControls(carousel, carouselIndex) {
                 dot.classList.toggle('active', index === currentSlide);
             });
         }
-        
+
         // Sistema de destaque: marcar cards com mesmo originalIndex como ativos
         if (usesHighlight) {
             const allTrackItems = track.querySelectorAll('.card');
@@ -976,9 +965,9 @@ function setupCardCarouselControls(carousel, carouselIndex) {
                 const cardOriginalIndex = parseInt(trackCard.dataset.originalIndex);
                 const wasActive = trackCard.classList.contains('active');
                 const willBeActive = cardOriginalIndex === currentSlide;
-                
+
                 trackCard.classList.toggle('active', willBeActive);
-                
+
                 // Notificar mudança de estado para mini-carousels
                 if (wasActive !== willBeActive) {
                     notifyCardStateChange(trackCard, willBeActive);
@@ -986,32 +975,32 @@ function setupCardCarouselControls(carousel, carouselIndex) {
             });
         }
     }
-    
+
     // Função para navegar com wrap-around simples
     function navigateCardCarousel(direction) {
         if (isTransitioning) return;
-        
+
         let newSlide = currentSlide + direction;
-        
+
         // Wrap around - volta para o início/fim
         if (newSlide >= totalSlides) {
             newSlide = 0; // Volta para o primeiro
         } else if (newSlide < 0) {
             newSlide = totalSlides - 1; // Vai para o último
         }
-        
+
         moveToSlide(newSlide, true);
     }
-    
+
     // Setup eventos dos botões
     prevBtn.onclick = () => navigateCardCarousel(-1);
     nextBtn.onclick = () => navigateCardCarousel(1);
-    
+
     // Tornar função acessível globalmente para swipe
     carousel.moveToSlide = moveToSlide;
     carousel.navigateCardCarousel = navigateCardCarousel;
     carousel.currentSlide = () => currentSlide;
-    
+
     // Inicializar sistema de destaque se necessário
     const usesHighlight = carousel.classList.contains('resources-grid--carousel--highlight');
     if (usesHighlight) {
@@ -1019,9 +1008,9 @@ function setupCardCarouselControls(carousel, carouselIndex) {
         cards.forEach((card, index) => {
             const wasActive = card.classList.contains('active');
             const willBeActive = index === 0;
-            
+
             card.classList.toggle('active', willBeActive);
-            
+
             // Notificar mudança inicial para mini-carousels
             if (wasActive !== willBeActive) {
                 notifyCardStateChange(card, willBeActive);
@@ -1030,7 +1019,7 @@ function setupCardCarouselControls(carousel, carouselIndex) {
     }
     carousel.totalSlides = totalSlides;
     carousel.physicalPosition = () => physicalPosition;
-    
+
     // Centralizar o primeiro card na inicialização
     setTimeout(() => {
         // Inicializar sem transição para evitar animação inicial
@@ -1039,7 +1028,7 @@ function setupCardCarouselControls(carousel, carouselIndex) {
         // Restaurar transição após posicionamento inicial
         setTimeout(() => {
             track.style.transition = 'transform 0.5s ease-in-out';
-            
+
             // Garantir que mini-carousels do primeiro card sejam iniciados
             if (usesHighlight && cards.length > 0) {
                 const firstCard = cards[0];
@@ -1061,17 +1050,17 @@ function initCardCarouselSwipe(carousel, carouselIndex) {
     let endY = 0;
     let isDown = false;
     const minSwipeDistance = 50;
-    
+
     const track = carousel.querySelector('.resources-grid-track');
     if (!track) return;
-    
+
     // Touch events
     track.addEventListener('touchstart', (e) => {
         isDown = true;
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
     });
-    
+
     track.addEventListener('touchmove', (e) => {
         if (!isDown) return;
 
@@ -1085,17 +1074,17 @@ function initCardCarouselSwipe(carousel, carouselIndex) {
             e.preventDefault();
         }
     });
-    
+
     track.addEventListener('touchend', (e) => {
         if (!isDown) return;
         isDown = false;
-        
+
         endX = e.changedTouches[0].clientX;
         endY = e.changedTouches[0].clientY;
-        
+
         handleCardSwipe();
     });
-    
+
     // Mouse events
     track.addEventListener('mousedown', (e) => {
         isDown = true;
@@ -1103,32 +1092,32 @@ function initCardCarouselSwipe(carousel, carouselIndex) {
         startY = e.clientY;
         track.style.cursor = 'grabbing';
     });
-    
+
     track.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
     });
-    
+
     track.addEventListener('mouseup', (e) => {
         if (!isDown) return;
         isDown = false;
         track.style.cursor = 'grab';
-        
+
         endX = e.clientX;
         endY = e.clientY;
-        
+
         handleCardSwipe();
     });
-    
+
     track.addEventListener('mouseleave', () => {
         isDown = false;
         track.style.cursor = 'grab';
     });
-    
+
     function handleCardSwipe() {
         const diffX = startX - endX;
         const diffY = startY - endY;
-        
+
         // Check if it's more horizontal than vertical movement
         if (Math.abs(diffX) > Math.abs(diffY)) {
             if (Math.abs(diffX) > minSwipeDistance) {
@@ -1160,25 +1149,25 @@ function setupCarouselControls(carousel, carouselIndex) {
 
     // Se não há track ou menos de 2 imagens, não precisa de controles
     if (!track || images.length < 2) return;
-    
+
     // Criar botões prev/next se não existirem
     let prevBtn = carousel.querySelector('.mini-carousel-btn.prev, .mini-prev');
     let nextBtn = carousel.querySelector('.mini-carousel-btn.next, .mini-next');
-    
+
     if (!prevBtn) {
         prevBtn = document.createElement('button');
         prevBtn.className = 'mini-carousel-btn prev';
         prevBtn.innerHTML = '‹';
         carousel.appendChild(prevBtn);
     }
-    
+
     if (!nextBtn) {
         nextBtn = document.createElement('button');
         nextBtn.className = 'mini-carousel-btn next';
         nextBtn.innerHTML = '›';
         carousel.appendChild(nextBtn);
     }
-    
+
     // Setup eventos dos botões
     prevBtn.removeEventListener('click', prevBtn._clickHandler);
     nextBtn.removeEventListener('click', nextBtn._clickHandler);
@@ -1192,7 +1181,7 @@ function setupCarouselControls(carousel, carouselIndex) {
 
     prevBtn.addEventListener('click', prevBtn._clickHandler);
     nextBtn.addEventListener('click', nextBtn._clickHandler);
-    
+
     // Criar container de dots se não existir
     let dotsContainer = carousel.querySelector('.mini-carousel-dots');
     if (!dotsContainer) {
@@ -1224,10 +1213,10 @@ function createSimpleCarousel(container, imageUrls, altTexts = []) {
     // Criar estrutura básica
     const carousel = document.createElement('div');
     carousel.className = 'mini-carousel';
-    
+
     const track = document.createElement('div');
     track.className = 'mini-carousel-track';
-    
+
     // Criar imagens
     imageUrls.forEach((url, index) => {
         const img = document.createElement('img');
@@ -1236,10 +1225,10 @@ function createSimpleCarousel(container, imageUrls, altTexts = []) {
         img.className = index === 0 ? 'mini-carousel-image active' : 'mini-carousel-image';
         track.appendChild(img);
     });
-    
+
     carousel.appendChild(track);
     container.appendChild(carousel);
-    
+
     // O sistema automático cuidará dos controles
     return carousel;
 }
@@ -1296,7 +1285,7 @@ function equalizeCarouselCardHeights() {
 // Função simplificada - mini-carousel agora se comporta naturalmente
 function adjustMiniCarouselSize() {
     const miniCarousels = document.querySelectorAll('.mini-carousel');
-    
+
     // Não precisa mais de lógica complexa - o CSS reformulado 
     // faz a imagem ativa determinar o tamanho naturalmente
     miniCarousels.forEach((carousel, carouselIndex) => {
@@ -1307,36 +1296,36 @@ function adjustMiniCarouselSize() {
 // Carousel com Efeito Fade
 function initCarouselFade() {
     const fadeCarousels = document.querySelectorAll('.resources-grid--carousel-fade');
-    
+
     fadeCarousels.forEach(carousel => {
         const cards = carousel.querySelectorAll('.card');
         if (cards.length <= 1) return;
-        
+
         let currentSlide = 0;
         let autoPlayInterval;
         let progressInterval;
         const autoPlayDuration = 5000; // 5 segundos por slide
-        
+
         // Inicializar primeiro card como ativo
         cards[0].classList.add('active');
-        
+
         // Configurar altura inicial do container
         setTimeout(() => adjustContainerHeight(0), 100);
-        
+
         // Criar controles
         const controls = document.createElement('div');
         controls.className = 'carousel-fade-controls';
-        
+
         // Botão anterior
         const prevBtn = document.createElement('button');
         prevBtn.className = 'carousel-fade-btn';
         prevBtn.innerHTML = '&#8249;';
         prevBtn.onclick = () => goToSlide(currentSlide - 1);
-        
+
         // Container dos dots
         const dotsContainer = document.createElement('div');
         dotsContainer.className = 'carousel-fade-dots';
-        
+
         // Criar dots
         cards.forEach((_, index) => {
             const dot = document.createElement('span');
@@ -1344,34 +1333,34 @@ function initCarouselFade() {
             dot.onclick = () => goToSlide(index);
             dotsContainer.appendChild(dot);
         });
-        
+
         // Botão próximo
         const nextBtn = document.createElement('button');
         nextBtn.className = 'carousel-fade-btn';
         nextBtn.innerHTML = '&#8250;';
         nextBtn.onclick = () => goToSlide(currentSlide + 1);
-        
+
         // Barra de progresso
         const progressContainer = document.createElement('div');
         progressContainer.className = 'carousel-fade-progress';
         const progressBar = document.createElement('div');
         progressBar.className = 'carousel-fade-progress-bar';
         progressContainer.appendChild(progressBar);
-        
+
         // Montar controles
         controls.appendChild(prevBtn);
         controls.appendChild(dotsContainer);
         controls.appendChild(nextBtn);
-        
+
         // Adicionar controles ao carousel
         carousel.appendChild(controls);
         carousel.appendChild(progressContainer);
-        
+
         // Função para ajustar altura do container
         function adjustContainerHeight(targetIndex) {
             const targetCard = cards[targetIndex];
             if (!targetCard) return;
-            
+
             // Criar clone invisível para medir altura sem afetar o original
             const clone = targetCard.cloneNode(true);
             clone.style.position = 'absolute';
@@ -1380,11 +1369,11 @@ function initCarouselFade() {
             clone.style.opacity = '1';
             clone.style.pointerEvents = 'none';
             clone.style.width = targetCard.offsetWidth + 'px';
-            
+
             document.body.appendChild(clone);
             const targetHeight = clone.offsetHeight;
             document.body.removeChild(clone);
-            
+
             // Animar altura do container
             carousel.style.height = targetHeight + 'px';
         }
@@ -1393,76 +1382,76 @@ function initCarouselFade() {
         function goToSlide(slideIndex) {
             // Parar auto-play temporariamente
             stopAutoPlay();
-            
+
             // Normalizar índice
             if (slideIndex >= cards.length) slideIndex = 0;
             if (slideIndex < 0) slideIndex = cards.length - 1;
-            
+
             // Se já está no slide atual, não fazer nada
             if (slideIndex === currentSlide) {
                 startAutoPlay();
                 return;
             }
-            
+
             // Ajustar altura do container para o próximo card
             adjustContainerHeight(slideIndex);
-            
+
             // Cross fade puro - apenas remover/adicionar classe active
             cards[currentSlide].classList.remove('active');
             cards[slideIndex].classList.add('active');
-            
+
             // Atualizar dots
             dotsContainer.children[currentSlide].classList.remove('active');
             dotsContainer.children[slideIndex].classList.add('active');
-            
+
             currentSlide = slideIndex;
-            
+
             // Reiniciar auto-play após transição
             setTimeout(startAutoPlay, 600);
         }
-        
+
         // Auto-play
         function startAutoPlay() {
             stopAutoPlay(); // Limpar intervalos anteriores
-            
+
             // Iniciar progresso
             progressBar.style.transition = `width ${autoPlayDuration}ms linear`;
             progressBar.style.width = '100%';
-            
+
             autoPlayInterval = setTimeout(() => {
                 goToSlide(currentSlide + 1);
             }, autoPlayDuration);
         }
-        
+
         function stopAutoPlay() {
             if (autoPlayInterval) {
                 clearTimeout(autoPlayInterval);
                 autoPlayInterval = null;
             }
-            
+
             // Reset progresso
             progressBar.style.transition = 'none';
             progressBar.style.width = '0%';
-            
+
             // Pequeno delay para reiniciar progresso suavemente
             setTimeout(() => {
                 progressBar.style.transition = `width ${autoPlayDuration}ms linear`;
             }, 50);
         }
-        
+
         // Pausar auto-play ao hover
         carousel.addEventListener('mouseenter', stopAutoPlay);
         carousel.addEventListener('mouseleave', startAutoPlay);
-        
+
         // Controle por teclado
         carousel.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
             if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
         });
-        
+
         // Tornar carousel focável
         carousel.setAttribute('tabindex', '0');
-        
+
         // Iniciar auto-play
         startAutoPlay();
     });
@@ -1500,10 +1489,21 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
     // Criar nova estrutura
     const stickyContainer = document.createElement('div');
     stickyContainer.className = 'scroll-fade-sticky';
-    
+
     const contentArea = document.createElement('div');
     contentArea.className = 'scroll-fade-content';
-    
+
+    if (originalElement.dataset.withBlur === 'true') {
+        originalElement.classList.add('has-blur-effect');
+
+        // Criar o painel de blur, mas começar com ele invisível
+        const blurPane = document.createElement('div');
+        blurPane.className = 'blur-pane';
+        blurPane.style.opacity = '0'; // Começa invisível
+        blurPane.style.transition = 'opacity 0.4s ease-out'; // Para uma transição suave
+        contentArea.appendChild(blurPane);
+    }
+
     // Mover cards para nova estrutura
     cards.forEach((card, index) => {
         const cardClone = card.cloneNode(true);
@@ -1511,7 +1511,7 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
         if (index === 0) cardClone.classList.add('active');
         contentArea.appendChild(cardClone);
     });
-    
+
     // Não criar indicadores de progresso para scroll-fade
     // (os dots são usados apenas em carousels tradicionais)
 
@@ -1526,7 +1526,7 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
     // Substituir elemento original
     originalElement.innerHTML = '';
     originalElement.appendChild(stickyContainer);
-    
+
     // Configuração do sistema contínuo
     const newCards = contentArea.querySelectorAll('.card');
 
@@ -1590,119 +1590,125 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
         const elementHeight = originalElement.offsetHeight;
         const viewportHeight = window.innerHeight;
 
-        // Verificar se a seção está na viewport
         const isInView = rect.top <= 0 && rect.bottom >= viewportHeight;
+        if (!isInView) { return; }
 
-        if (isInView) {
-            // Calcular progresso dentro da seção (0 a 1)
-            const scrolledIntoSection = Math.abs(rect.top);
-            const maxScroll = elementHeight - viewportHeight;
-            let scrollPercent = Math.min(Math.max(scrolledIntoSection / maxScroll, 0), 1);
-            
-            // Manter altura fixa do primeiro card (fundo)
-            adjustStickyHeight(0);
+        // Calcular progresso dentro da seção (0 a 1)
+        const scrolledIntoSection = Math.max(0, -rect.top);
+        const maxScroll = elementHeight - viewportHeight;
+        let scrollPercent = maxScroll > 0 ? Math.min(scrolledIntoSection / maxScroll, 1) : 0;
 
-            // Aplicar opacidade e transformação para efeito paralax
-            // NOVO: Primeiro card sempre fixo (fundo), demais cards rolam por cima com movimento
-            newCards.forEach((card, index) => {
-                let opacity = 0;
-                let translateY = 0;
+        if (originalElement.dataset.withBlur === 'true') {
+            const blurPane = contentArea.querySelector('.blur-pane');
+            if (blurPane) {
+                blurPane.style.opacity = scrollPercent > 0.01 ? '1' : '0';
+            }
+        }
 
-                // Primeiro card sempre visível como fundo, fixo
-                if (index === 0) {
-                    opacity = 1;
-                    card.style.zIndex = '1';
-                    translateY = 0;
-                } else {
-                    // Cards 2+ rolam por cima do primeiro
-                    card.style.zIndex = '10'; // Z-index alto para ficar sobre o primeiro
+        // Manter altura fixa do primeiro card (fundo)
+        adjustStickyHeight(0);
 
-                    if (animationType === 'fade-center') {
-                        // MODO FADE-CENTER: Cards sobem até o centro e desaparecem
-                        // Cada card tem seu próprio segmento de scroll
+        // Aplicar opacidade e transformação para efeito paralax
+        // NOVO: Primeiro card sempre fixo (fundo), demais cards rolam por cima com movimento
+        newCards.forEach((card, index) => {
+            let opacity = 0;
+            let translateY = 0;
 
-                        const cardIndex = index - 1; // Index relativo aos cards móveis (Card 2 = 0, Card 3 = 1)
-                        const segmentSize = 1 / (totalCards - 1); // Tamanho de cada segmento
-                        const segmentStart = cardIndex * segmentSize;
-                        const segmentEnd = (cardIndex + 1) * segmentSize;
+            // Primeiro card sempre visível como fundo, fixo
+            if (index === 0) {
+                opacity = 1;
+                card.style.zIndex = '1';
+                translateY = 0;
+            } else {
+                // Cards 2+ rolam por cima do primeiro
+                card.style.zIndex = '10'; // Z-index alto para ficar sobre o primeiro
 
-                        if (scrollPercent < segmentStart) {
-                            // Card ainda não entrou
-                            opacity = 0;
-                            translateY = 100;
-                        } else if (scrollPercent >= segmentStart && scrollPercent < segmentEnd) {
-                            // Card está ativo
-                            const segmentProgress = (scrollPercent - segmentStart) / segmentSize;
+                if (animationType === 'fade-center') {
+                    // MODO FADE-CENTER: Cards sobem até o centro e desaparecem
+                    // Cada card tem seu próprio segmento de scroll
 
-                            // Fase 1 (0% - 60%): Sobe até o centro
-                            // Fase 2 (60% - 100%): Fica no centro e faz fade out
-                            if (segmentProgress < 0.6) {
-                                // Subindo até o centro
-                                const moveProgress = segmentProgress / 0.6;
-                                translateY = 100 * (1 - moveProgress); // De 100vh para 0vh
-                                opacity = 1;
-                            } else {
-                                // Parado no centro, fazendo fade out
+                    const cardIndex = index - 1; // Index relativo aos cards móveis (Card 2 = 0, Card 3 = 1)
+                    const segmentSize = 1 / (totalCards - 1); // Tamanho de cada segmento
+                    const segmentStart = cardIndex * segmentSize;
+                    const segmentEnd = (cardIndex + 1) * segmentSize;
+
+                    if (scrollPercent < segmentStart) {
+                        // Card ainda não entrou
+                        opacity = 0;
+                        translateY = 100;
+                    } else if (scrollPercent >= segmentStart && scrollPercent < segmentEnd) {
+                        // Card está ativo
+                        const segmentProgress = (scrollPercent - segmentStart) / segmentSize;
+
+                        // Fase 1 (0% - 60%): Sobe até o centro
+                        // Fase 2 (60% - 100%): Fica no centro e faz fade out
+                        if (segmentProgress < 0.6) {
+                            // Subindo até o centro
+                            const moveProgress = segmentProgress / 0.6;
+                            translateY = 100 * (1 - moveProgress); // De 100vh para 0vh
+                            opacity = 1;
+                        } else {
+                            // Parado no centro, fazendo fade out
+                            translateY = 0;
+                            const fadeProgress = (segmentProgress - 0.6) / 0.4;
+                            opacity = 1 - fadeProgress;
+                        }
+
+                        // Último card: não faz fade out
+                        if (index === totalCards - 1) {
+                            translateY = 100 * (1 - segmentProgress);
+                            if (translateY <= 0) {
                                 translateY = 0;
-                                const fadeProgress = (segmentProgress - 0.6) / 0.4;
-                                opacity = 1 - fadeProgress;
                             }
-
-                            // Último card: não faz fade out
-                            if (index === totalCards - 1) {
-                                translateY = 100 * (1 - segmentProgress);
-                                if (translateY <= 0) {
-                                    translateY = 0;
-                                }
-                                opacity = 1;
-                            }
-                        } else {
-                            // Card já passou
-                            opacity = 0;
-                            translateY = 0;
+                            opacity = 1;
                         }
-
                     } else {
-                        // MODO CONTINUOUS (padrão): Cards rolam continuamente
+                        // Card já passou
+                        opacity = 0;
+                        translateY = 0;
+                    }
 
-                        // Sistema de "fila": cards móveis ficam um embaixo do outro
-                        // Todos se movem juntos com a mesma velocidade, sem gaps
+                } else {
+                    // MODO CONTINUOUS (padrão): Cards rolam continuamente
 
-                        // Distância entre cards: 100vh por card (um começa onde o outro termina)
-                        const cardOffsetMultiplier = 100; // 100vh de distância entre cards
-                        const cardOffset = (index - 1) * cardOffsetMultiplier; // Card 2 = 0vh, Card 3 = 100vh
+                    // Sistema de "fila": cards móveis ficam um embaixo do outro
+                    // Todos se movem juntos com a mesma velocidade, sem gaps
 
-                        // Movimento unificado: todos os cards se movem juntos baseado no scroll
-                        // scrollPercent de 0 a 1 controla movimento de 0vh a -200vh
-                        const totalMovement = (totalCards - 1) * 100; // Agora é dinâmico! // Quanto o sistema inteiro se move (em vh)
-                        const baseTranslateY = 100 - (totalMovement * scrollPercent);
+                    // Distância entre cards: 100vh por card (um começa onde o outro termina)
+                    const cardOffsetMultiplier = 100; // 100vh de distância entre cards
+                    const cardOffset = (index - 1) * cardOffsetMultiplier; // Card 2 = 0vh, Card 3 = 100vh
 
-                        // Aplicar offset individual para cada card
-                        translateY = baseTranslateY + cardOffset;
+                    // Movimento unificado: todos os cards se movem juntos baseado no scroll
+                    // scrollPercent de 0 a 1 controla movimento de 0vh a -200vh
+                    const totalMovement = (totalCards - 1) * 100; // Agora é dinâmico! // Quanto o sistema inteiro se move (em vh)
+                    const baseTranslateY = 100 - (totalMovement * scrollPercent);
 
-                        // Opacidade: visível quando está entre -100vh e +100vh
-                        if (translateY > 100 || translateY < -100) {
-                            opacity = 0;
-                        } else {
-                            opacity = 1;
-                        }
+                    // Aplicar offset individual para cada card
+                    translateY = baseTranslateY + cardOffset;
 
-                        // Último card: para no centro quando chega
-                        if (index === totalCards - 1 && translateY <= 0) {
-                            translateY = 0;
-                            opacity = 1;
-                        }
+                    // Opacidade: visível quando está entre -100vh e +100vh
+                    if (translateY > 100 || translateY < -100) {
+                        opacity = 0;
+                    } else {
+                        opacity = 1;
+                    }
+
+                    // Último card: para no centro quando chega
+                    if (index === totalCards - 1 && translateY <= 0) {
+                        translateY = 0;
+                        opacity = 1;
                     }
                 }
+            }
 
-                card.style.opacity = opacity;
-                card.style.transform = `translate(-50%, calc(-50% + ${translateY}vh))`;
-            });
-            
-            // Dots removidos do scroll-fade (mantidos apenas em carousels)
-        }
-    }
+            card.style.opacity = opacity;
+            card.style.transform = `translate3d(-50%, calc(-50% + ${translateY}vh), 0)`;
+        });
+
+        // Dots removidos do scroll-fade (mantidos apenas em carousels)
     
+    }
+
     // Throttle para performance
     let ticking = false;
     function requestTick() {
@@ -1714,12 +1720,31 @@ function setupScrollFadeCards(originalElement, cards, animationType = 'continuou
             ticking = true;
         }
     }
-    
+
     window.addEventListener('scroll', requestTick, { passive: true });
 
     // Recalcular posições quando a janela é redimensionada
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        adjustStickyHeight(currentActiveCardIndex);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Recalcular alturas dos cards
+            newCards.forEach((card, index) => {
+                card.style.position = 'relative';
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
+                cardHeights[index] = card.offsetHeight;
+
+                card.style.position = 'absolute';
+                card.style.opacity = index === 0 ? '1' : '0';
+            });
+
+            // Ajustar altura do container
+            adjustStickyHeight(currentActiveCardIndex);
+
+            // Forçar atualização do scroll
+            handleScroll();
+        }, 150);
     });
 
     // Executar uma vez no início
@@ -1833,11 +1858,11 @@ document.addEventListener('DOMContentLoaded', function() {
     images.forEach(img => {
         img.style.opacity = '1';
     });
-    
+
     // Start mini carousels
     startMiniCarousels();
     initTouchSupport();
-    
+
     // Start card carousels
     setupCardCarousels();
 
@@ -1869,7 +1894,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Armazena a instância para ser acessada pelo 'resize'
         window.sliderInstance = new AppleSlider(sliderElement);
     }
-    
+
     // Inicializar todos os componentes .before-after reutilizáveis
     initBeforeAfterComponents();
 });
@@ -1909,7 +1934,7 @@ function initTouchSupport() {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         }, { capture: true, passive: true });
-        
+
         track.addEventListener('touchmove', (e) => {
             if (!isDown) return;
 
@@ -1923,7 +1948,7 @@ function initTouchSupport() {
                 e.preventDefault();
             }
         });
-        
+
         track.addEventListener('touchend', (e) => {
             if (!isDown) return;
             isDown = false;
@@ -1933,29 +1958,29 @@ function initTouchSupport() {
 
             handleSwipe(startX, startY, endX, endY, carousel);
         }, { capture: true, passive: true });
-        
+
         // Mouse events for desktop testing
         track.addEventListener('mousedown', (e) => {
             isDown = true;
             startX = e.clientX;
             startY = e.clientY;
         });
-        
+
         track.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
         });
-        
+
         track.addEventListener('mouseup', (e) => {
             if (!isDown) return;
             isDown = false;
-            
+
             endX = e.clientX;
             endY = e.clientY;
 
             handleSwipe(startX, startY, endX, endY, carousel);
         });
-        
+
         track.addEventListener('mouseleave', () => {
             isDown = false;
         });
@@ -2109,19 +2134,19 @@ class BeforeAfterComponent {
         this.element = element;
         this.isDragging = false;
         this.sliderRect = null;
-        
+
         // Extrair URLs das imagens dos data attributes
         this.beforeSrc = element.dataset.before;
         this.afterSrc = element.dataset.after;
-        
+
         if (!this.beforeSrc || !this.afterSrc) {
             console.warn('BeforeAfterComponent: data-before e data-after são obrigatórios');
             return;
         }
-        
+
         this.init();
     }
-    
+
     init() {
         this.createStructure();
         this.setupEventListeners();
@@ -2153,7 +2178,7 @@ class BeforeAfterComponent {
             setTimeout(() => this.setImageWidth(), 100); // Pequeno delay para aguardar re-layout
         });
     }
-    
+
     createStructure() {
         this.element.innerHTML = `
             <img class="before-after__image--after" src="${this.afterSrc}" alt="Imagem depois">
@@ -2171,7 +2196,7 @@ class BeforeAfterComponent {
                 <div class="before-after__version-label before-after__version-label--right">TQS26</div>
             </div>
         `;
-        
+
         // Obter referências dos elementos
         this.handle = this.element.querySelector('.before-after__handle');
         this.imageWrapper = this.element.querySelector('.before-after__image-wrapper');
@@ -2179,7 +2204,7 @@ class BeforeAfterComponent {
         this.versionLeft = this.element.querySelector('.before-after__version-label--left');
         this.versionRight = this.element.querySelector('.before-after__version-label--right');
     }
-    
+
     setupEventListeners() {
         // Event listeners para mouse
         this.handle.addEventListener('mousedown', this.startDrag.bind(this));
@@ -2194,22 +2219,22 @@ class BeforeAfterComponent {
         // Prevenir seleção de texto
         this.element.addEventListener('selectstart', (e) => e.preventDefault());
     }
-    
+
     setImageWidth() {
         // Aguardar a imagem "depois" carregar para obter dimensões corretas
         const imageAfter = this.element.querySelector('.before-after__image--after');
-        
+
         if (imageAfter.complete) {
             this.syncImageSizes(imageAfter);
         } else {
             imageAfter.addEventListener('load', () => this.syncImageSizes(imageAfter), { once: true });
         }
     }
-    
+
     syncImageSizes(imageAfter) {
         const containerWidth = this.element.offsetWidth;
         const containerHeight = this.element.offsetHeight;
-        
+
         // CRUCIAL: Definir largura fixa em pixels para a imagem "antes"
         // Isso previne redimensionamento quando o wrapper muda de largura
         this.imageBefore.style.width = `${containerWidth}px`;
@@ -2218,57 +2243,57 @@ class BeforeAfterComponent {
         this.imageBefore.style.left = '0';
         this.imageBefore.style.objectFit = 'contain';
         this.imageBefore.style.objectPosition = 'center';
-        
+
         // Definir variável CSS para referência
         this.element.style.setProperty('--container-width', `${containerWidth}px`);
-        
+
         // Wrapper setup
         this.imageWrapper.style.height = `${containerHeight}px`;
         this.imageWrapper.style.top = '0';
         this.imageWrapper.style.left = '0';
-        
+
     }
-    
+
     startDrag(e) {
         this.isDragging = true;
         this.sliderRect = this.element.getBoundingClientRect();
-        
+
         this.element.classList.add('dragging');
         document.body.style.cursor = 'ew-resize';
         e.preventDefault();
     }
-    
+
     drag(e) {
         if (!this.isDragging) return;
-        
+
         e.preventDefault();
-        
+
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const x = clientX - this.sliderRect.left;
         const percentage = Math.max(0, Math.min(100, (x / this.sliderRect.width) * 100));
-        
+
         this.updateSlider(percentage);
     }
-    
+
     stopDrag() {
         if (!this.isDragging) return;
-        
+
         this.isDragging = false;
         this.element.classList.remove('dragging');
         document.body.style.cursor = '';
     }
-    
+
     updateSlider(percentage) {
         // Atualizar posição do handle
         this.handle.style.left = `${percentage}%`;
-        
+
         // APENAS alterar a largura do wrapper (que funciona como máscara)
         // A imagem "antes" mantém suas dimensões fixas definidas em syncImageSizes
         this.imageWrapper.style.width = `${percentage}%`;
-        
+
         // Atualizar opacidade dos labels
         this.updateVersionLabels(percentage);
-        
+
         // DEBUG: verificar se as dimensões da imagem permanecem fixas
         // console.log('Update slider - image dimensions:', {
         //     percentage: percentage,
@@ -2277,11 +2302,11 @@ class BeforeAfterComponent {
         //     wrapperWidth: this.imageWrapper.style.width
         // });
     }
-    
+
     updateVersionLabels(percentage) {
         const leftOpacity = Math.min(1, Math.max(0.3, percentage / 20));
         const rightOpacity = Math.min(1, Math.max(0.3, (100 - percentage) / 20));
-        
+
         this.versionLeft.style.opacity = leftOpacity;
         this.versionRight.style.opacity = rightOpacity;
     }
@@ -2304,21 +2329,21 @@ const beforeAfterObserver = new MutationObserver((mutations) => {
         if (mutation.type === 'childList') {
             mutation.addedNodes.forEach((node) => {
                 if (node.nodeType === 1) { // Element node
-                    if (node.classList?.contains('before-after') || 
+                    if (node.classList?.contains('before-after') ||
                         node.querySelector?.('.before-after')) {
                         hasNewBeforeAfter = true;
                     }
                 }
             });
         }
-        if (mutation.type === 'attributes' && 
+        if (mutation.type === 'attributes' &&
             mutation.target.classList?.contains('mini-carousel-image') &&
             mutation.attributeName === 'class') {
             // Quando um item do carousel se torna ativo, reinicializar before-after
             hasNewBeforeAfter = true;
         }
     });
-    
+
     if (hasNewBeforeAfter) {
         setTimeout(initBeforeAfterComponents, 100); // Pequeno delay para garantir que o DOM foi atualizado
     }

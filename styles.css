@@ -503,50 +503,54 @@ img {
     max-width: 100%; /* Não excede container pai */
 }
 
-/* Modificador para adicionar imagem lateral em cards verticais */
-.card--vertical.card--sidebar-image {
-    flex-direction: row;
-    gap: 1.5rem;
-}
-
-    .card--vertical.card--sidebar-image .card__content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        min-width: 0; /* Permite shrink */
+    /* Modificador para adicionar imagem lateral em cards verticais */
+    .card--vertical.card--sidebar-image {
+        flex-direction: row;
+        gap: 1.5rem;
     }
 
-    .card--vertical.card--sidebar-image .card__sidebar {
-        flex-shrink: 0;
-        width: 300px; /* Largura fixa da sidebar */
-        display: flex;
-        align-items: center; /* Centraliza verticalmente */
-        justify-content: center;
-    }
-
-        .card--vertical.card--sidebar-image .card__sidebar img {
-            max-width: 100%; /* Limita ao container */
-            height: auto;
-            object-fit: contain; /* Mantém proporção sem distorcer */
-            border-radius: 8px;
-            margin: 0 2rem 0 0; /* top right bottom left */
-        }
-
-    /* Imagem inferior continua dentro do content */
-    .card--vertical.card--sidebar-image .card__media {
-        margin-top: auto; /* Empurra para baixo */
-    }
-
-    /* Responsivo: em mobile volta para vertical */
-    @media (max-width: 768px) {
-        .card--vertical.card--sidebar-image {
+        .card--vertical.card--sidebar-image .card__content {
+            display: flex;
             flex-direction: column;
+            flex: 1;
+            min-width: 0; /* Permite shrink */
         }
+
+        .card--vertical.card--sidebar-image .card__sidebar {
+            flex-shrink: 0;
+            width: 300px; /* Largura fixa da sidebar */
+            display: flex;
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center;
+        }
+
+            .card--vertical.card--sidebar-image .card__sidebar img {
+                max-width: 100%; /* Limita ao container */
+                height: auto;
+                object-fit: contain; /* Mantém proporção sem distorcer */
+                border-radius: 8px;
+                margin: 0 2rem 0 0; /* top right bottom left */
+            }
+
+        /* Imagem inferior continua dentro do content */
+        .card--vertical.card--sidebar-image .card__media {
+            margin-top: auto; /* Empurra para baixo */
+        }
+
+/* Responsivo: em mobile volta para vertical */
+@media (max-width: 768px) {
+    .card--vertical.card--sidebar-image {
+        flex-direction: column;
+    }
 
         .card--vertical.card--sidebar-image .card__sidebar {
             width: 100%;
         }
-    }
+
+            .card--vertical.card--sidebar-image .card__sidebar img {
+                margin: 0 2rem 0 2rem; /* top right bottom left */
+            }
+}
 
 .card--text-center {
     text-align: center;
@@ -773,11 +777,11 @@ img {
 .card--overlay-right .card__content {
     position: absolute;
     top: 5rem;
-    right: 3rem;
+    right: 1rem;
     left: 60%; /* Aumentado para posicionar mais à direita */
     bottom: 2rem;
     z-index: 2;
-    padding: 3rem;
+    padding: 3rem 0.1rem 3rem 3rem; /* top right bottom left */
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -797,7 +801,7 @@ img {
 /* Título do card overlay-right posicionado no topo centralizado em todo o card */
 .card--overlay-right > .card__title {
     position: absolute;
-    top: clamp(1rem, 4vw, 3rem);
+    top: clamp(0.5rem, 1vw, 1rem) !important;
     left: 1.5rem;
     right: 1.5rem;
     text-align: center;
@@ -805,18 +809,18 @@ img {
     color: inherit;
 }
 
-    /* H4 dentro do div card__title - tamanho controlado por JavaScript */
+    /* H4 dentro do div card__title - usando tamanho padrão dos cards */
     .card--overlay-right > .card__title h4 {
-        font-size: clamp(1.5rem, 3vw, 2.5rem) !important; /* Limita tamanho máximo do título */
+        font-size: var(--font-size-item-title);
         font-weight: 600;
         color: inherit;
         margin-bottom: 0.3rem;
         line-height: 1.2;
     }
 
-    /* Parágrafo dentro do div card__title com estilo de description - tamanho controlado por JavaScript */
+    /* Parágrafo dentro do div card__title com estilo de description - usando tamanho padrão */
     .card--overlay-right > .card__title p {
-        font-size: clamp(0.9rem, 1.5vw, 1.2rem) !important; /* Limita tamanho do subtítulo proporcionalmente */
+        font-size: var(--font-size-body);
         color: var(--color-text-black);
         opacity: 1;
         line-height: 1.5;
@@ -824,16 +828,16 @@ img {
         font-weight: normal;
     }
 
-/* Descrição do card overlay-right com cor preta e tamanho controlado por JavaScript */
+/* Descrição do card overlay-right com cor preta e tamanho padrão */
 .card--overlay-right .card__description {
     color: #000000;
     opacity: 1;
-    font-size: clamp(0.85rem, 1.2vw, 1rem) !important; /* Limita tamanho da descrição */
+    font-size: var(--font-size-body);
 }
 
     .card--overlay-right .card__description p {
         color: #000000;
-        font-size: inherit !important; /* Herda o tamanho proporcional */
+        font-size: inherit;
     }
 
 /* Componentes internos do card */
@@ -880,55 +884,55 @@ img {
     padding: 2.5rem;
 }
 
-.corner-border::before,
-.corner-border::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-color: #4E95D9;
-    border-style: solid;
-}
+    .corner-border::before,
+    .corner-border::after {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-color: #4E95D9;
+        border-style: solid;
+    }
 
-/* Canto superior esquerdo */
-.corner-border::before {
-    top: 0;
-    left: 0;
-    border-width: 8px 0 0 8px;
-}
+    /* Canto superior esquerdo */
+    .corner-border::before {
+        top: 0;
+        left: 0;
+        border-width: 8px 0 0 8px;
+    }
 
-/* Canto superior direito */
-.corner-border::after {
-    top: 0;
-    right: 0;
-    border-width: 8px 8px 0 0;
-}
+    /* Canto superior direito */
+    .corner-border::after {
+        top: 0;
+        right: 0;
+        border-width: 8px 8px 0 0;
+    }
 
-/* Cantos inferiores usando pseudo-elementos do primeiro filho */
-.corner-border > :first-child::before,
-.corner-border > :first-child::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-color: #4E95D9;
-    border-style: solid;
-    pointer-events: none;
-}
+    /* Cantos inferiores usando pseudo-elementos do primeiro filho */
+    .corner-border > :first-child::before,
+    .corner-border > :first-child::after {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-color: #4E95D9;
+        border-style: solid;
+        pointer-events: none;
+    }
 
-/* Canto inferior esquerdo */
-.corner-border > :first-child::before {
-    bottom: 0;
-    left: 0;
-    border-width: 0 0 8px 8px;
-}
+    /* Canto inferior esquerdo */
+    .corner-border > :first-child::before {
+        bottom: 0;
+        left: 0;
+        border-width: 0 0 8px 8px;
+    }
 
-/* Canto inferior direito */
-.corner-border > :first-child::after {
-    bottom: 0;
-    right: 0;
-    border-width: 0 8px 8px 0;
-}
+    /* Canto inferior direito */
+    .corner-border > :first-child::after {
+        bottom: 0;
+        right: 0;
+        border-width: 0 8px 8px 0;
+    }
 
 /* Responsive: reduz margin e padding em mobile */
 @media (max-width: 768px) {
@@ -4105,7 +4109,7 @@ COMO USAR:
 /* Scroll-triggered Fade - Controle Preciso */
 .resources-grid--scroll-fade {
     position: relative;
-    margin-bottom: 0; /* ✅ Remove margem inferior */
+    margin-bottom: -4rem; /* ADICIONE ESTA LINHA */
     /* Altura proporcional: base de 200vh + 50vh por card adicional */
     /* Calculado dinamicamente via JS */
 }
@@ -4180,29 +4184,61 @@ COMO USAR:
     /* Altura será definida dinamicamente via JS */
 }
 
+.has-blur-effect .blur-pane {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+
+/* Anula o efeito de blur e fundo APENAS nos cards de texto do scroll-fade com blur */
+.has-blur-effect .scroll-fade-content .card:not(:first-of-type) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+    /* Garante que o texto seja branco APENAS nos cards que rolam sobre o blur */
+    .has-blur-effect .scroll-fade-content .card:not(:first-of-type) .card__content {
+        color: white;
+    }
+
+.scroll-fade-content .card:not(:first-of-type) {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50px);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 50px);
+}
+
     /* Cards do scroll fade - Sistema de cross-fade alinhado */
-    .scroll-fade-content .card {
-        opacity: 1;
-        pointer-events: none;
-        transform: translateY(0);
-        transition: none;
-        z-index: 1;
-        margin-bottom: 0; /* ✅ Remove margem inferior */
-        /* Posicionamento absoluto será aplicado via JS */
-    }
+.scroll-fade-content .card {
+    opacity: 1;
+    pointer-events: none;
+    transform: translateY(0);
+    transition: none;
+    z-index: 1;
+    margin-bottom: 0; /* ✅ Remove margem inferior */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
 
-    /* Primeiro card fixo como fundo (paralax) */
-    .scroll-fade-content .card:first-child {
-        position: absolute;
-        opacity: 1 !important;
-        z-index: 1 !important;
-        pointer-events: none;
-    }
+        /* Primeiro card fixo como fundo (paralax) */
+        .scroll-fade-content .card:first-child {
+            position: absolute;
+            opacity: 1 !important;
+            z-index: 1 !important;
+            pointer-events: none;
+        }
 
-    /* Cards que rolam por cima (não o primeiro) precisam de transition suave */
-    .scroll-fade-content .card:not(:first-child) {
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
+        /* Cards que rolam por cima (não o primeiro) precisam de transition suave */
+        .scroll-fade-content .card:not(:first-child) {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
 
     /* Cards overlay no scroll-fade ocupam 100% da largura */
     .scroll-fade-content .card--overlay {
@@ -4579,14 +4615,14 @@ COMO USAR:
         padding-right: 0.5rem !important;
     }
 
-        /* Ajustar botão Adquirir em mobile */
-        .nav-container .btn {
-            margin-right: 12px !important;
-            padding: 8px 12px !important;
-            font-size: 0.85rem !important;
-            white-space: nowrap !important;
-            min-width: auto !important;
-        }
+    /* Ajustar botão Adquirir em mobile */
+    .nav-container .btn {
+        margin-right: 12px !important;
+        padding: 8px 12px !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+        min-width: auto !important;
+    }
 
     /* Cards devem ocupar mais espaço */
     .card {
@@ -5137,11 +5173,11 @@ kbd {
     margin-left: 0 !important;
 }
 
-/* Remove padding do container scroll-fade dentro da seção AI */
-.resource-group.theme-ai .resources-grid--scroll-fade {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
+    /* Remove padding do container scroll-fade dentro da seção AI */
+    .resource-group.theme-ai .resources-grid--scroll-fade {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
 
 /* --- Cards de Conteúdo --- */
 .theme-ai__hero-card {
@@ -5165,28 +5201,28 @@ kbd {
     position: relative;
 }
 
-/* Força a cor do texto para branco nos cards de sobreposição (efeito de vidro) */
-.theme-ai__hero-card--content .card__description {
-    color: var(--color-text-light-primary); /* Usa sua variável global para branco puro */
-}
+    /* Força a cor do texto para branco nos cards de sobreposição (efeito de vidro) */
+    .theme-ai__hero-card--content .card__description {
+        color: var(--color-text-light-primary); /* Usa sua variável global para branco puro */
+    }
 
-.theme-ai__hero-card--content .card__media {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-}
+    .theme-ai__hero-card--content .card__media {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
 
-.theme-ai__hero-card--content .card__image__fill {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transform: scale(1.1);
-}
+    .theme-ai__hero-card--content .card__image__fill {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1.1);
+    }
 
     .theme-ai__hero-card--content .card__image__blur {
         width: 100%;
@@ -5197,23 +5233,23 @@ kbd {
         transform: scale(1.1);
     }
 
-.theme-ai__hero-card--content .card__content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 4rem; /* Alinha título ao topo igual Card 1 */
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
-    text-align: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-}
+    .theme-ai__hero-card--content .card__content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 4rem; /* Alinha título ao topo igual Card 1 */
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+        text-align: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+    }
 
 .theme-ai__hero-card .ia-lead {
     font-size: clamp(1.1rem, 1vw + 1rem, 1.35rem);
@@ -5323,6 +5359,10 @@ kbd {
     transition: transform 0.3s ease;
     pointer-events: auto;
 }
+
+    .c.step, .theme-ai .step * {
+        cursor: default !important;
+    }
 
 .theme-ai .dot {
     width: 20px;
@@ -5637,7 +5677,7 @@ kbd {
 
 /* 1. LÓGICA DE LAYOUT (LARGURA TOTAL E MARGENS) 
    Aplica-se a todos os temas listados abaixo. */
-.resource-group:is( .dark, .dark-blue, .terra-batida, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo ) {
+.resource-group:is( .dark, .dark-blue, .terra-batida, .darker-blue, .aco-escovado, .salmon, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo ) {
     border-radius: 0;
     padding: 4rem 0 2rem 0;
     margin: 4rem 0 0 0;
@@ -5649,14 +5689,14 @@ kbd {
     margin-right: -50vw;
 }
 
-    /* 2. REMOVE A MARGEM ENTRE QUAISQUER DOIS TEMAS DA LISTA */
-.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo,.azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) +
-.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) {
+/* 2. REMOVE A MARGEM ENTRE QUAISQUER DOIS TEMAS DA LISTA */
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) +
+.resource-group:is(.dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) {
     margin-top: 0;
 }
 
-    /* 3. CENTRALIZA O CONTEÚDO EM TODOS OS TEMAS DA LISTA */
-.resource-group:is( .dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado,.light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple,.azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo ) > *:not(.theme-background) {
+/* 3. CENTRALIZA O CONTEÚDO EM TODOS OS TEMAS DA LISTA */
+.resource-group:is( .dark, .dark-blue, .darker-blue, .terra-batida, .salmon, .aco-escovado, .light-lavander, .theme-ai, .azul-tqs-profundo, .azul-profundo-apple, .azul-vibrante, .grafite, .azul-meia-noite, .purpura-profundo, .entardecer-dourado, .cinza-espacial, .amarelo-manteiga, .cor-gelo, .laranja-discreto, .verde-menta, .rosa-quartzo, .prata-suave, .ceu-claro, .luz-estelar, .aurora-boreal, .iridescente, .meia-noite, .supernova, .sonho-verao, .oceano-calmo) > *:not(.theme-background) {
     width: 95%;
     max-width: 2000px;
     margin-left: auto;
@@ -5672,10 +5712,10 @@ kbd {
     width: 100% !important; /* Sobrescreve o width: 100vw herdado */
 }
 
-.resource-group.theme-ai > *:not(.theme-background) {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
+    .resource-group.theme-ai > *:not(.theme-background) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
 /* ========================================
    2. DEFINIÇÃO DE TODAS AS PALETAS DE CORES
@@ -6922,4 +6962,34 @@ kbd {
     /* Estilos Visuais */
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =================================================================
+   AJUSTE FINAL E DEFINITIVO: Layout da Seção IA no Mobile
+   ================================================================= */
+
+@media (max-width: 768px) {
+
+    /* 1. "Puxa" a seção de IA para cima, eliminando o espaço com a seção Python. */
+    .resource-group.theme-ai {
+        margin-top: -4rem !important; /* Margem negativa para forçar a junção */
+        padding-top: 0 !important; /* Remove qualquer espaçamento interno no topo */
+    }
+
+        /* 2. Aplica o estilo de "capa" APENAS ao primeiro card da seção. */
+        .resource-group.theme-ai .show-on-mobile .card:first-of-type {
+            min-height: 80vh; /* Garante a altura de destaque, como uma capa */
+            display: flex;
+            align-items: center; /* Centraliza na vertical */
+            justify-content: center; /* Centraliza na horizontal */
+            text-align: center; /* Centraliza o texto */
+            padding: 2rem; /* Adiciona um respiro interno para o texto */
+        }
+
+
+        /* 5. Centraliza o texto em TODOS os outros cards da seção de IA no mobile. */
+        .resource-group.theme-ai .show-on-mobile .card:not(:first-of-type) {
+            text-align: center;
+        }
 }
