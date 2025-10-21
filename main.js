@@ -899,35 +899,35 @@ function setupCardCarouselControls(carousel, carouselIndex) {
     function moveToSlide(slideIndex, withTransition = true) {
         if (slideIndex < 0 || slideIndex >= totalSlides) return;
 
+        // Garantir que o layout foi calculado antes de medir
+        if (!withTransition && carousel.offsetWidth === 0) {
+            requestAnimationFrame(() => moveToSlide(slideIndex, false));
+            return;
+        }
+
         const allTrackItems = track.querySelectorAll('.card');
-        const carouselWidth = carousel.offsetWidth;
-        const isMobile = window.innerWidth <= 768;
-        const gap = isMobile ? 24 : 32; // 1.5rem mobile, 2rem desktop
 
         // Posição física = slideIndex + 1 (devido ao clone inicial)
         const physicalPosition = slideIndex + 1;
         const targetCard = allTrackItems[physicalPosition];
         if (!targetCard) return;
 
-        // Centralizar o card - método híbrido mais preciso
+        // Forçar recálculo de layout
+        carousel.offsetHeight;
+
+        // Usar offsetLeft e offsetWidth que não são afetados por transforms
+        const carouselWidth = carousel.offsetWidth;
+        const targetCardOffsetLeft = targetCard.offsetLeft; // Posição relativa ao track
         const targetCardWidth = targetCard.offsetWidth;
-        const effectiveCarouselWidth = isMobile ? window.innerWidth : carouselWidth;
 
-        // Calcular posição relativa do card no track (sem transforms anteriores)
-        let cardPosition = 0;
-        for (let i = 0; i < physicalPosition; i++) {
-            cardPosition += allTrackItems[i].offsetWidth + gap;
-        }
+        // Centro do carousel
+        const carouselCenter = carouselWidth / 2;
 
-        // Calcular centro do viewport com offset para mobile
-        const mobileOffset = isMobile ? 10 : 0; // Compensar margin negativo
-        const viewportCenter = (effectiveCarouselWidth / 2) + mobileOffset;
-
-        // Posição do centro do card alvo
-        const targetCardCenter = cardPosition + (targetCardWidth / 2);
+        // Centro do card alvo (relativo ao track)
+        const targetCardCenter = targetCardOffsetLeft + (targetCardWidth / 2);
 
         // Calcular translateX para centralizar
-        const translateX = viewportCenter - targetCardCenter;
+        const translateX = Math.round(carouselCenter - targetCardCenter);
 
         track.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
         track.style.transform = `translateX(${translateX}px)`;
